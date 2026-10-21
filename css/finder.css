@@ -766,22 +766,12 @@
 }
 
 /* ==========================================================================
-   PROVA (21/10/2026): schede su fondo Hard Grey, testo Ricepaper.
-   Per tornare alle schede chiare basta cancellare questo blocco.
-   - Foto: anche lei su Hard Grey, con alone Cerulean
-   - Testi secondari in --muted-on-dark (7.1:1), hover Cerulean (8.9:1)
-   - Etichetta del mercato invariata (Antique/Olive con testo Hard Grey)
+   Foto della scheda su fondo Hard Grey (scelta di Chiara, 21/10/2026):
+   la scheda resta chiara, solo il riquadro della foto è scuro, con l'alone
+   Cerulean del carosello della home. Niente multiply (sullo scuro
+   annerirebbe i prodotti): tutti i PNG sono scontornati, HopE compreso.
    ========================================================================== */
 
-.fx-card > article {
-  border-color: var(--hard-grey);
-  background-color: var(--hard-grey);
-  color: var(--ricepaper);
-}
-
-/* Foto sullo stesso Hard Grey, con l'alone Cerulean del carosello della home.
-   Niente multiply (sullo scuro annerirebbe i prodotti): tutti i PNG sono
-   scontornati, HopE compreso */
 .fx-card-media {
   background:
     radial-gradient(closest-side, rgba(161, 187, 216, 0.22), rgba(161, 187, 216, 0.06) 60%, transparent),
@@ -791,32 +781,3 @@
 .fx-card-media img {
   mix-blend-mode: normal;
 }
-
-.fx-card-name,
-.fx-card-more {
-  color: var(--ricepaper);
-}
-
-.fx-card-function,
-.fx-card-desc {
-  color: var(--muted-on-dark);
-}
-
-.fx-card-tag {
-  border-color: var(--muted-on-dark);
-  color: var(--ricepaper);
-}
-
-.fx-card:hover > article,
-.fx-card:focus-within > article {
-  border-color: var(--hard-grey);
-}
-
-.fx-card:hover .fx-card-name,
-.fx-card:focus-within .fx-card-name,
-.fx-card:hover .fx-card-more,
-.fx-card:focus-within .fx-card-more {
-  color: var(--ocean-on-dark);
-}
-
-/* Focus: il contorno resta sul fondo chiaro della pagina, quindi Ocean */
