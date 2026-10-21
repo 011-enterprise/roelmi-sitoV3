@@ -11,7 +11,10 @@
    Apertura
    -------------------------------------------------------------------------- */
 
+/* isolation: il Force Field (.section-field, base.css) sta sopra il fondo
+   nero della sezione e sotto il riquadro con la texture */
 .fx-hero {
+  isolation: isolate;
   padding-top: calc(var(--header-h) + 0.5rem);
 }
 
@@ -371,12 +374,78 @@
   margin-top: var(--title-gap);
 }
 
-/* Scheda ingrediente (come le schede della home, su fondo chiaro) */
+/* --------------------------------------------------------------------------
+   Scheda ingrediente — struttura di SITO 1, colori di SITO 2
+   Foto del prodotto su un velo Cerulean · etichette (mercato + tecnologia) ·
+   nome · funzione · descrizione · "Learn more". Il link è il nome; la sua
+   area cliccabile copre tutta la scheda. Usata anche nei prodotti correlati.
+   -------------------------------------------------------------------------- */
+
 .fx-card {
   position: relative;
 }
 
+.fx-card > article {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.75rem 0.75rem 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  transition: border-color var(--dur-ui) var(--ease-out);
+}
+
+/* Foto: PNG scontornati (o con fondo bianco: multiply lo fonde col velo) */
+.fx-card-media {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--r-inner);
+  background-color: rgba(161, 187, 216, 0.3);   /* Cerulean tenue, decorativo */
+}
+
+.fx-card-media img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 1.2s var(--ease-out);
+}
+
+/* Riserva: nessuna foto, texture a tutto riquadro */
+.fx-card-media--texture img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: normal;
+}
+
+.fx-card-markets {
+  margin-top: 1rem;
+  padding-inline: 0.25rem;
+}
+
+/* Tecnologia: stessa forma dell'etichetta del mercato, solo contorno */
+.fx-card-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--hard-grey);
+  border-radius: 999px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
 .fx-card-name {
+  margin-top: 0.85rem;
+  padding-inline: 0.25rem;
   font-family: var(--font-display);
   font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
   font-weight: 500;
@@ -390,7 +459,6 @@
   color: inherit;
 }
 
-/* Il link è il nome; la sua area cliccabile copre tutta la scheda */
 .fx-card-link::after {
   content: "";
   position: absolute;
@@ -401,81 +469,44 @@
 
 .fx-card-function {
   margin-top: 0.2rem;
+  padding-inline: 0.25rem;
   font-size: var(--fs-small);
   color: var(--muted);
 }
 
-.fx-card-media {
-  position: relative;
-  margin-top: 0.85rem;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: var(--r-card);
-  background-color: var(--line);
-}
-
-.fx-card-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.2s var(--ease-out);
-}
-
-.fx-card-glass {
-  position: absolute;
-  inset: auto 0.75rem 0.75rem;
-  padding: 1rem 1.1rem;
-  border-radius: var(--r-inner);
-  background-color: var(--glass-light-bg);
-  background-image: var(--glass-light-sheen);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-light-line);
-  color: var(--hard-grey);
-  font-size: var(--fs-small);
-  line-height: 1.5;
-  opacity: 0;
-  transform: translate3d(0, 14px, 0);
-  transition:
-    opacity 0.45s var(--ease-out),
-    transform 0.6s var(--ease-out);
-}
-
-/* Il vetro non supera mai l'immagine: descrizione fermata a 3 righe
-   (solo a vista: il testo completo resta per lo screen reader) */
-.fx-card-glass {
-  max-height: calc(100% - 1.5rem);
-  overflow: hidden;
-  font-size: 0.8125rem;
-}
-
-.fx-card-glass > p:first-child {
+/* Descrizione fermata a 4 righe solo a vista (lo screen reader la legge intera) */
+.fx-card-desc {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin-top: 0.75rem;
+  padding-inline: 0.25rem;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted);
 }
 
-/* Certificazioni (sotto la descrizione) */
-.fx-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3rem;
-  margin-top: 0.6rem;
-}
-
-.fx-card-tags li {
-  padding: 0.15rem 0.6rem;
-  border: 1px solid var(--hard-grey);
-  border-radius: 999px;
-  font-size: var(--fs-label);
+.fx-card-more {
+  align-self: start;
+  margin-top: auto;
+  padding: 1rem 0.25rem 0;
+  font-size: var(--fs-small);
   font-weight: 600;
+  color: var(--hard-grey);
+  transition: color var(--dur-ui) var(--ease-out);
+}
+
+/* Hover / focus: bordo Hard Grey, nome e "Learn more" in Ocean, foto appena più grande */
+.fx-card:hover > article,
+.fx-card:focus-within > article {
+  border-color: var(--hard-grey);
 }
 
 .fx-card:hover .fx-card-name,
-.fx-card:focus-within .fx-card-name {
+.fx-card:focus-within .fx-card-name,
+.fx-card:hover .fx-card-more,
+.fx-card:focus-within .fx-card-more {
   color: var(--ocean);
 }
 
@@ -484,52 +515,17 @@
   transform: scale(1.05);
 }
 
-.fx-card:hover .fx-card-glass,
-.fx-card:focus-within .fx-card-glass {
-  opacity: 1;
-  transform: none;
-}
-
 .fx-card-link:focus-visible {
   outline: none;
 }
 
 .fx-card-link:focus-visible::after {
   outline: 2px solid var(--ocean);
-  outline-offset: 6px;
+  outline-offset: 4px;
 }
 
 .motion-paused .fx-card .fx-card-media img {
   transform: none;
-}
-
-/* Touch: descrizione sempre visibile, sotto l'immagine */
-@media (hover: none) {
-  .fx-card-media {
-    overflow: visible;
-    aspect-ratio: auto;
-    background: none;
-  }
-
-  .fx-card-media img {
-    position: static;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--r-card);
-  }
-
-  .fx-card-glass {
-    position: static;
-    margin-top: 0.75rem;
-    padding: 0;
-    border-radius: 0;
-    background: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* Nessun risultato */
@@ -662,20 +658,6 @@
   }
 }
 
-/* Touch: sotto l'immagine c'è spazio, descrizione intera */
-@media (hover: none) {
-  .fx-card-glass {
-    max-height: none;
-    overflow: visible;
-    font-size: var(--fs-small);
-  }
-
-  .fx-card-glass > p:first-child {
-    display: block;
-    -webkit-line-clamp: unset;
-  }
-}
-
 /* Stati selezionati in Ocean pieno, testo Ricepaper (4.69:1) */
 .fx-pill input:checked + span {
   border-color: var(--ocean);
@@ -694,10 +676,6 @@
 .fx-group-count:not(:empty),
 .fx-open-count:not(:empty) {
   background-color: var(--ocean);
-}
-
-.fx-card-markets {
-  margin-top: 0.6rem;
 }
 
 /* --------------------------------------------------------------------------
@@ -744,17 +722,30 @@
 }
 
 /* --------------------------------------------------------------------------
-   Telefono: catalogo su due colonne, schede più compatte.
-   Descrizione fermata a 3 righe solo a vista (lo screen reader la legge intera)
+   Telefono: catalogo su due colonne, schede più compatte
    -------------------------------------------------------------------------- */
 
 @media (max-width: 599.98px) {
   .fx-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.75rem 0.75rem;
+    gap: 1rem 0.75rem;
+  }
+
+  .fx-card > article {
+    padding: 0.5rem 0.5rem 1rem;
+    border-radius: var(--r-inner);
+  }
+
+  .fx-card-media {
+    border-radius: 10px;
+  }
+
+  .fx-card-markets {
+    margin-top: 0.75rem;
   }
 
   .fx-card-name {
+    margin-top: 0.6rem;
     font-size: 1rem;
   }
 
@@ -763,55 +754,69 @@
     line-height: 1.4;
   }
 
-  .fx-card-media {
-    margin-top: 0.6rem;
-    border-radius: var(--r-inner);
-  }
-
-  .fx-card-media img {
-    border-radius: var(--r-inner);
-  }
-
-  .fx-card-glass {
-    margin-top: 0.5rem;
-    font-size: 0.8125rem;
-  }
-
-  .fx-card-glass > p:first-child {
-    display: -webkit-box;
+  .fx-card-desc {
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  .fx-card-more {
+    padding-top: 0.75rem;
   }
 }
 
-/* --------------------------------------------------------------------------
-   Schede allineate tra loro: nome, funzione, mercato e immagine stanno su
-   righe condivise dalla griglia (subgrid), così le immagini partono tutte
-   alla stessa altezza anche se un nome va a capo. Browser senza subgrid:
-   schede come prima.
-   -------------------------------------------------------------------------- */
+/* ==========================================================================
+   PROVA (21/10/2026): schede su fondo Hard Grey, testo Ricepaper.
+   Per tornare alle schede chiare basta cancellare questo blocco.
+   - Foto: anche lei su Hard Grey, con alone Cerulean
+   - Testi secondari in --muted-on-dark (7.1:1), hover Cerulean (8.9:1)
+   - Etichetta del mercato invariata (Antique/Olive con testo Hard Grey)
+   ========================================================================== */
 
-@supports (grid-template-rows: subgrid) {
-  .fx-grid > .fx-card {
-    display: grid;
-    grid-row: span 4;
-    grid-template-rows: subgrid;
-    row-gap: 0;
-  }
-
-  .fx-grid > .fx-card > article {
-    grid-row: 1 / -1;
-    display: grid;
-    grid-template-rows: subgrid;
-    row-gap: 0;
-  }
+.fx-card > article {
+  border-color: var(--hard-grey);
+  background-color: var(--hard-grey);
+  color: var(--ricepaper);
 }
 
-/* Telefono: schede su due colonne, niente certificazioni (restano nei
-   filtri e nella pagina prodotto) */
-@media (max-width: 599.98px) {
-  .fx-card-tags {
-    display: none;
-  }
+/* Foto sullo stesso Hard Grey, con l'alone Cerulean del carosello della home.
+   Niente multiply (sullo scuro annerirebbe i prodotti): tutti i PNG sono
+   scontornati, HopE compreso */
+.fx-card-media {
+  background:
+    radial-gradient(closest-side, rgba(161, 187, 216, 0.22), rgba(161, 187, 216, 0.06) 60%, transparent),
+    var(--hard-grey);
 }
+
+.fx-card-media img {
+  mix-blend-mode: normal;
+}
+
+.fx-card-name,
+.fx-card-more {
+  color: var(--ricepaper);
+}
+
+.fx-card-function,
+.fx-card-desc {
+  color: var(--muted-on-dark);
+}
+
+.fx-card-tag {
+  border-color: var(--muted-on-dark);
+  color: var(--ricepaper);
+}
+
+.fx-card:hover > article,
+.fx-card:focus-within > article {
+  border-color: var(--hard-grey);
+}
+
+.fx-card:hover .fx-card-name,
+.fx-card:focus-within .fx-card-name,
+.fx-card:hover .fx-card-more,
+.fx-card:focus-within .fx-card-more {
+  color: var(--ocean-on-dark);
+}
+
+/* Focus: il contorno resta sul fondo chiaro della pagina, quindi Ocean */

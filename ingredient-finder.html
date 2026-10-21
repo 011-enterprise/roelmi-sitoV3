@@ -132,9 +132,11 @@
     <span id="top"></span>
 
     <!-- ==================================================================
-         APERTURA — texture 13 (zoom lentissimo) + vetro con la ricerca
+         APERTURA — Force Field sul fondo nero (come NIP) + texture 13 (zoom lentissimo)
+         + vetro con la ricerca
          ================================================================== -->
-    <section class="fx-hero section theme-dark" aria-labelledby="finder-title">
+    <section class="fx-hero section theme-dark" aria-labelledby="finder-title" data-force-field-host>
+      <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
       <div class="container">
         <div class="fx-stage">
           <div class="fx-bg" aria-hidden="true">
@@ -287,6 +289,9 @@
         </aside>
 
         <div class="fx-results">
+          <!-- Solo per lo screen reader: i nomi dei prodotti (h3) stanno sotto
+               "Results", non sotto "Filters" -->
+          <h2 class="sr-only" id="fx-results-title">Results</h2>
           <div class="fx-results-head">
             <p class="fx-count" id="fxCount" role="status" aria-live="polite">Loading ingredients…</p>
             <button class="btn btn--outline fx-open" type="button" aria-expanded="false" aria-controls="fxFilters">Filters<span class="fx-open-count"></span></button>
@@ -310,7 +315,9 @@
   </main>
 
   <!-- 10 · FOOTER — identico alla home -->
-  <footer class="site-footer theme-dark">
+  <footer class="site-footer theme-dark" data-force-field-host>
+    <!-- Force Field come in NIP (js/force-field.js): decorativo, fermo con Stop animation -->
+    <canvas class="ft-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
     <div class="container">
 
       <!-- Struttura di SITO 1: brand + 3 colonne, linea, note legali.
@@ -380,6 +387,7 @@
   <script src="js/reveal.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/footer.js" defer></script>
+  <script src="js/force-field.js" defer></script>
   <script src="js/ingredients-data.js" defer></script>
   <script src="js/finder.js" defer></script>
 </body>

@@ -951,13 +951,6 @@
     flex: 0 0 72%;
     scroll-snap-align: start;
   }
-
-  /* Nella riga che scorre non c'è una griglia: niente righe condivise
-     (subgrid, in finder.css), la scheda torna un blocco normale */
-  .fx-grid.pd-related-grid > .fx-card,
-  .fx-grid.pd-related-grid > .fx-card > article {
-    display: block;
-  }
 }
 
 /* ==========================================================================
@@ -979,16 +972,6 @@
   display: block;
 }
 
-
-/* Riquadro "All ingredients…": occupa tutte e 4 le righe condivise delle
-   schede (subgrid, finder.css). Altrimenti stava solo nella riga dei nomi
-   e la allungava, lasciando un vuoto sotto i nomi dei prodotti.
-   Diventa una scheda tratteggiata alta come le altre, bottone al centro */
-@supports (grid-template-rows: subgrid) {
-  .fx-grid > .pd-related-more {
-    grid-row: span 4;
-  }
-}
 
 /* Related products viene subito dopo Technical details (entrambe chiare):
    un solo spazio tra le due, non doppio */

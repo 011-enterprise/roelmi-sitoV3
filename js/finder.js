@@ -95,9 +95,31 @@
     return n;
   }
 
+  // Struttura di SITO 1: foto del prodotto · etichette · nome · funzione ·
+  // descrizione · "Learn more". Colori di SITO 2.
   function card(item) {
     var li = el('li', 'fx-card');
     var art = el('article');
+
+    // Foto del prodotto; se manca, la texture a tutto riquadro
+    var media = el('div', 'fx-card-media' + (item.image ? '' : ' fx-card-media--texture'));
+    var img = el('img');
+    img.src = item.image || item.texture;
+    img.alt = '';
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    media.appendChild(img);
+    art.appendChild(media);
+
+    // Etichette: mercato (Personal Care = Antique, Nutraceutical = Olive) + tecnologia
+    var pills = el('p', 'market-pills fx-card-markets');
+    asList(item.market).forEach(function (m) {
+      pills.appendChild(el('span', 'market-pill' + (m === 'Nutraceutical' ? ' market-pill--nutra' : ''), m));
+    });
+    asList(item.technology).forEach(function (t) {
+      pills.appendChild(el('span', 'fx-card-tag', t));
+    });
+    art.appendChild(pills);
 
     var name = el('h3', 'fx-card-name');
     var link = el('a', 'fx-card-link', item.name);
@@ -105,34 +127,12 @@
     name.appendChild(link);
     art.appendChild(name);
     art.appendChild(el('p', 'fx-card-function', item.function));
+    art.appendChild(el('p', 'fx-card-desc', item.description));
 
-    // Etichetta del mercato: Personal Care = Antique, Nutraceutical = Olive
-    var pills = el('p', 'market-pills fx-card-markets');
-    asList(item.market).forEach(function (m) {
-      pills.appendChild(el('span', 'market-pill' + (m === 'Nutraceutical' ? ' market-pill--nutra' : ''), m));
-    });
-    art.appendChild(pills);
+    var more = el('span', 'fx-card-more', 'Learn more');
+    more.setAttribute('aria-hidden', 'true');   // il link è già il nome
+    art.appendChild(more);
 
-    var media = el('div', 'fx-card-media');
-    var img = el('img');
-    img.src = item.texture;
-    img.alt = '';
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    media.appendChild(img);
-
-    var glass = el('div', 'fx-card-glass');
-    glass.appendChild(el('p', '', item.description));
-    // Sotto la descrizione solo le certificazioni (mercato, tecnologia e tipo
-    // non si ripetono: il mercato è già nell'etichetta sopra l'immagine)
-    if (asList(item.certifications).length) {
-      var tags = el('ul', 'fx-card-tags');
-      tags.setAttribute('aria-label', 'Certifications');
-      item.certifications.forEach(function (c) { tags.appendChild(el('li', '', c)); });
-      glass.appendChild(tags);
-    }
-    media.appendChild(glass);
-    art.appendChild(media);
     li.appendChild(art);
     return li;
   }
