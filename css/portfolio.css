@@ -1,13 +1,11 @@
 /* ==========================================================================
-   4 · Our Portfolio (scuro) — struttura della sezione "team" di Until
-   Sopra: 4 schede prodotto (nome + funzione sopra, texture sotto).
-   Sotto: frase grande + ricerca nell'Ingredient Finder (il punto chiave).
-   Solo CSS: hover/focus mostrano la descrizione; su touch è sempre visibile.
+   4 · Our Portfolio (scuro) — via di mezzo tra SITO 1 e SITO 2
+   Carosello con un prodotto alla volta (da SITO 1): nomi dei prodotti in
+   alto come schede, testo a sinistra, foto scontornata a destra su un alone
+   Cerulean. Solo manuale: nomi, frecce, tastiera, swipe.
+   Sotto: frase grande + ricerca nell'Ingredient Finder.
+   Senza JS i prodotti sono uno sotto l'altro.
    ========================================================================== */
-
-.portfolio-head {
-  max-width: 22ch;
-}
 
 .portfolio-title {
   margin-top: 1.25rem;
@@ -29,182 +27,249 @@
 }
 
 /* --------------------------------------------------------------------------
-   Schede prodotto
+   Carosello
    -------------------------------------------------------------------------- */
 
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  align-items: start;
-  gap: clamp(1rem, 0.5rem + 1.2vw, 1.75rem);
+.pf-carousel {
   margin-top: var(--title-gap);
 }
 
-.product-card {
+/* Nomi dei prodotti: quello attivo è sottolineato in Cerulean */
+.pf-tabs {
+  display: flex;
+  gap: clamp(1.25rem, 0.5rem + 2.5vw, 3rem);
+  border-bottom: 1px solid rgba(247, 243, 235, 0.16);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pf-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.pf-tab {
   position: relative;
-  display: block;
+  flex: none;
+  min-height: 44px;
+  padding: 0.75rem 0 1rem;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.85rem + 0.45vw, 1.375rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--muted-on-dark);
+  white-space: nowrap;
+  transition: color var(--dur-ui) var(--ease-out);
+}
+
+.pf-tab::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background-color: var(--ocean-on-dark);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.pf-tab:hover,
+.pf-tab[aria-selected="true"] {
   color: var(--ricepaper);
 }
 
-/* Didascalia sopra l'immagine: nome e funzione */
-.product-caption {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  min-height: 3.2em;
+.pf-tab[aria-selected="true"]::after {
+  transform: scaleX(1);
 }
 
-.product-name {
+.pf-tab:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Scena: con JS i prodotti stanno uno sopra l'altro, alta quanto il più alto */
+.pf-stage {
+  margin-top: clamp(1.25rem, 0.8rem + 1.2vw, 2rem);
+}
+
+.js .pf-stage {
+  display: grid;
+  touch-action: pan-y;
+}
+
+.pf-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: center;
+}
+
+.pf-slide + .pf-slide {
+  margin-top: var(--section-y);
+}
+
+.js .pf-slide {
+  grid-area: 1 / 1;
+  margin-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.45s var(--ease-out),
+    visibility 0s linear 0.45s;
+}
+
+.js .pf-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.7s var(--ease-out) 0.1s,
+    visibility 0s linear 0s;
+}
+
+/* Testo */
+.pf-name {
+  margin-top: 1rem;
   font-family: var(--font-display);
-  font-size: clamp(1.05rem, 0.9rem + 0.4vw, 1.3rem);
+  font-size: var(--fs-box);
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--ricepaper);
 }
 
-.product-function {
-  display: block;
-  margin-top: 0.2rem;
-  font-family: var(--font-body);
-  font-size: var(--fs-small);
-  font-weight: 400;
-  letter-spacing: 0;
+.pf-function {
+  margin-top: 0.6rem;
   color: var(--muted-on-dark);
 }
 
-/* Immagine: tutte quadrate, stessa dimensione */
-.product-media {
-  position: relative;
-  margin-top: 1rem;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: var(--r-card);
-  background-color: rgba(247, 243, 235, 0.06);
+.pf-desc {
+  max-width: 46ch;
+  margin-top: 1.25rem;
+  line-height: 1.65;
+  color: var(--ricepaper);
 }
 
-.product-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;              /* texture a tutto riquadro */
-  transition: transform 1.2s var(--ease-out);
-}
-
-/* Descrizione: scheda glass (hover / focus) — trasparente, sfocata,
-   bordo luminoso e riflesso diagonale.
-   Tinta Ricepaper 0.50 = minimo per il contrasto: anche sopra il nero il
-   fondo resta ≈ #8E8C88 → testo Hard Grey 5.4:1 (il riflesso schiarisce,
-   quindi migliora soltanto) */
-.product-desc {
-  position: absolute;
-  inset: auto 0.75rem 0.75rem;
-  padding: 1.1rem 1.25rem;
-  border-radius: var(--r-inner);
-  background-color: var(--glass-light-bg);
-  background-image: var(--glass-light-sheen);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-light-line);
-  font-size: var(--fs-small);
-  line-height: 1.55;
-  color: var(--hard-grey);
-  opacity: 0;
-  transform: translate3d(0, 16px, 0);
-  transition:
-    opacity 0.45s var(--ease-out),
-    transform 0.6s var(--ease-out);
-}
-
-.product-tags {
+.pf-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.85rem;
+  margin-top: 1.25rem;
 }
 
-.product-tags li {
-  padding: 0.25rem 0.65rem;
-  border: 1px solid var(--hard-grey);
+.pf-tags li {
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--muted-on-dark);
   border-radius: 999px;
   font-size: var(--fs-label);
   line-height: 1.4;
-  color: var(--hard-grey);
+  color: var(--ricepaper);
 }
 
-.product-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  margin-top: 0.85rem;
-  font-weight: 600;
-  color: var(--hard-grey);
+.pf-more {
+  margin-top: 1.5rem;
 }
 
-/* Il link è il nome del prodotto; la sua area cliccabile copre la scheda */
-.product-link {
-  color: inherit;
+/* Foto: scontornata, su un alone Cerulean, fluttua piano.
+   Larghezza limitata: così non è più alta del testo e non apre vuoti */
+.pf-figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  width: min(100%, 460px);
+  justify-self: center;
 }
 
-.product-link::after {
+.pf-figure::before {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: var(--r-card);
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(161, 187, 216, 0.22), rgba(161, 187, 216, 0.06) 60%, transparent);
 }
 
-.product-card:hover .product-media img,
-.product-card:focus-within .product-media img {
-  transform: scale(1.06);
+.pf-figure img {
+  position: relative;
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+  animation: pf-float 7s ease-in-out infinite alternate;
 }
 
-.product-card:hover .product-desc,
-.product-card:focus-within .product-desc {
-  opacity: 1;
+@keyframes pf-float {
+  from { transform: translate3d(0, -1.5%, 0); }
+  to   { transform: translate3d(0, 1.5%, 0); }
+}
+
+/* Cambio prodotto: testo e foto salgono appena mentre compaiono */
+.js .pf-text,
+.js .pf-figure {
+  transform: translate3d(0, 18px, 0);
+  transition: transform 0.9s var(--ease-out);
+}
+
+.js .pf-figure {
+  transform: translate3d(0, 36px, 0);
+}
+
+.js .pf-slide.is-active .pf-text,
+.js .pf-slide.is-active .pf-figure {
   transform: none;
 }
 
-/* Focus da tastiera: contorno attorno a tutta la scheda */
-.product-link:focus-visible {
-  outline: none;
+/* Stop animation / reduced-motion: solo dissolvenza, niente movimento */
+.motion-paused .pf-figure img {
+  animation: none;
 }
 
-.product-link:focus-visible::after {
-  outline: 2px solid var(--ocean-on-dark);
-  outline-offset: 6px;
-}
-
-/* Touch (niente hover): descrizione sempre visibile, sotto l'immagine */
-@media (hover: none) {
-  .product-desc {
-    position: static;
-    margin-top: 0.75rem;
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
-    color: var(--muted-on-dark);
-    opacity: 1;
-    transform: none;
-  }
-
-  .product-tags li {
-    border-color: var(--muted-on-dark);
-    color: var(--ricepaper);
-  }
-
-  .product-more {
-    color: var(--ocean-on-dark);
-  }
-}
-
-/* Con Stop animation: niente zoom */
-.motion-paused .product-card .product-media img {
+.motion-paused .pf-text,
+.motion-paused .pf-figure,
+.motion-paused .pf-tab::after {
   transform: none;
+  transition: none;
+}
+
+.motion-paused .pf-tab:not([aria-selected="true"])::after {
+  transform: scaleX(0);
+}
+
+/* Frecce */
+.pf-nav {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.pf-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--ricepaper);   /* come i cerchi del Blog */
+  border-radius: 50%;
+  color: var(--ricepaper);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
+}
+
+.pf-arrow:hover {
+  background-color: var(--ricepaper);
+  border-color: var(--ricepaper);
+  color: var(--hard-grey);
+}
+
+.pf-arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+}
+
+/* Senza JS: niente schede né frecce, i prodotti sono in colonna */
+html:not(.js) .pf-tabs,
+html:not(.js) .pf-nav {
+  display: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -219,16 +284,24 @@
   margin-top: var(--section-y);
 }
 
+/* Stessa misura del paragrafo di Who We Are; su due righe (domanda · invito).
+   Il carattere si riduce con la colonna (cqi) perché la seconda riga, la più
+   lunga, non vada mai a capo. Solo su telefono può andare su più righe. */
+.finder-head {
+  container-type: inline-size;
+}
+
 .finder-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 1.2rem + 3vw, 4.25rem);
+  font-size: clamp(1.5rem, min(1.15rem + 0.9vw, 3.9cqi), 2.125rem);   /* = --fs-large, ridotto se la colonna è stretta */
   font-weight: 500;
-  line-height: 1.02;
-  letter-spacing: -0.045em;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
   color: var(--ricepaper);
 }
 
 .finder-title span {
+  display: block;
   color: var(--muted-on-dark);
 }
 
@@ -246,57 +319,20 @@
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1023.98px) {
-  .portfolio-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 2.5rem;
-  }
-
   .finder {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 559.98px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Mobile: schede in una riga che scorre orizzontalmente (con aggancio)
-   I link sono focalizzabili, quindi la riga si scorre anche con il Tab.
-   -------------------------------------------------------------------------- */
-
+/* Tablet e telefono: una colonna, foto sopra il testo */
 @media (max-width: 767.98px) {
-  .portfolio-grid {
-    display: flex;
+  .pf-slide {
+    grid-template-columns: minmax(0, 1fr);
     gap: 1rem;
-    margin-inline: calc(-1 * var(--gutter));
-    padding: 0 var(--gutter) 0.75rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
-    overscroll-behavior-x: contain;
   }
 
-  .product-card {
-    flex: 0 0 78%;
-    scroll-snap-align: start;
-  }
-}
-
-/* Didascalia: nome + funzione, sotto l'etichetta del mercato */
-.product-caption {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.6rem;
-  min-height: 0;
-}
-
-/* In riga (desktop): didascalie alte uguali, così le texture sono allineate
-   anche se un nome va a capo */
-@media (min-width: 768px) {
-  .product-caption {
-    min-height: 6.5rem;
+  .pf-figure {
+    order: -1;
+    width: min(100%, 320px);
   }
 }

@@ -26,8 +26,8 @@
   <link rel="preload" as="font" type="font/woff2" href="fonts/montserrat-latin.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="fonts/opensans-latin.woff2" crossorigin>
 
-  <link rel="preload" as="image" href="video/hero-home-poster.jpg" media="(min-width: 768px)">
-  <link rel="preload" as="image" href="video/hero-home-poster-mobile.jpg" media="(max-width: 767.98px)">
+  <link rel="preload" as="image" href="video/hero-goccia-poster.jpg" media="(min-width: 768px)">
+  <link rel="preload" as="image" href="video/hero-goccia-poster-mobile.jpg" media="(max-width: 767.98px)">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/fonts.css">
@@ -151,7 +151,7 @@
     <span id="top"></span>
 
     <!-- ==================================================================
-         1 · HERO — racconto a scroll (video segnaposto: crema → molecola)
+         1 · HERO — racconto a scroll (video della goccia, da SITO 1)
          ================================================================== -->
     <section class="hero" id="hero" aria-labelledby="hero-title" data-zoom="1">
       <div class="hero-stage">
@@ -159,11 +159,11 @@
         <div class="hero-media" aria-hidden="true">
           <video class="hero-video"
                  muted playsinline preload="auto"
-                 poster="video/hero-home-poster.jpg"
-                 data-src="video/hero-home.mp4"
-                 data-src-mobile="video/hero-home-mobile.mp4"
-                 data-poster="video/hero-home-poster.jpg"
-                 data-poster-mobile="video/hero-home-poster-mobile.jpg"></video>
+                 poster="video/hero-goccia-poster.jpg"
+                 data-src="video/hero-goccia.mp4"
+                 data-src-mobile="video/hero-goccia-mobile.mp4"
+                 data-poster="video/hero-goccia-poster.jpg"
+                 data-poster-mobile="video/hero-goccia-poster-mobile.jpg"></video>
           <div class="hero-scrim"></div>
         </div>
 
@@ -193,31 +193,26 @@
     </section>
 
     <!-- ==================================================================
-         2 · WHO WE ARE (chiaro) — dichiarazione che si accende con lo scroll
+         2 · WHO WE ARE (chiaro) — foto a sinistra (da SITO 1), testo che si accende con lo scroll
          ================================================================== -->
     <section class="who section theme-light grain" id="who" aria-labelledby="who-title">
       <div class="container who-inner">
-        <h2 class="who-heading" id="who-title">
-          <span class="eyebrow" data-reveal>Who We Are</span>
-          <span class="who-title" data-reveal data-reveal-delay="0.1">Innovation for Health and Personal Care</span>
-        </h2>
+        <figure class="who-figure" data-reveal>
+          <img src="images/who/chi-siamo.jpg" alt="" width="1125" height="1800" loading="lazy" decoding="async">
+        </figure>
 
-        <p class="who-statement">Since 2017, <strong>ROELMI HPC</strong> has been turning scientific research into <strong class="accent">functional and active ingredients</strong> designed for real-world applications. Across the Cosmetics and Nutraceutical sectors, the portfolio continues to evolve around emerging global needs, including the <strong class="accent">IN&amp;OUT approach</strong>, <strong class="accent">longevity</strong>, <strong class="accent">metabolic health</strong> and <strong class="accent">overall wellbeing</strong>.</p>
+        <div class="who-text">
+          <h2 class="who-heading" id="who-title">
+            <span class="eyebrow" data-reveal>Who We Are</span>
+            <span class="who-title" data-reveal data-reveal-delay="0.1">Innovation for Health and Personal Care</span>
+          </h2>
 
-        <div class="who-actions" data-reveal>
-          <a class="btn btn--outline" href="#">Contact Us</a>
-          <a class="btn btn--solid" href="#">Discover more<span class="sr-only"> about ROELMI HPC</span></a>
-        </div>
-      </div>
+          <p class="who-statement">Since 2017, <strong>ROELMI HPC</strong> has been turning scientific research into <strong class="accent">functional and active ingredients</strong> designed for real-world applications. Across the Cosmetics and Nutraceutical sectors, the portfolio continues to evolve around emerging global needs, including the <strong class="accent">IN&amp;OUT approach</strong>, <strong class="accent">longevity</strong>, <strong class="accent">metabolic health</strong> and <strong class="accent">overall wellbeing</strong>.</p>
 
-      <!-- Texture decorative, tutte della stessa dimensione -->
-      <div class="who-gallery" aria-hidden="true">
-        <div class="who-track">
-          <figure class="who-shot"><img src="images/who/texture-7.jpg" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="who-shot"><img src="images/who/texture-8.jpg" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="who-shot"><img src="images/who/texture-9.jpg" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="who-shot"><img src="images/who/texture-10.jpg" alt="" loading="lazy" decoding="async"></figure>
-          <figure class="who-shot"><img src="images/who/texture-11.jpg" alt="" loading="lazy" decoding="async"></figure>
+          <div class="who-actions" data-reveal>
+            <a class="btn btn--solid" href="#">Contact Us</a>
+            <a class="btn btn--outline" href="#">Discover more<span class="sr-only"> about ROELMI HPC</span></a>
+          </div>
         </div>
       </div>
     </section>
@@ -267,7 +262,7 @@
 
 
     <!-- ==================================================================
-         4 · OUR PORTFOLIO (scuro) — schede prodotto + Ingredient Finder
+         4 · OUR PORTFOLIO (scuro) — carosello un prodotto alla volta (da SITO 1) + Ingredient Finder
          ================================================================== -->
     <section class="portfolio section theme-dark grain" id="portfolio" aria-labelledby="portfolio-title">
       <div class="container">
@@ -277,77 +272,86 @@
           <span data-reveal data-reveal-delay="0.1">From science to the concept</span>
         </h2>
 
-        <div class="portfolio-grid">
-          <article class="product-card">
-            <div class="product-caption">
-              <h3 class="product-name"><a class="product-link" href="cytofruit.html">CytoFruit®</a><span class="product-function">Biologically active waters</span></h3>
-              <p class="market-pills"><span class="market-pill">Personal Care</span></p>
-            </div>
-            <div class="product-media">
-              <img src="images/portfolio/texture-2.jpg" alt="" loading="lazy" decoding="async">
-              <div class="product-desc">
-                <p>Fruit-derived active waters that replace demineralized water. Naturally processed, enriched in oligoelements, with protective and cell-vitality benefits for sustainable formulas.</p>
-                <ul class="product-tags" aria-label="Highlights">
+        <!-- Carosello: un prodotto alla volta (da SITO 1). Senza JS i prodotti
+             sono uno sotto l'altro; i ruoli tab/tabpanel li mette portfolio.js -->
+        <div class="pf-carousel" data-carousel>
+          <div class="pf-tabs" aria-label="Products" data-reveal>
+            <button class="pf-tab" type="button" id="pf-tab-1" aria-controls="pf-slide-1">CytoFruit®</button>
+            <button class="pf-tab" type="button" id="pf-tab-2" aria-controls="pf-slide-2">ColorGLAM®</button>
+            <button class="pf-tab" type="button" id="pf-tab-3" aria-controls="pf-slide-3">EMotion® Glow</button>
+          </div>
+
+          <div class="pf-stage" data-reveal data-reveal-delay="0.1">
+            <article class="pf-slide" id="pf-slide-1" aria-labelledby="pf-name-1">
+              <div class="pf-text">
+                <p class="market-pills"><span class="market-pill">Personal Care</span></p>
+                <h3 class="pf-name" id="pf-name-1">CytoFruit®</h3>
+                <p class="pf-function">Biologically active waters</p>
+                <p class="pf-desc">Fruit-derived active waters that replace demineralized water. Naturally processed, enriched in oligoelements, with protective and cell-vitality benefits for sustainable formulas.</p>
+                <ul class="pf-tags" aria-label="Highlights">
                   <li>Sustainable</li>
                   <li>Cellular protection</li>
                   <li>Water-free option</li>
                 </ul>
-                <span class="product-more" aria-hidden="true">Discover CytoFruit®</span>
+                <a class="btn btn--solid pf-more" href="cytofruit.html">Discover CytoFruit®</a>
               </div>
-            </div>
-          </article>
+              <figure class="pf-figure">
+                <img src="images/portfolio/cytofruit.png" alt="" width="1000" height="1000" loading="lazy" decoding="async">
+              </figure>
+            </article>
 
-          <article class="product-card">
-            <div class="product-caption">
-              <h3 class="product-name"><a class="product-link" href="#">SelectSIEVE® HopE</a><span class="product-function">GLP-1 natural support</span></h3>
-              <p class="market-pills"><span class="market-pill market-pill--nutra">Nutraceutical</span></p>
-            </div>
-            <div class="product-media">
-              <img src="images/portfolio/texture-6.jpg" alt="" loading="lazy" decoding="async">
-              <div class="product-desc">
-                <p>Hop cone bioactives via supercritical CO₂ extraction, stabilised in powder form — supporting weight management, insulin sensitivity and natural GLP-1 release for metabolic health applications.</p>
-                <span class="product-more" aria-hidden="true">Discover SelectSIEVE® HopE</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-caption">
-              <h3 class="product-name"><a class="product-link" href="#">TechnoHYAL® HyaPearl</a><span class="product-function">Active Make-Up</span></h3>
-              <p class="market-pills"><span class="market-pill">Personal Care</span></p>
-            </div>
-            <div class="product-media">
-              <img src="images/portfolio/texture-1.jpg" alt="" loading="lazy" decoding="async">
-              <div class="product-desc">
-                <p>Olive glycerides and hyaluronic acid combined in a patented matrix — delivering hydration and skin nourishment in anhydrous color cosmetic formulations for active make-up.</p>
-                <span class="product-more" aria-hidden="true">Discover TechnoHYAL® HyaPearl</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="product-caption">
-              <h3 class="product-name"><a class="product-link" href="#">ColorGLAM®</a><span class="product-function">Color portfolio</span></h3>
-              <p class="market-pills"><span class="market-pill">Personal Care</span></p>
-            </div>
-            <div class="product-media">
-              <img src="images/portfolio/texture-5.jpg" alt="" loading="lazy" decoding="async">
-              <div class="product-desc">
-                <p>Ester-coated pigments functionalized with Tripelargonin, an upcycled sustainable ester — for high color release, formulation stability and a weightless, refined skin feel.</p>
-                <ul class="product-tags" aria-label="Highlights">
+            <article class="pf-slide" id="pf-slide-2" aria-labelledby="pf-name-2">
+              <div class="pf-text">
+                <p class="market-pills"><span class="market-pill">Personal Care</span></p>
+                <h3 class="pf-name" id="pf-name-2">ColorGLAM®</h3>
+                <p class="pf-function">Color portfolio</p>
+                <p class="pf-desc">Ester-coated pigments functionalized with Tripelargonin, an upcycled sustainable ester — for high color release, formulation stability and a weightless, refined skin feel.</p>
+                <ul class="pf-tags" aria-label="Highlights">
                   <li>High color release</li>
                   <li>Formulation stability</li>
                   <li>Upcycled ester</li>
                 </ul>
-                <span class="product-more" aria-hidden="true">Discover ColorGLAM®</span>
+                <a class="btn btn--solid pf-more" href="#">Discover ColorGLAM®</a>
               </div>
-            </div>
-          </article>
+              <figure class="pf-figure">
+                <img src="images/portfolio/colorglam.png" alt="" width="1000" height="1000" loading="lazy" decoding="async">
+              </figure>
+            </article>
+
+            <article class="pf-slide" id="pf-slide-3" aria-labelledby="pf-name-3">
+              <div class="pf-text">
+                <p class="market-pills"><span class="market-pill">Personal Care</span></p>
+                <h3 class="pf-name" id="pf-name-3">EMotion® Glow</h3>
+                <p class="pf-function">Upcycled olive actives</p>
+                <p class="pf-desc">Produced through the valorization of olive byproducts from the food industry — upcycled actives that support skin radiance and comfort.</p>
+                <ul class="pf-tags" aria-label="Highlights">
+                  <li>Upcycled</li>
+                  <li>Olive byproducts</li>
+                  <li>Radiance</li>
+                </ul>
+                <a class="btn btn--solid pf-more" href="#">Discover EMotion® Glow</a>
+              </div>
+              <figure class="pf-figure">
+                <img src="images/portfolio/emotion-glow.png" alt="" width="803" height="803" loading="lazy" decoding="async">
+              </figure>
+            </article>
+          </div>
+
+          <div class="pf-nav">
+            <button class="pf-arrow" type="button" data-dir="-1" aria-label="Previous product">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 5l-7 7 7 7"/></svg>
+            </button>
+            <button class="pf-arrow" type="button" data-dir="1" aria-label="Next product">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
         </div>
 
         <!-- Ingredient Finder: il punto chiave della sezione -->
         <div class="finder">
-          <h3 class="finder-title" data-reveal>Looking for a specific target? <span>Explore our portfolio in the Ingredient Finder</span></h3>
+          <div class="finder-head">
+            <h3 class="finder-title" data-reveal>Looking for a specific target? <span>Explore our portfolio in the Ingredient Finder</span></h3>
+          </div>
 
           <form class="finder-search" action="ingredient-finder.html" method="get" role="search" data-reveal data-reveal-delay="0.1">
             <label class="finder-label" for="finder-q">Search by target, function or market</label>
@@ -435,7 +439,8 @@
 
     <!-- ==================================================================
          6 · NIP® — OUR SUSTAINABILITY APPROACH (scuro)
-         Force Field sul fondo nero (js/force-field.js) + texture in primo piano + pannelli di vetro
+         Force Field sul fondo nero (js/force-field.js) + riquadro basso e largo come SITO 1:
+         texture, numeri in vetro in alto a destra, testo in vetro in basso a sinistra, CTA in basso a destra
          ================================================================== -->
     <section class="nip section theme-dark" id="nip" aria-labelledby="nip-title" data-force-field-host>
       <canvas class="nip-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
@@ -445,11 +450,18 @@
             <img src="images/nip/texture-14.jpg" alt="" loading="lazy" decoding="async">
           </div>
 
-          <div class="nip-head glass" data-reveal>
+          <!-- Ordine di lettura: titolo e testo, CTA, numeri. La posizione la dà la griglia -->
+          <div class="nip-copy glass" data-reveal>
             <h2 class="nip-title" id="nip-title">
               <span class="eyebrow">Our Sustainability Approach</span>
               <span>NIP: Nature is people</span>
             </h2>
+            <p>Sustainability is one of the key drivers of innovation from ROELMI Group's philosophy. A dedicated internal program has been established that combines innovative technologies with circular economy practices. Our daily work and collaboration with the agricultural supply chain are aimed at using byproducts to develop high-performance compounds.</p>
+          </div>
+
+          <div class="nip-actions glass" data-reveal data-reveal-delay="0.1">
+            <a class="btn btn--solid" href="#">Our philosophy</a>
+            <a class="btn btn--outline" href="#">Sustainability Report</a>
           </div>
 
           <div class="nip-stats">
@@ -473,14 +485,6 @@
                 <span class="stat-num"><span class="stat-value" data-count="100">100</span><span class="stat-unit">%</span></span>
                 <span class="stat-label">Reused process H₂O</span>
               </span>
-            </div>
-
-            <div class="nip-text glass">
-              <p>Sustainability is one of the key drivers of innovation from ROELMI Group's philosophy. A dedicated internal program has been established that combines innovative technologies with circular economy practices. Our daily work and collaboration with the agricultural supply chain are aimed at using byproducts to develop high-performance compounds.</p>
-              <div class="nip-actions">
-                <a class="btn btn--solid" href="#">Our philosophy</a>
-                <a class="btn btn--outline" href="#">Sustainability Report</a>
-              </div>
             </div>
           </div>
         </div>
@@ -642,9 +646,9 @@
           </div>
 
             <form class="nl-form" id="nlForm" novalidate data-reveal data-reveal-delay="0.1">
-              <label class="nl-label" for="nlEmail">Email address</label>
+              <label class="nl-label sr-only" for="nlEmail">Email address</label>
               <div class="pill-field">
-                <input class="pill-input" id="nlEmail" name="email" type="email" autocomplete="email" required aria-describedby="nlEmailErr">
+                <input class="pill-input" id="nlEmail" name="email" type="email" placeholder="Email address" autocomplete="email" required aria-describedby="nlEmailErr">
                 <button class="pill-submit" type="submit">Subscribe</button>
               </div>
               <p class="nl-error" id="nlEmailErr"></p>
@@ -675,16 +679,8 @@
   <footer class="site-footer theme-dark">
     <div class="container">
 
-      <!-- Evento (nel prototipo era un popup; qui una riga in vetro) -->
-      <aside class="ft-event" aria-labelledby="ft-event-title" data-reveal>
-        <span class="ft-event-tag">In-Cosmetics Global 2025</span>
-        <div>
-          <h2 class="ft-event-title" id="ft-event-title">Meet us in Amsterdam</h2>
-          <p class="ft-event-desc">We'll be at In-Cosmetics Global, April 8–10. Discover our latest sustainable active ingredients for personal care.</p>
-        </div>
-        <a class="btn btn--solid" href="#">Event details</a>
-      </aside>
-
+      <!-- Struttura di SITO 1: brand + 3 colonne, linea, note legali.
+           Su telefono le colonne si aprono e chiudono (js/footer.js) -->
       <div class="ft-main">
         <div class="ft-brand">
           <a class="ft-logo" href="#top" aria-label="ROELMI HPC — back to top">
@@ -720,7 +716,7 @@
         </nav>
 
         <div class="ft-col ft-col--contact">
-          <h2 class="ft-h">Contact</h2>
+          <h2 class="ft-h" id="ft-contact">Contact</h2>
           <ul>
             <li><span>Via Origgio (VA), Italy</span></li>
             <li><a href="mailto:info@roelmihpc.com">info@roelmihpc.com</a></li>
@@ -766,8 +762,10 @@
   <script src="js/motion.js"></script>
   <script src="js/reveal.js" defer></script>
   <script src="js/header.js" defer></script>
+  <script src="js/footer.js" defer></script>
   <script src="js/hero.js" defer></script>
   <script src="js/who.js" defer></script>
+  <script src="js/portfolio.js" defer></script>
   <script src="js/impact.js" defer></script>
   <script src="js/nip.js" defer></script>
   <script src="js/force-field.js" defer></script>

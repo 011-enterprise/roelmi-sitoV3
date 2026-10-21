@@ -313,16 +313,8 @@
   <footer class="site-footer theme-dark">
     <div class="container">
 
-      <!-- Evento (nel prototipo era un popup; qui una riga in vetro) -->
-      <aside class="ft-event" aria-labelledby="ft-event-title" data-reveal>
-        <span class="ft-event-tag">In-Cosmetics Global 2025</span>
-        <div>
-          <h2 class="ft-event-title" id="ft-event-title">Meet us in Amsterdam</h2>
-          <p class="ft-event-desc">We'll be at In-Cosmetics Global, April 8–10. Discover our latest sustainable active ingredients for personal care.</p>
-        </div>
-        <a class="btn btn--solid" href="#">Event details</a>
-      </aside>
-
+      <!-- Struttura di SITO 1: brand + 3 colonne, linea, note legali.
+           Su telefono le colonne si aprono e chiudono (js/footer.js) -->
       <div class="ft-main">
         <div class="ft-brand">
           <a class="ft-logo" href="#top" aria-label="ROELMI HPC — back to top">
@@ -358,7 +350,7 @@
         </nav>
 
         <div class="ft-col ft-col--contact">
-          <h2 class="ft-h">Contact</h2>
+          <h2 class="ft-h" id="ft-contact">Contact</h2>
           <ul>
             <li><span>Via Origgio (VA), Italy</span></li>
             <li><a href="mailto:info@roelmihpc.com">info@roelmihpc.com</a></li>
@@ -387,6 +379,7 @@
   <script src="js/motion.js"></script>
   <script src="js/reveal.js" defer></script>
   <script src="js/header.js" defer></script>
+  <script src="js/footer.js" defer></script>
   <script src="js/ingredients-data.js" defer></script>
   <script src="js/finder.js" defer></script>
 </body>

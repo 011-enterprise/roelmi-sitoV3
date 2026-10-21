@@ -37,8 +37,14 @@
   --fs-h3: clamp(1.5rem, 1.1rem + 1.4vw, 2.25rem);
   --fs-h2: clamp(2.5rem, 1.4rem + 4.6vw, 6.5rem);
   --fs-display: clamp(3.25rem, 1.6rem + 7.2vw, 9.5rem);
-  /* Titolo di sezione: una sola misura per tutte (NIP® resta più grande) */
+  /* Tre livelli di titolo, usati in tutta la home:
+     --fs-section  titolo di sezione aperta (~64px)
+     --fs-box      titolo dentro un riquadro: prodotti del Portfolio, NIP, Newsletter (~52px)
+     --fs-large    testo grande e titoli delle schede: paragrafo di Who, Ingredient
+                   Finder, Divisions, Blog, Presence (~34px; mai sotto 24px) */
   --fs-section: clamp(2rem, 1.2rem + 2.8vw, 4rem);
+  --fs-box: clamp(2rem, 1.3rem + 2.2vw, 3.25rem);
+  --fs-large: clamp(1.5rem, 1.15rem + 0.9vw, 2.125rem);
 
   /* Angoli: tre misure fisse */
   --r-stage: 28px;   /* grandi riquadri (NIP, Newsletter) */

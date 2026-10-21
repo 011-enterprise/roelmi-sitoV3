@@ -19,9 +19,11 @@
   // Profondità: i pannelli di vetro scorrono a velocità diverse dalla texture.
   // Si usa la proprietà "translate", separata da "transform" che serve
   // all'entrata dal basso (reveal), così le due animazioni non si scontrano.
+  // Riquadro basso (come SITO 1): spostamenti piccoli, così i pannelli non si toccano
   var layers = [
-    { el: stage.querySelector('.nip-head'), depth: -40 },
-    { el: stage.querySelector('.nip-stats'), depth: 30 }
+    { el: stage.querySelector('.nip-copy'), depth: -20 },
+    { el: stage.querySelector('.nip-actions'), depth: -20 },
+    { el: stage.querySelector('.nip-stats'), depth: 20 }
   ].filter(function (l) { return l.el; });
 
   function render() {

@@ -1,14 +1,19 @@
 /* ==========================================================================
-   10 · Footer (scuro)
-   Evento in vetro · logo + frase + social · 3 colonne · note legali ·
-   (senza logo enorme finale, tolto su richiesta).
+   10 · Footer (scuro) — struttura di SITO 1, colori di SITO 2
+   Riquadro con gli angoli in alto arrotondati · logo + frase + social ·
+   3 colonne · linea · note legali + Stop animation.
+   Su telefono le colonne si aprono e chiudono (js/footer.js).
    ========================================================================== */
 
+/* Sale sopra la sezione precedente di un raggio: negli angoli arrotondati
+   si vede il fondo di quella sezione (chiaro, Olive…), non quello della pagina */
 .site-footer {
   position: relative;
+  z-index: 1;
   overflow: hidden;
-  padding-top: var(--section-y);
-  padding-bottom: clamp(1rem, 0.5rem + 1vw, 1.75rem);
+  margin-top: calc(-1 * var(--r-stage));
+  padding-top: clamp(2.25rem, 1.5rem + 2.5vw, 4rem);
+  border-radius: var(--r-stage) var(--r-stage) 0 0;
   background-color: var(--hard-grey);
   color: var(--ricepaper);
 }
@@ -26,59 +31,15 @@
 }
 
 /* --------------------------------------------------------------------------
-   Evento (vetro, come NIP)
-   -------------------------------------------------------------------------- */
-
-.ft-event {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: clamp(1rem, 0.5rem + 2vw, 2.5rem);
-  padding: clamp(1.25rem, 1rem + 1vw, 1.75rem) clamp(1.25rem, 1rem + 1.5vw, 2.25rem);
-  border-radius: var(--r-card);
-  background-color: var(--glass-dark-bg);
-  background-image: var(--glass-dark-sheen);
-  box-shadow: var(--glass-dark-line);
-}
-
-.ft-event-tag {
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  color: var(--muted-on-dark);
-}
-
-.ft-event-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1rem + 1.4vw, 2.25rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-}
-
-.ft-event-desc {
-  margin-top: 0.35rem;
-  font-size: var(--fs-small);
-  color: var(--muted-on-dark);
-}
-
-.site-footer .btn svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-/* --------------------------------------------------------------------------
-   Corpo: brand + colonne
+   Corpo: brand + 3 colonne, chiuso da una linea
    -------------------------------------------------------------------------- */
 
 .ft-main {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr));
-  gap: clamp(2rem, 1rem + 3vw, 4rem);
-  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: clamp(1.75rem, 1rem + 3vw, 3.5rem);
+  padding-bottom: clamp(2.25rem, 1.5rem + 2.5vw, 3.5rem);
+  border-bottom: 1px solid var(--line-on-dark);
 }
 
 .ft-logo {
@@ -123,16 +84,11 @@
 }
 
 .ft-h {
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--line-on-dark);
+  margin-bottom: 0.5rem;
   font-size: var(--fs-small);
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--muted-on-dark);
-}
-
-.ft-col ul {
-  margin-top: 0.5rem;
 }
 
 /* Voci alte almeno 44px (target touch) */
@@ -141,12 +97,12 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: var(--fs-body);
+  font-size: var(--fs-small);
   color: var(--ricepaper);
 }
 
 /* --------------------------------------------------------------------------
-   Note legali
+   Note legali + Stop animation
    -------------------------------------------------------------------------- */
 
 .ft-bottom {
@@ -155,9 +111,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 0.5rem 2rem;
-  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
   padding-block: 1rem;
-  border-top: 1px solid var(--line-on-dark);
   font-size: var(--fs-small);
   color: var(--muted-on-dark);
 }
@@ -175,38 +129,6 @@
   color: var(--muted-on-dark);
 }
 
-/* --------------------------------------------------------------------------
-   Responsive
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 1023.98px) {
-  .ft-main {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .ft-brand {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 699.98px) {
-  .ft-event {
-    grid-template-columns: 1fr;
-  }
-
-  .ft-event .btn {
-    justify-self: start;
-  }
-
-  .ft-main {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .ft-col--contact {
-    grid-column: 1 / -1;
-  }
-}
-
 /* "Stop animation" anche qui: stesso interruttore del hero (motion.js),
    così si può fermare il movimento da fondo pagina */
 .ft-motion {
@@ -220,35 +142,45 @@
 }
 
 /* --------------------------------------------------------------------------
-   Mobile: footer compatto — link affiancati su più righe (restano alti
-   44px per il tocco), evento e spazi ridotti
+   Tablet: brand sopra, colonne in riga
    -------------------------------------------------------------------------- */
 
-@media (max-width: 699.98px) {
+@media (max-width: 1023.98px) {
+  .ft-main {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ft-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Telefono (come SITO 1): una colonna, separate da linee; il titolo di
+   ogni colonna è un bottone che la apre (lo crea footer.js)
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 599.98px) {
   .site-footer {
-    padding-top: 2.5rem;
-  }
-
-  .ft-event {
-    gap: 0.6rem;
-    padding: 1rem 1.1rem;
-  }
-
-  .ft-event-title {
-    font-size: 1.25rem;
-  }
-
-  .ft-event-desc {
-    font-size: 0.8125rem;
+    padding-top: 1.75rem;
+    border-radius: var(--r-card) var(--r-card) 0 0;
+    margin-top: calc(-1 * var(--r-card));
   }
 
   .ft-main {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .ft-brand {
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line-on-dark);
   }
 
   .ft-tag {
+    max-width: none;
     margin-top: 0.75rem;
   }
 
@@ -256,27 +188,54 @@
     margin-top: 1rem;
   }
 
+  .ft-col {
+    border-bottom: 1px solid var(--line-on-dark);
+  }
+
   .ft-h {
-    padding-bottom: 0.4rem;
+    margin-bottom: 0;
+  }
+
+  .ft-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 52px;
+    font: inherit;
+    color: var(--ricepaper);
+    text-align: left;
+  }
+
+  .ft-toggle::after {
+    content: "";
+    flex: none;
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--dur-ui) var(--ease-out);
+  }
+
+  .ft-toggle[aria-expanded="true"]::after {
+    transform: translateY(2px) rotate(225deg);
   }
 
   .ft-col ul {
-    display: flex;
-    flex-wrap: wrap;
-    column-gap: 1.25rem;
-    margin-top: 0.25rem;
+    padding-bottom: 0.75rem;
   }
 
-  .ft-col a,
-  .ft-col li > span {
-    font-size: var(--fs-small);
+  .ft-col ul[hidden] {
+    display: none;
   }
 
   .ft-bottom {
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    margin-top: 1.5rem;
+    padding-block: 0.75rem 0;
   }
 
   .ft-legal {
@@ -284,78 +243,6 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   Mobile, ancora più snello:
-   - evento: etichetta, titolo e bottone (la descrizione è nella pagina evento)
-   - logo e social sulla stessa riga, senza la frase
-   - voci delle colonne affiancate su una o due righe (già sopra)
-   - spazi ridotti; target touch sempre ≥ 44px
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 699.98px) {
-  .site-footer {
-    padding-top: 1.5rem;
-  }
-
-  .ft-event {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.25rem 0.75rem;
-    padding: 0.9rem 1rem;
-  }
-
-  .ft-event-tag {
-    grid-column: 1 / -1;
-    font-size: 0.8125rem;
-  }
-
-  .ft-event-title {
-    font-size: 1.125rem;
-  }
-
-  .ft-event-desc {
-    display: none;
-  }
-
-  .ft-event .btn {
-    align-self: center;
-    padding-inline: 1rem;
-  }
-
-  .ft-main {
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-  }
-
-  .ft-brand {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .ft-logo {
-    width: 140px;
-  }
-
-  .ft-tag {
-    display: none;
-  }
-
-  .ft-social {
-    margin-top: 0;
-  }
-
-  .ft-h {
-    padding-bottom: 0.35rem;
-  }
-
-  .ft-col ul {
-    margin-top: 0;
-  }
-
-  .ft-bottom {
-    margin-top: 0.75rem;
-    padding-block: 0.25rem 0;
-  }
+.motion-paused .ft-toggle::after {
+  transition: none;
 }
