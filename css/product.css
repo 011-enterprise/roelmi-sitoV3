@@ -1,6 +1,6 @@
 /* ==========================================================================
    Pagina prodotto — modello (oggi: CytoFruit®)
-   Apertura (texture + vetro) · descrizione · key benefits (texture + 4 vetri)
+   Apertura (come SITO 1: testo + foto del prodotto) · descrizione · key benefits (texture + 4 vetri)
    · dettagli tecnici a tendina + certificazioni · richiesta · correlati.
    Usa il sistema comune di base.css; le schede correlate vengono da finder.css.
    ========================================================================== */
@@ -142,7 +142,7 @@
   margin-top: var(--title-gap);
   margin-left: auto;
   font-family: var(--font-display);
-  font-size: clamp(1.375rem, 1rem + 1.6vw, 2.5rem);
+  font-size: var(--fs-large);   /* come il paragrafo di Who We Are */
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -198,93 +198,92 @@
 }
 
 /* --------------------------------------------------------------------------
-   4 · Dettagli tecnici: tre gruppi a tendina + certificazioni
+   4 · Dettagli tecnici — struttura di SITO 1, sistema di SITO 3
+   Due colonne (caratteristiche · vantaggi), titolo con linea Ocean sotto,
+   voci che si aprono una per una · tabella Specifications · riga
+   Certifications con la goccia ROELMI.
    -------------------------------------------------------------------------- */
 
-.pd-tech-layout {
+.pd-tech-cols {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  gap: clamp(1.5rem, 1rem + 3vw, 4.5rem);
   margin-top: var(--title-gap);
 }
 
-.pd-tech-groups {
-  border-top: 1px solid var(--hard-grey);
+/* Titolo di gruppo: linea Ocean sotto (come SITO 1, colore della palette) */
+.pd-tech-head {
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid var(--ocean);
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--hard-grey);
 }
 
-.pd-group {
+/* Voci: ognuna si apre da sola */
+.pd-acc-item {
   border-bottom: 1px solid var(--line);
 }
 
-.pd-group > summary {
+.pd-acc-item > summary {
   list-style: none;
   cursor: pointer;
 }
 
-.pd-group > summary::-webkit-details-marker {
+.pd-acc-item > summary::-webkit-details-marker {
   display: none;
 }
 
-.pd-group-title {
+.pd-acc-title {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 64px;
-  padding-right: 2rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  min-height: 52px;
+  padding: 0.75rem 2rem 0.75rem 0;
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.45;
   color: var(--hard-grey);
   transition: color var(--dur-ui) var(--ease-out);
 }
 
-.pd-group > summary:hover .pd-group-title {
+.pd-acc-item > summary:hover .pd-acc-title,
+.pd-acc-item[open] .pd-acc-title {
   color: var(--ocean);
 }
 
 /* Freccia */
-.pd-group-title::after {
+.pd-acc-title::after {
   content: "";
   position: absolute;
   right: 0.4rem;
   top: 50%;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
   transform: translateY(-70%) rotate(45deg);
   transition: transform var(--dur-ui) var(--ease-out);
 }
 
-.pd-group[open] .pd-group-title::after {
+.pd-acc-item[open] .pd-acc-title::after {
   transform: translateY(-30%) rotate(-135deg);
 }
 
-.pd-group > summary:focus-visible {
+.pd-acc-item > summary:focus-visible {
   outline-offset: -2px;
 }
 
-.pd-group-body {
-  padding-bottom: 1.5rem;
+.pd-acc-item > p {
+  padding: 0 2rem 1rem 0;
 }
 
-.pd-details {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.25rem 2rem;
-}
-
-.pd-detail-title {
-  font-size: var(--fs-body);
-  font-weight: 600;
-  line-height: 1.4;
-  color: var(--hard-grey);
-}
-
-.pd-detail p {
-  margin-top: 0.35rem;
+.motion-paused .pd-acc-title,
+.motion-paused .pd-acc-title::after {
+  transition: none;
 }
 
 /* Testi ancora da fornire: grigi e in corsivo, ben riconoscibili */
@@ -294,17 +293,22 @@
   color: var(--muted);
 }
 
+/* Specifications: tabella a tutta larghezza, su due colonne */
+.pd-spec {
+  margin-top: var(--section-y);
+}
+
 .pd-specs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 2rem;
+  gap: 0 clamp(1.5rem, 1rem + 3vw, 4.5rem);
 }
 
 .pd-specs div {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 0;
+  padding: 0.85rem 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -319,11 +323,15 @@
   color: var(--muted);
 }
 
-/* Certificazioni: pillole con la goccia ROELMI */
+/* Certifications: riga con etichetta e pillole con la goccia ROELMI */
 .pd-certs {
-  padding: 1.5rem;
-  border: 1px solid var(--line);
-  border-radius: var(--r-card);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem clamp(1.25rem, 1rem + 2vw, 3rem);
+  margin-top: var(--section-y);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
 }
 
 .pd-certs-title {
@@ -334,26 +342,28 @@
 
 .pd-certs ul {
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin-top: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .pd-certs li {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  font-weight: 500;
+  gap: 0.5rem;
+  min-height: 40px;
+  padding: 0 1rem;
+  border: 1px solid var(--hard-grey);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  font-weight: 600;
   color: var(--hard-grey);
 }
 
 .pd-certs li::before {
   content: "";
   flex: none;
-  width: 0.6em;
-  height: 0.9em;
+  width: 0.65em;
+  height: 0.95em;
   background-color: var(--ocean);
   -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
   mask: var(--roelmi-drop) center / contain no-repeat;
@@ -407,7 +417,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .pd-tech-layout {
+  .pd-tech-cols {
     grid-template-columns: 1fr;
   }
 
@@ -452,7 +462,6 @@
     border-radius: var(--r-inner);
   }
 
-  .pd-details,
   .pd-specs {
     grid-template-columns: 1fr;
   }
@@ -485,386 +494,119 @@
 }
 
 /* ==========================================================================
-   APERTURA "WOW": la goccia ROELMI che si apre
-   Stato di base (CSS) = stato finale: texture intera + velo, nome e scheda
-   visibili. È quello che vede chi non ha JS, chi preme Stop animation o ha
-   "riduci movimento". product-hero.js anima dalla goccia allo stato finale
-   tramite variabili: --drop-h, --drop-x, --drop-y, --drop-o, --full,
-   --name-o, --card-o.
-   Velo 0.65: sopra un punto bianco il fondo resta ≈ #6A6A6A → Ricepaper
-   ≥ 4.9:1 anche per percorso ed etichetta piccoli.
+   1 · APERTURA — struttura di SITO 1, palette nuova
+   Fondo Hard Grey con grana. Testo a sinistra: percorso, mercato (Antique /
+   Olive) + tecnologia (contorno), nome, funzione, frase, certificazioni,
+   CTA. Foto del prodotto a destra su alone Cerulean (come il carosello della
+   home), che fluttua piano; ferma con Stop animation / reduced-motion.
    ========================================================================== */
 
 .pd-hero {
-  position: relative;
-  background-color: var(--hard-grey);
-  color: var(--ricepaper);
-}
-
-.js .pd-hero.is-animated {
-  height: 260vh;
-}
-
-.pd-hero-stage {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  min-height: 100vh;
-  min-height: 100svh;
-}
-
-.js .pd-hero.is-animated .pd-hero-stage {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  height: 100svh;
-}
-
-.pd-hero-media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-}
-
-.pd-hero-full,
-.pd-hero-drop,
-.pd-hero-drop img,
-.pd-hero-scrim {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.pd-hero-full,
-.pd-hero-drop img {
-  object-fit: cover;
-}
-
-.pd-hero-full {
-  opacity: var(--full, 1);
-}
-
-.pd-hero-scrim {
-  background-color: rgba(25, 25, 25, 0.65);
-  opacity: var(--full, 1);
-}
-
-/* La goccia: la texture vista attraverso il simbolo del logo */
-.pd-hero-drop {
-  opacity: var(--drop-o, 0);
-  -webkit-mask: var(--roelmi-drop) no-repeat;
-  mask: var(--roelmi-drop) no-repeat;
-  -webkit-mask-size: auto var(--drop-h, 70vh);
-  mask-size: auto var(--drop-h, 70vh);
-  -webkit-mask-position: var(--drop-x, 72%) var(--drop-y, 55%);
-  mask-position: var(--drop-x, 72%) var(--drop-y, 55%);
-}
-
-/* Contenuto: percorso in alto, nome a sinistra, scheda a destra */
-.pd-hero-inner {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  grid-template-rows: auto 1fr;
-  gap: 1.5rem clamp(1.5rem, 1rem + 3vw, 4rem);
-  min-height: 100vh;
-  min-height: 100svh;
   padding-top: calc(var(--header-h) + 0.5rem);
-  padding-bottom: clamp(1.5rem, 1rem + 2vw, 3rem);
 }
 
-.pd-hero-inner .pd-breadcrumb {
-  grid-column: 1 / -1;
+.pd-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  margin-top: clamp(0.5rem, 0.25rem + 1vw, 1.5rem);
 }
 
-.pd-hero-inner .pd-breadcrumb ol {
-  margin-bottom: 0;
+.pd-hero-markets {
+  margin-bottom: 1.25rem;
+}
+
+/* Tecnologia: stessa forma dell'etichetta del mercato, solo contorno */
+.pd-hero-tech {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--muted-on-dark);
+  border-radius: 999px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ricepaper);
 }
 
 .pd-hero-name {
-  grid-column: 1;
-  grid-row: 2;
-  align-self: end;
   font-family: var(--font-display);
+  font-size: clamp(2.75rem, 1.5rem + 4.5vw, 5.5rem);
   font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
   color: var(--ricepaper);
-  opacity: var(--name-o, 1);
 }
 
-.pd-hero-word {
-  display: block;
+.pd-reg {
+  font-size: 0.45em;
+  vertical-align: 0.9em;
+  letter-spacing: 0;
+}
+
+.pd-hero .pd-function {
   margin-top: 1rem;
-  font-size: clamp(3rem, 1.5rem + 7vw, 9.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.055em;
+  color: var(--muted-on-dark);
 }
 
-.pd-hero-card {
-  grid-column: 2;
-  grid-row: 2;
-  align-self: end;
-  padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
-  border-radius: var(--r-card);
-  opacity: var(--card-o, 1);
-  transform: translate3d(0, calc((1 - var(--card-o, 1)) * 24px), 0);
+/* Foto: scontornata, su alone Cerulean, fluttua piano (come SITO 1) */
+.pd-hero-figure {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1 / 1;
+  width: min(100%, 520px);
+  justify-self: center;
 }
 
-.pd-hero-card .pd-function {
-  margin-top: 0;
+.pd-hero-figure::before {
+  content: "";
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(161, 187, 216, 0.24), rgba(161, 187, 216, 0.06) 60%, transparent);
 }
 
-/* Scheda ancora invisibile durante l'animazione: niente clic per sbaglio */
-.pd-hero.is-card-hidden .pd-hero-card {
-  pointer-events: none;
+.pd-hero-figure img {
+  position: relative;
+  width: 84%;
+  height: 84%;
+  object-fit: contain;
+  animation: pd-float 7s ease-in-out infinite alternate;
 }
 
-/* Mobile: nome e scheda uno sotto l'altro, goccia centrata in alto */
+@keyframes pd-float {
+  from { transform: translate3d(0, -1.5%, 0); }
+  to   { transform: translate3d(0, 1.5%, 0); }
+}
+
+.motion-paused .pd-hero-figure img {
+  animation: none;
+}
+
+/* Tablet e telefono: foto sopra, più piccola; CTA a tutta larghezza */
 @media (max-width: 899.98px) {
   .pd-hero-inner {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
   }
 
-  .pd-hero-name {
-    grid-row: 2;
-  }
-
-  .pd-hero-card {
-    grid-column: 1;
-    grid-row: 3;
+  .pd-hero-figure {
+    order: -1;
+    width: min(100%, 320px);
   }
 }
 
-/* ==========================================================================
-   APERTURA B "il nome fatto di materia" (.pd-hero--word)
-   Il nome enorme è riempito dalla texture (background-clip: text); scorrendo
-   la texture si muove e si avvicina dentro le lettere (--word-y, --word-size).
-   Contorno chiaro sottile: il nome resta leggibile anche dove la texture è
-   scura. Senza supporto per il testo-immagine: nome in Ricepaper pieno.
-   Per tornare alla A: heroVariant: 'drop' nel generatore.
-   ========================================================================== */
-
-/* Nella variante A l'immagine sul nome non deve vedersi */
-.pd-hero:not(.pd-hero--word) .pd-hero-word {
-  background-image: none !important;
-}
-
-.pd-hero--word .pd-hero-media {
-  display: none;
-}
-
-.js .pd-hero--word.is-animated {
-  height: 180vh;
-}
-
-.pd-hero--word .pd-hero-inner {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
-  grid-template-rows: auto 1fr auto;
-}
-
-.pd-hero--word .pd-hero-name {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  align-self: center;
-  opacity: 1;
-}
-
-.pd-hero--word .pd-hero-word {
-  margin-top: 0.75rem;
-  font-size: clamp(3.5rem, 15.5vw, 17rem);
-  line-height: 0.88;
-  letter-spacing: -0.06em;
-  color: var(--ricepaper);
-}
-
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .pd-hero--word .pd-hero-word {
-    background-size: var(--word-size, 140%) auto;
-    background-position: 50% var(--word-y, 45%);
-    background-repeat: no-repeat;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1px rgba(247, 243, 235, 0.55);
-  }
-}
-
-/* Scheda: sotto il nome, a destra, visibile da subito */
-.pd-hero--word .pd-hero-card {
-  grid-column: 2;
-  grid-row: 3;
-  opacity: 1;
-  transform: none;
-}
-
-@media (max-width: 899.98px) {
-  .pd-hero--word .pd-hero-inner {
-    grid-template-columns: 1fr;
+@media (max-width: 599.98px) {
+  .pd-hero-figure {
+    width: min(100%, 240px);
   }
 
-  .pd-hero--word .pd-hero-card {
-    grid-column: 1;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   B · equilibrio dello stato finale
-   - la sezione scorre normalmente (niente scena ferma): nulla viene tagliato
-   - nome un po' più piccolo, ® piccolo in apice
-   - sotto il nome due colonne su una linea sottile: a sinistra funzione e
-     descrizione, a destra certificazioni e "Request datasheet"
-   -------------------------------------------------------------------------- */
-
-.js .pd-hero--word.is-animated {
-  height: auto;
-}
-
-.js .pd-hero--word.is-animated .pd-hero-stage {
-  position: relative;
-  height: auto;
-}
-
-.pd-hero--word .pd-hero-inner {
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto 1fr auto;
-  row-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
-}
-
-.pd-hero--word .pd-hero-word {
-  font-size: clamp(3.25rem, 1rem + 12vw, 14rem);
-}
-
-/* ®: piccola e appoggiata all'altezza delle maiuscole */
-.pd-reg {
-  position: relative;
-  top: 0.45em;
-  margin-left: 0.06em;
-  font-size: max(0.2em, 0.75rem);
-  line-height: 0;
-  letter-spacing: 0;
-  vertical-align: top;
-}
-
-/* Niente vetro su fondo scuro: due colonne aperte */
-.pd-hero--word .pd-hero-card {
-  grid-column: 1;
-  grid-row: 3;
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-  grid-template-areas:
-    "fn   tags"
-    "text cta";
-  align-items: start;
-  gap: 1rem clamp(1.5rem, 1rem + 4vw, 6rem);
-  padding: clamp(1.25rem, 1rem + 1vw, 2rem) 0 0;
-  border-top: 1px solid var(--line-on-dark);
-  border-radius: 0;
-  background: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  box-shadow: none;
-}
-
-.pd-hero--word .pd-function { grid-area: fn; }
-.pd-hero--word .pd-intro    { grid-area: text; margin-top: 0; }
-
-.pd-hero--word .pd-tags {
-  grid-area: tags;
-  justify-self: end;
-  margin-top: 0;
-}
-
-.pd-hero--word .pd-cta {
-  grid-area: cta;
-  justify-self: end;
-  align-self: end;
-  margin-top: 0;
-}
-
-@media (max-width: 699.98px) {
-  .pd-hero--word .pd-hero-card {
-    grid-template-columns: 1fr;
-    grid-template-areas: "fn" "text" "tags" "cta";
-  }
-
-  .pd-hero--word .pd-tags,
-  .pd-hero--word .pd-cta {
-    justify-self: start;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   A · equilibrio dello stato finale
-   Desktop: nome e scheda sulla stessa linea di base, scheda più stretta e
-   allineata a destra. Mobile: tutto entra nello schermo (la scena è ferma
-   durante lo scroll): nome più piccolo, descrizione fermata a 3 righe
-   solo a vista (lo screen reader la legge intera).
-   -------------------------------------------------------------------------- */
-
-.pd-hero--drop .pd-hero-inner {
-  grid-template-columns: minmax(0, 1fr) minmax(0, 30rem);
-  align-items: end;
-}
-
-.pd-hero--drop .pd-hero-card {
-  justify-self: end;
-  width: 100%;
-}
-
-.pd-hero--drop .pd-intro {
-  font-size: var(--fs-small);
-}
-
-@media (max-width: 899.98px) {
-  .pd-hero--drop .pd-hero-inner {
-    grid-template-columns: 1fr;
-    row-gap: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  .pd-hero--drop .pd-hero-word {
-    margin-top: 0.5rem;
-    font-size: clamp(2.75rem, 1rem + 9vw, 4.5rem);
-  }
-
-  .pd-hero--drop .pd-hero-card {
-    justify-self: stretch;
-    padding: 1.1rem;
-    border-radius: var(--r-inner);
-  }
-
-  .pd-hero--drop .pd-intro {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    margin-top: 0.5rem;
-  }
-
-  .pd-hero--drop .pd-tags {
-    margin-top: 0.85rem;
-  }
-
-  .pd-hero--drop .pd-cta {
-    margin-top: 1rem;
-  }
-}
-
-/* A · all'inizio il nome sta all'altezza del centro della goccia: entrambi
-   centrati nello spazio libero sotto il percorso (--name-top, da product-hero.js) (solo con l'animazione attiva e da tablet
-   in su; il nome sfuma prima che arrivi la scheda) */
-@media (min-width: 900px) {
-  .pd-hero--drop.is-animated .pd-hero-name {
-    position: absolute;
-    /* Fuori dalla cella della griglia: top e left si misurano dall'inizio
-       della scena (dentro la cella si sommavano due volte) */
-    grid-row: auto;
-    grid-column: auto;
-    top: var(--name-top, 50%);
-    left: var(--gutter);
-    right: 45%;
+  .pd-hero .pd-cta {
+    width: 100%;
   }
 }
 

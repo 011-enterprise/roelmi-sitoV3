@@ -134,34 +134,26 @@
     <span id="top"></span>
 
     <!-- ==================================================================
-         1 · APERTURA (scuro) — variante scelta in P.heroVariant: 'word' (B) o 'drop' (A)
-         All'inizio la texture si vede dentro una goccia enorme; scorrendo la
-         goccia riempie lo schermo e compare la scheda di vetro.
-         Stop animation / reduced-motion: subito lo stato finale.
+         1 · APERTURA (scuro) — struttura di SITO 1, palette nuova
+         Testo a sinistra (percorso, mercato + tecnologia, nome, funzione,
+         frase, certificazioni, CTA) · foto del prodotto a destra su alone
+         Cerulean, che fluttua piano (ferma con Stop animation / reduced-motion)
          ================================================================== -->
-    <section class="pd-hero pd-hero--drop theme-dark" aria-labelledby="pd-title">
-      <div class="pd-hero-stage">
-        <div class="pd-hero-media" aria-hidden="true">
-          <img class="pd-hero-full" src="images/portfolio/texture-2.jpg" alt="" decoding="async">
-          <div class="pd-hero-scrim"></div>
-          <div class="pd-hero-drop"><img src="images/portfolio/texture-2.jpg" alt="" decoding="async"></div>
-        </div>
+    <section class="pd-hero section theme-dark grain" aria-labelledby="pd-title" data-force-field-host>
+      <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
+      <div class="container">
+        <nav class="pd-breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="ingredient-finder.html">Ingredient Finder</a></li>
+            <li><a href="#top" aria-current="page">CytoFruit®</a></li>
+          </ol>
+        </nav>
 
-        <div class="container pd-hero-inner">
-          <nav class="pd-breadcrumb" aria-label="Breadcrumb">
-            <ol>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="ingredient-finder.html">Ingredient Finder</a></li>
-              <li><a href="#top" aria-current="page">CytoFruit®</a></li>
-            </ol>
-          </nav>
-
-          <h1 class="pd-hero-name" id="pd-title">
-            <span class="eyebrow">Personal Care, Nature</span>
-            <span class="pd-hero-word" style="background-image: url('images/portfolio/texture-2.jpg')">CytoFruit<sup class="pd-reg">®</sup></span>
-          </h1>
-
-          <div class="pd-hero-card glass">
+        <div class="pd-hero-inner">
+          <div class="pd-hero-text">
+            <p class="market-pills pd-hero-markets"><span class="market-pill">Personal Care</span><span class="pd-hero-tech">Nature</span></p>
+            <h1 class="pd-hero-name" id="pd-title">CytoFruit<sup class="pd-reg">®</sup></h1>
             <p class="pd-function">Biologically active waters</p>
             <p class="pd-intro">Fruit-derived active waters designed to replace demineralized water in cosmetic formulations — a symbiosis between technology and sustainability, obtained from ingredients that have already left the food chain.</p>
             <ul class="pd-tags" aria-label="Certifications">
@@ -170,6 +162,10 @@
             </ul>
             <a class="btn btn--solid pd-cta" href="#contact">Request datasheet</a>
           </div>
+
+          <figure class="pd-hero-figure" aria-hidden="true">
+            <img src="images/portfolio/cytofruit.png" alt="" width="1000" height="1000" decoding="async" fetchpriority="high">
+          </figure>
         </div>
       </div>
     </section>
@@ -228,7 +224,10 @@
     </section>
 
     <!-- ==================================================================
-         4 · TECHNICAL DETAILS (chiaro) — tre gruppi a tendina + certificazioni
+         4 · TECHNICAL DETAILS (chiaro) — struttura di SITO 1, sistema di SITO 3
+         Due colonne (caratteristiche · vantaggi) con voci che si aprono una
+         per una (details: funziona senza JS) · tabella Specifications ·
+         riga Certifications
          ================================================================== -->
     <section class="pd-tech section theme-light grain" aria-labelledby="pd-tech-title">
       <div class="container">
@@ -237,57 +236,73 @@
           <span data-reveal data-reveal-delay="0.1">Technical details</span>
         </h2>
 
-        <div class="pd-tech-layout">
-          <div class="pd-tech-groups">
-            <details class="pd-group" open>
-              <summary><h3 class="pd-group-title">Technical characteristics</h3></summary>
-              <div class="pd-group-body">
-                <ul class="pd-details">
-                  <li class="pd-detail"><h4 class="pd-detail-title">No flash distillation or microwave processing</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p></li>
-                  <li class="pd-detail"><h4 class="pd-detail-title">Exclusively natural processes from pure fruit juices</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p></li>
-                  <li class="pd-detail"><h4 class="pd-detail-title">Microbiologically pure</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p></li>
-                  <li class="pd-detail"><h4 class="pd-detail-title">Controlled release of oligoelements via biological filter</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p></li>
-                </ul>
-              </div>
-            </details>
-
-            <details class="pd-group">
-              <summary><h3 class="pd-group-title">Formulative advantages</h3></summary>
-              <div class="pd-group-body">
-                <ul class="pd-details">
-                  <li class="pd-detail"><h4 class="pd-detail-title">Rich in oligoelements for enhanced skin activity</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p></li>
-                  <li class="pd-detail"><h4 class="pd-detail-title">Cellular protection properties</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p></li>
-                  <li class="pd-detail"><h4 class="pd-detail-title">Enables water-free formula development</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p></li>
-                  <li class="pd-detail"><h4 class="pd-detail-title">More biologically active than distilled water (confirmed in vitro)</h4><p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p></li>
-                </ul>
-              </div>
-            </details>
-
-            <details class="pd-group">
-              <summary><h3 class="pd-group-title">Specifications</h3></summary>
-              <div class="pd-group-body">
-                <dl class="pd-specs">
-                  <div><dt>INCI</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>CAS</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>Appearance</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>Solubility</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>Use level</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>pH</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>Preservative</dt><dd class="pd-placeholder">da fornire</dd></div>
-                  <div><dt>Shelf life</dt><dd class="pd-placeholder">da fornire</dd></div>
-                </dl>
-                <p class="pd-note">Full technical data sheet and safety data sheet available on request.</p>
-              </div>
-            </details>
+        <div class="pd-tech-cols">
+          <div class="pd-tech-block">
+            <h3 class="pd-tech-head">Technical characteristics</h3>
+            <div class="pd-acc">
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">No flash distillation or microwave processing</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p>
+              </details>
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">Exclusively natural processes from pure fruit juices</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p>
+              </details>
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">Microbiologically pure</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p>
+              </details>
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">Controlled release of oligoelements via biological filter</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this characteristic.</p>
+              </details>
+            </div>
           </div>
 
-          <aside class="pd-certs" aria-labelledby="pd-certs-title">
-            <h3 class="pd-certs-title" id="pd-certs-title">Certifications</h3>
-            <ul>
-              <li>COSMOS / ICEA</li>
-              <li>Palm oil free</li>
-            </ul>
-          </aside>
+          <div class="pd-tech-block">
+            <h3 class="pd-tech-head">Formulative advantages</h3>
+            <div class="pd-acc">
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">Rich in oligoelements for enhanced skin activity</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p>
+              </details>
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">Cellular protection properties</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p>
+              </details>
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">Enables water-free formula development</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p>
+              </details>
+              <details class="pd-acc-item">
+                <summary><h4 class="pd-acc-title">More biologically active than distilled water (confirmed in vitro)</h4></summary>
+                <p class="pd-placeholder">Placeholder — the client will provide a detailed explanation of this advantage.</p>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        <div class="pd-spec">
+          <h3 class="pd-tech-head">Specifications</h3>
+          <dl class="pd-specs">
+            <div><dt>INCI</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>CAS</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>Appearance</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>Solubility</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>Use level</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>pH</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>Preservative</dt><dd class="pd-placeholder">da fornire</dd></div>
+            <div><dt>Shelf life</dt><dd class="pd-placeholder">da fornire</dd></div>
+          </dl>
+          <p class="pd-note">Full technical data sheet and safety data sheet available on request.</p>
+        </div>
+
+        <div class="pd-certs">
+          <h3 class="pd-certs-title" id="pd-certs-title">Certifications</h3>
+          <ul aria-labelledby="pd-certs-title">
+            <li>COSMOS / ICEA</li>
+            <li>Palm oil free</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -428,7 +443,6 @@
   <script src="js/reveal.js" defer></script>
   <script src="js/header.js" defer></script>
   <script src="js/footer.js" defer></script>
-  <script src="js/product-hero.js" defer></script>
   <script src="js/force-field.js" defer></script>
 </body>
 </html>
