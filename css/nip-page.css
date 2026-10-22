@@ -1,0 +1,573 @@
+/* ==========================================================================
+   Pagina NIP® — Nature is People (testi e ordine di SITO 1, sistema SITO 3)
+   1 Apertura (scuro): reticolo molecolare + box con la texture di NIP e il
+     titolo su vetro scuro, come la sezione NIP della home
+   2 Introduzione (chiaro) · 3 Tre pilastri (chiaro, schede a fondo
+   d'accento) · 4 Sustainability in action (scuro, reticolo) · 5 Box finale
+   (.cta-box, base.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1 · Apertura
+   -------------------------------------------------------------------------- */
+
+.np-hero {
+  isolation: isolate;   /* il reticolo (.section-field) sta sotto il box */
+  padding-top: calc(var(--header-h) + 0.5rem);
+}
+
+/* Percorso: Home / Company / Sustainability · NIP® */
+.np-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: var(--fs-small);
+}
+
+.np-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ricepaper);
+}
+
+.np-breadcrumb li + li::before {
+  content: "/";
+}
+
+.np-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--ricepaper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.np-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Box con la texture di NIP (come in home) e il titolo sul vetro scuro */
+.np-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  min-height: min(72vh, 680px);
+  padding: clamp(0.75rem, 0.5rem + 2vw, 2.5rem);
+  border-radius: var(--r-stage);
+}
+
+.np-stage-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.np-stage-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.np-head {
+  width: fit-content;
+  max-width: 100%;
+  padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem) clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+/* Titolo su tre righe; davanti a ogni riga la goccia ROELMI nel colore del
+   suo pilastro (decorativa: sul vetro il testo resta tutto Ricepaper) */
+.np-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-box);
+  font-weight: 300;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  color: var(--ricepaper);
+}
+
+.np-title .eyebrow {
+  margin-bottom: 1.25rem;
+  font-size: var(--fs-small);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.np-line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+}
+
+.np-line b {
+  font-weight: 500;
+}
+
+.np-line::before {
+  content: "";
+  flex: none;
+  align-self: center;
+  width: 0.4em;
+  height: 0.58em;
+  margin-right: 0.15em;
+  background-color: var(--np-color);
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+}
+
+.np-line--nature     { --np-color: var(--olive); }
+.np-line--innovation { --np-color: var(--cerulean); }
+.np-line--people     { --np-color: var(--antique); }
+
+/* --------------------------------------------------------------------------
+   2 · Introduzione
+   -------------------------------------------------------------------------- */
+
+/* Paragrafo grande: come il paragrafo di Who We Are, parole chiave in Ocean */
+.np-statement {
+  max-width: 32ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--hard-grey);
+}
+
+.np-statement strong {
+  font-weight: 500;
+}
+
+.np-statement .accent {
+  color: var(--ocean);
+}
+
+.np-intro-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem clamp(1.5rem, 1rem + 3vw, 4.5rem);
+  max-width: 64rem;
+  margin-top: var(--title-gap);
+  margin-left: auto;
+}
+
+.np-text {
+  line-height: 1.65;
+  color: var(--hard-grey);
+}
+
+.np-text strong {
+  font-weight: 600;
+}
+
+.np-text a,
+.np-lead a {
+  color: var(--ocean);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.np-intro-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  max-width: 64rem;
+  margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  margin-left: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.np-lead {
+  max-width: 48ch;
+  color: var(--hard-grey);
+}
+
+/* --------------------------------------------------------------------------
+   3 · I tre pilastri: schede a fondo d'accento, testo Hard Grey
+   (Olive 9.2 · Cerulean 8.9 · Antique 10.4:1)
+   -------------------------------------------------------------------------- */
+
+.np-pillars-title {
+  max-width: 34ch;
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--hard-grey);
+}
+
+.np-pillars-title .eyebrow {
+  display: flex;
+  margin-bottom: 1.25rem;
+}
+
+.np-pillars-title strong {
+  font-weight: 500;
+}
+
+.np-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  margin-top: var(--title-gap);
+}
+
+.np-pillar {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 1rem + 1.2vw, 2.25rem);
+  border-radius: var(--r-card);
+  background-color: var(--np-color);
+  color: var(--hard-grey);
+}
+
+.np-pillar--nature     { --np-color: var(--olive); }
+.np-pillar--innovation { --np-color: var(--cerulean); }
+.np-pillar--people     { --np-color: var(--antique); }
+
+/* Iniziale grande (N · I · P): decorativa, il nome è nel titolo */
+.np-pillar-mark {
+  font-family: var(--font-display);
+  font-size: var(--fs-box);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.np-pillar-title {
+  margin-top: clamp(2rem, 1rem + 3vw, 4rem);
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.np-pillar p {
+  margin-top: 0.85rem;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+}
+
+.np-pillar strong {
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   4 · Sustainability in action (scuro, reticolo molecolare)
+   -------------------------------------------------------------------------- */
+
+.np-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--fg);
+}
+
+.np-section-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1rem;
+}
+
+.np-action-intro {
+  max-width: 48ch;
+  margin-top: 1.25rem;
+  color: var(--muted-on-dark);
+}
+
+/* Schede prodotto: come quelle del Finder, ma sul fondo scuro */
+.np-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  margin-top: var(--title-gap);
+}
+
+.np-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0.75rem 0.75rem 1.25rem;
+  border: 1px solid var(--line-on-dark);
+  border-radius: var(--r-card);
+  transition: border-color var(--dur-ui) var(--ease-out);
+}
+
+.np-card-media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--r-inner);
+  background:
+    radial-gradient(closest-side, rgba(161, 187, 216, 0.22), rgba(161, 187, 216, 0.06) 60%, transparent),
+    rgba(247, 243, 235, 0.04);
+}
+
+.np-card-media img {
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.np-card-name {
+  margin-top: 1rem;
+  padding-inline: 0.25rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1rem + 0.4vw, 1.375rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: var(--ricepaper);
+  transition: color var(--dur-ui) var(--ease-out);
+}
+
+/* Il link è il nome; la sua area cliccabile copre tutta la scheda */
+.np-card-link {
+  color: inherit;
+}
+
+.np-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--r-card);
+}
+
+.np-card-text {
+  margin-top: 0.5rem;
+  padding-inline: 0.25rem;
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted-on-dark);
+}
+
+/* Testo ancora da fornire */
+.np-card-text--todo {
+  font-style: italic;
+}
+
+.np-card:hover,
+.np-card:focus-within {
+  border-color: var(--ricepaper);
+}
+
+.np-card:hover .np-card-name,
+.np-card:focus-within .np-card-name {
+  color: var(--ocean-on-dark);
+}
+
+.np-card:hover .np-card-media img,
+.np-card:focus-within .np-card-media img {
+  transform: scale(1.05);
+}
+
+.np-card-link:focus-visible {
+  outline: none;
+}
+
+.np-card-link:focus-visible::after {
+  outline: 2px solid var(--ocean-on-dark);
+  outline-offset: 4px;
+}
+
+.motion-paused .np-card-media img {
+  transform: none;
+}
+
+/* Barra Ingredient Finder sotto le schede */
+.np-finder {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-top: var(--section-y);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-on-dark);
+}
+
+.np-finder-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--ricepaper);
+}
+
+.np-finder-title span {
+  display: block;
+  color: var(--muted-on-dark);
+}
+
+.np-finder .btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023.98px) {
+  .np-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .np-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .np-pillar-title {
+    margin-top: 1.25rem;
+  }
+}
+
+@media (max-width: 699.98px) {
+  .np-stage {
+    min-height: 0;
+    padding: 0.6rem;
+    padding-top: 24vh;
+    border-radius: var(--r-card);
+  }
+
+  .np-head {
+    width: auto;
+    padding: 1.1rem;
+    border-radius: var(--r-inner);
+  }
+
+  .np-intro-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .np-pillar {
+    border-radius: var(--r-inner);
+  }
+
+  .np-finder .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .np-cards {
+    gap: 0.75rem 0.5rem;
+  }
+
+  .np-card {
+    padding: 0.5rem 0.5rem 1rem;
+    border-radius: var(--r-inner);
+  }
+
+  .np-card-name {
+    font-size: 1rem;
+  }
+
+  .np-card-text {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+}
+
+/* ==========================================================================
+   Apertura: tre gocce che diventano una (scelta da Chiara il 22/10/2026)
+   Le gocce del logo nei colori dei tre pilastri (Olive · Cerulean · Antique)
+   partono separate, si avvicinano lentamente e si sovrappongono; al loro
+   posto resta una goccia sola con i tre colori sfumati ("closely
+   interconnected"). Si muove una volta, all'apertura. Stato di base = stato
+   finale (goccia unica): è quello che vedono Stop animation e reduced-motion.
+   Alternativa scartata, se servisse: trittico di texture (uno per pilastro).
+   ========================================================================== */
+
+/* Dentro il vetro scuro, a destra del titolo: sul fondo scuro i tre colori
+   risaltano (sulla texture chiara si perdevano). Margini laterali = spazio
+   per le gocce ancora separate all'inizio */
+.np-head {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  column-gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+.np-drops {
+  --drop-w: clamp(48px, 2.5rem + 2.5vw, 88px);
+  position: relative;
+  width: var(--drop-w);
+  aspect-ratio: 36.3 / 54;
+  margin-inline: calc(var(--drop-w) * 1.4);
+  pointer-events: none;
+}
+
+.np-drop {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+  opacity: 0;
+}
+
+.np-drop--nature     { background-color: var(--olive);    --drop-x: -135%; }
+.np-drop--innovation { background-color: var(--cerulean); --drop-x: 0%; }
+.np-drop--people     { background-color: var(--antique);  --drop-x: 135%; }
+
+.np-drop--one {
+  background-image: linear-gradient(160deg, var(--olive) 10%, var(--cerulean) 50%, var(--antique) 90%);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.motion-paused) .np-drop:not(.np-drop--one) {
+    animation: np-drop-meet 2.8s cubic-bezier(0.65, 0, 0.35, 1) 0.6s both;
+  }
+
+  html:not(.motion-paused) .np-drop--one {
+    animation: np-drop-one 2.8s ease-out 0.6s both;
+  }
+}
+
+@keyframes np-drop-meet {
+  0%   { opacity: 0;   transform: translate3d(var(--drop-x), 12%, 0); }
+  15%  { opacity: 0.9; transform: translate3d(var(--drop-x), 0, 0); }
+  70%  { opacity: 0.9; transform: translate3d(0, 0, 0); }
+  100% { opacity: 0;   transform: translate3d(0, 0, 0); }
+}
+
+@keyframes np-drop-one {
+  0%, 62% { opacity: 0; transform: scale(0.92); }
+  100%    { opacity: 1; transform: none; }
+}
+
+/* Tablet e telefono: le gocce sopra il titolo, dentro il vetro */
+@media (max-width: 899.98px) {
+  .np-head {
+    grid-template-columns: auto;
+    row-gap: 1.25rem;
+  }
+
+  .np-drops {
+    --drop-w: 40px;
+    order: -1;
+    justify-self: center;
+  }
+}

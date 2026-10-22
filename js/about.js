@@ -36,23 +36,6 @@
   }
 
   /* ------------------------------------------------------------------------
-     2. Il nome che si apre
-     ------------------------------------------------------------------------ */
-
-  var hero = document.querySelector('.ab-hero');
-  function expandName() { if (hero) hero.classList.add('is-expanded'); }
-
-  if (hero) {
-    if (!motionOn()) {
-      expandName();
-    } else {
-      var go = function () { setTimeout(expandName, 500); };
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(go); else go();
-      setTimeout(expandName, 2500); // rete di sicurezza
-    }
-  }
-
-  /* ------------------------------------------------------------------------
      3. Our Approach: linea della sequenza
      ------------------------------------------------------------------------ */
 

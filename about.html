@@ -95,7 +95,7 @@
                 <li><a href="about.html" aria-current="page">About us</a></li>
                 <li><a href="#">Philosophy</a></li>
                 <li><a href="#">Sustainability</a></li>
-                <li><a href="#">NIP®</a></li>
+                <li><a href="nip.html">NIP®</a></li>
                 <li><a href="#">Certifications</a></li>
               </ul>
             </div>
@@ -153,16 +153,9 @@
           <span>The story behind a name</span>
         </h1>
 
-        <!-- Il nome: lettura per lo screen reader + versione visiva animata -->
-        <p class="sr-only">ROELMI comes from ROsella, ELeonora and MIchela. HPC stands for Health and Personal Care.</p>
-        <div class="ab-name" aria-hidden="true">
-          <span class="ab-syl"><b>RO</b><span class="ab-tail"><span>sella</span></span></span>
-          <span class="ab-dot">·</span>
-          <span class="ab-syl"><b>EL</b><span class="ab-tail"><span>eonora</span></span></span>
-          <span class="ab-dot">·</span>
-          <span class="ab-syl"><b>MI</b><span class="ab-tail"><span>chela</span></span></span>
-        </div>
-        <p class="ab-hpc" aria-hidden="true"><b>HPC</b> <span>Health and Personal Care</span></p>
+        <!-- Prima frase del testo del prototipo (il seguito è nella sezione sotto).
+             Tolta l'animazione del nome su richiesta del cliente: "più fine" -->
+        <p class="ab-hero-lead">We are a family-owned company with an international business.</p>
       </div>
 
       <button class="motion-toggle ab-motion" type="button" aria-pressed="false" data-motion-toggle>
@@ -178,7 +171,7 @@
     <section class="ab-story section theme-light grain" aria-label="Our story">
       <div class="container ab-story-grid">
         <div class="ab-story-text">
-          <p class="ab-lead" data-reveal>We are a <strong>family-owned company</strong> with an international business. The name <strong>ROELMI</strong> is the combination of the names <strong>Rosella Malanchin</strong>, and the daughters <strong>Eleonora</strong> and <strong>Michela Santus</strong>. Through a play on letters and sounds, the name came to represent a strong sense of identity and the ambition to grow, expand and bring the Group’s vision to an international audience. <strong>HPC</strong> stands for <strong>Health and Personal Care</strong>, the two main areas in which we operate.</p>
+          <p class="ab-lead" data-reveal>The name <strong>ROELMI</strong> is the combination of the names <strong>Rosella Malanchin</strong>, and the daughters <strong>Eleonora</strong> and <strong>Michela Santus</strong>. Through a play on letters and sounds, the name came to represent a strong sense of identity and the ambition to grow, expand and bring the Group’s vision to an international audience. <strong>HPC</strong> stands for <strong>Health and Personal Care</strong>, the two main areas in which we operate.</p>
           <p class="ab-text" data-reveal>Our headquarters are located in Origgio, near Milan, with commercial offices in both Europe and outside the European Union, including <a href="#world">France, the USA, China and South Korea</a>. Our goal is to continue expanding our international presence providing high quality ingredients.</p>
         </div>
         <figure class="ab-photo" data-reveal>
@@ -190,7 +183,8 @@
     <!-- ==================================================================
          3 · WHAT WE DO EVERYDAY + NIP® (scuro)
          ================================================================== -->
-    <section class="ab-what section theme-dark grain" aria-labelledby="ab-what-title">
+    <section class="ab-what section theme-dark grain" aria-labelledby="ab-what-title" data-force-field-host>
+      <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
       <div class="container">
         <h2 class="ab-section-title" id="ab-what-title">
           <span class="eyebrow" data-reveal>Our work</span>
@@ -251,8 +245,10 @@
          La scena resta ferma e gli anni scorrono di lato (about.js).
          Senza animazione: riga scorrevole a mano.
          ================================================================== -->
-    <section class="ab-timeline theme-dark grain" aria-labelledby="ab-tl-title">
+    <section class="ab-timeline theme-dark grain" aria-labelledby="ab-tl-title" data-force-field-host>
       <div class="ab-tl-stage">
+        <!-- Force Field dentro la parte ferma (sticky): resta con la linea del tempo -->
+        <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
         <div class="container ab-tl-head">
           <h2 class="ab-section-title" id="ab-tl-title">
             <span class="eyebrow">Since 2000</span>
@@ -375,7 +371,8 @@
     <!-- ==================================================================
          7 · TOGETHER FOR A BETTER WORLD (scuro) — partner (segnaposto)
          ================================================================== -->
-    <section class="ab-partners section theme-dark grain" aria-labelledby="ab-partners-title">
+    <section class="ab-partners section theme-dark grain" aria-labelledby="ab-partners-title" data-force-field-host>
+      <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
       <div class="container">
         <h2 class="ab-section-title" id="ab-partners-title">
           <span class="eyebrow" data-reveal>Partners</span>
@@ -393,12 +390,21 @@
     </section>
 
     <!-- ==================================================================
-         8 · CHIUSURA (chiaro) — Ingredient Finder
+         8 · CHIUSURA (chiaro) — Ingredient Finder, nel box come la fine di
+         CytoFruit: riquadro con texture (quella dell'Ingredient Finder) e
+         vetro scuro sopra
          ================================================================== -->
     <section class="ab-close section theme-light grain" aria-labelledby="ab-close-title">
-      <div class="container ab-close-inner">
-        <h2 class="ab-close-title" id="ab-close-title" data-reveal>Looking for a specific target? <span>Explore our portfolio in the Ingredient Finder</span></h2>
-        <a class="btn btn--solid ab-close-cta" href="ingredient-finder.html" data-reveal data-reveal-delay="0.1">Open Ingredient Finder <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="container">
+        <div class="cta-box theme-dark">
+          <div class="cta-box-bg" aria-hidden="true">
+            <img src="images/finder/texture-13.jpg" alt="" loading="lazy" decoding="async">
+          </div>
+          <div class="cta-box-glass glass" data-reveal>
+            <h2 class="cta-box-title" id="ab-close-title">Looking for a specific target? <span>Explore our portfolio in the Ingredient Finder</span></h2>
+            <div class="cta-box-actions"><a class="btn btn--solid" href="ingredient-finder.html">Open Ingredient Finder <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
