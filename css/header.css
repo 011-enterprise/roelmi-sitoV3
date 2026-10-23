@@ -16,9 +16,6 @@
   --glass-sheen: rgba(247, 243, 235, 0.06);
   --pill-fg: var(--ricepaper);
   --pill-focus: var(--ocean-on-dark);
-  --cta-bg: var(--ricepaper);
-  --cta-fg: var(--hard-grey);
-  --cta-hover: var(--ocean-on-dark);
 
   position: fixed;
   inset: 0 0 auto;
@@ -37,9 +34,6 @@
   --glass-sheen: rgba(255, 255, 255, 0.2);
   --pill-fg: var(--hard-grey);
   --pill-focus: var(--ocean);
-  --cta-bg: var(--hard-grey);
-  --cta-fg: var(--ricepaper);
-  --cta-hover: var(--ocean);
 }
 
 /* --------------------------------------------------------------------------
@@ -100,7 +94,7 @@
   z-index: 3;
 }
 
-/* Ordine a schermo: logo · (voci) · Contact · menu.
+/* Ordine a schermo: logo · (voci) · ricerca e account · menu.
    Nel codice l'hamburger viene subito dopo il logo, così con il Tab si
    raggiunge prima delle voci del pannello mobile. */
 .header-logo    { order: 0; }
@@ -169,6 +163,11 @@
 .logo-full .logo-svg,
 .logo-drop .logo-svg {
   max-width: none;
+  /* Logo monocromatico nella barra (richiesta del cliente, 23/10/2026):
+     anche goccia, HPC e iniziali prendono il colore del testo della barra —
+     bianco (Ricepaper) sul vetro scuro, Hard Grey sul vetro chiaro e a menu
+     aperto. Nel footer il logo resta a colori (#009CC4) */
+  --logo-accent: currentColor;
 }
 
 .logo-full .logo-svg {
@@ -180,7 +179,9 @@
 }
 
 /* --------------------------------------------------------------------------
-   Azioni: Contact (+ Menu quando serve)
+   Azioni: ricerca e account (come SITO 1, stile di adesso) + Menu quando serve.
+   Icone rotonde da 44px nel colore della barra (--pill-fg): Ricepaper sul
+   vetro scuro, Hard Grey sul vetro chiaro. Contact ora è una voce del menu.
    -------------------------------------------------------------------------- */
 
 .header-actions {
@@ -190,51 +191,94 @@
   margin-left: auto;
 }
 
-/* Contact: solo nella pillola larga (desktop in cima). Quando la pillola si
-   stringe esce allargandosi a zero; resta comunque nel menu. */
-.header-cta {
+.header-icon {
   flex: none;
-  max-width: 160px;
-  min-height: 44px;
-  overflow: hidden;
-  border-color: var(--cta-bg);
-  background-color: var(--cta-bg);
-  color: var(--cta-fg);
-  font-size: var(--fs-small);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--pill-fg);
   transition:
-    max-width 0.5s var(--ease-out),
-    padding 0.5s var(--ease-out),
-    border-width 0.5s var(--ease-out),
-    opacity 0.25s var(--ease-out),
-    visibility 0s linear 0s,
     background-color var(--dur-ui) var(--ease-out),
-    border-color var(--dur-ui) var(--ease-out),
     color var(--dur-ui) var(--ease-out);
 }
 
-.header-cta:hover {
-  border-color: var(--cta-hover);
-  background-color: var(--cta-hover);
-  color: var(--cta-fg);
+.header-icon:hover {
+  background-color: color-mix(in srgb, currentColor 14%, transparent);
 }
 
-.site-header .header-pill .header-cta:focus-visible {
-  outline-color: var(--pill-fg);
+.header-icon svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
 }
 
-.site-header.is-compact .header-cta,
-.site-header.is-panel-mode .header-cta {
-  max-width: 0;
-  padding-inline: 0;
-  border-width: 0;
+/* Ricerca: il campo si apre dentro la pillola, a sinistra della lente.
+   Chiuso è largo 0 e nascosto (fuori dal Tab e dallo screen reader) */
+.header-search {
+  display: flex;
+  align-items: center;
+}
+
+.header-search-field {
+  width: 0;
+  min-height: 40px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--pill-fg);
+  font: inherit;
+  font-size: var(--fs-small);
   opacity: 0;
   visibility: hidden;
   transition:
-    max-width 0.5s var(--ease-out),
-    padding 0.5s var(--ease-out),
-    border-width 0.5s var(--ease-out),
-    opacity 0.2s var(--ease-out),
-    visibility 0s linear 0.5s;
+    width 0.4s var(--ease-out),
+    opacity 0.3s var(--ease-out),
+    margin 0.4s var(--ease-out),
+    visibility 0s linear 0.4s;
+}
+
+.header-search-field::placeholder {
+  color: var(--pill-fg);
+  opacity: 0.75;
+}
+
+/* Niente "x" del browser: si chiude con la lente o con Esc */
+.header-search-field::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.header-search.is-open .header-search-field {
+  width: clamp(140px, 16vw, 220px);
+  margin-right: 0.35rem;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    width 0.4s var(--ease-out),
+    opacity 0.3s var(--ease-out) 0.1s,
+    margin 0.4s var(--ease-out),
+    visibility 0s;
+}
+
+.header-search-field:focus-visible {
+  outline: none;
+  border-bottom-width: 2px;
+}
+
+/* Telefono: il campo aperto è più corto, per stare nella pillola */
+@media (max-width: 599.98px) {
+  .header-search.is-open .header-search-field {
+    width: 128px;
+  }
+}
+
+.motion-paused .header-search-field {
+  transition: none;
 }
 
 /* Hamburger a tre linee, come Until.
@@ -377,10 +421,30 @@
     visibility 0s linear 0.2s;
 }
 
+/* Larghezza del contenuto, non metà pillola: con left: 50% il browser lascia
+   al menu solo metà larghezza e le voci lunghe ("Our Divisions",
+   "Ingredient Finder") andavano a capo */
+.site-header:not(.is-panel-mode) .main-nav {
+  width: max-content;
+}
+
 .site-header:not(.is-panel-mode) .nav-list {
   display: flex;
   align-items: center;
   gap: clamp(1.25rem, 2.2vw, 2.5rem);
+}
+
+.site-header:not(.is-panel-mode) .nav-link {
+  white-space: nowrap;
+}
+
+/* Ricerca aperta: le voci sfumano, così il campo non le copre */
+.site-header.is-searching:not(.is-panel-mode) .main-nav {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.25s var(--ease-out),
+    visibility 0s linear 0.25s;
 }
 
 .site-header:not(.is-panel-mode) .nav-item {

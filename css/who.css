@@ -6,9 +6,10 @@
    ========================================================================== */
 
 .who {
-  /* Grigio delle parole "spente": 3.2:1 su Ricepaper, valido solo per testo
-     grande (il paragrafo è sempre ≥ 24px) */
-  --who-dim: #8A8780;
+  /* Grigio delle parole "spente": il grigio della palette (--muted), 6.2:1
+     su Ricepaper, valido anche come testo normale. Prima era #8A8780 (3.2:1,
+     solo per testo grande e fuori palette) */
+  --who-dim: var(--muted);
 }
 
 .who-inner {
@@ -131,5 +132,27 @@
 
   .who-figure {
     aspect-ratio: 4 / 3;
+  }
+}
+
+/* Telefono (23/10/2026): niente pillola di vetro dietro i bottoni. Sul fondo
+   Ricepaper i bottoni tornano nei colori del tema chiaro: piena Ocean con
+   testo Ricepaper (4.69:1), contorno Hard Grey; focus Ocean */
+@media (max-width: 599.98px) {
+  .who-actions {
+    --fg: var(--hard-grey);
+    --bg: var(--ricepaper);
+    --accent: var(--ocean);
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    color: var(--hard-grey);
+  }
+
+  .who-actions :focus-visible {
+    outline-color: var(--ocean);
   }
 }

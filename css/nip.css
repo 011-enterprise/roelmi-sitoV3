@@ -302,3 +302,92 @@
 .nip-stage--light :focus-visible {
   outline-color: var(--hard-grey);
 }
+
+/* ==========================================================================
+   Telefono (23/10/2026): composizione più ordinata.
+   Pannello con titolo e testo (subito in alto, niente fascia vuota) · i tre
+   numeri in un'unica striscia di vetro con divisori · bottoni.
+   (Prima: tre riquadri stretti in alto, un vuoto, un pannello lungo.)
+   Ordine di lettura invariato nel codice: testo, bottoni, numeri.
+   ========================================================================== */
+
+@media (max-width: 599.98px) {
+  .nip-stage {
+    grid-template-rows: auto auto auto;
+    padding-top: var(--nip-space);   /* niente fascia vuota in alto: stesso margine dei lati */
+  }
+
+  .nip-copy {
+    grid-row: 1;
+    margin-top: 0;
+  }
+
+  /* Una sola striscia di vetro per i tre numeri */
+  .nip-stats {
+    grid-row: 2;
+    gap: 0;
+    padding: 0.9rem 0.25rem;
+    border-radius: var(--r-inner);
+    background-color: var(--glass-dark-bg);
+    background-image: var(--glass-dark-sheen);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-dark-line);
+  }
+
+  .nip-stage--light .nip-stats {
+    background-color: var(--glass-light-bg);
+    background-image: var(--glass-light-sheen);
+    box-shadow: var(--glass-light-line);
+  }
+
+  /* I tre numeri dentro la striscia: niente vetro proprio, divisori sottili */
+  .nip-stat.glass {
+    padding: 0.1rem 0.75rem;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .nip-stat + .nip-stat {
+    border-left: 1px solid currentColor;
+    border-left-color: color-mix(in srgb, currentColor 30%, transparent);
+  }
+
+  .nip-stat .stat-num {
+    font-size: 1.6rem;
+  }
+
+  .nip-stat .stat-label {
+    font-size: 0.8125rem;
+  }
+
+  .nip-actions {
+    grid-row: 3;
+  }
+}
+
+/* Telefono: niente vetro dietro i bottoni. Il bottone a contorno prende un
+   fondo pieno (il --bg del pannello: Ricepaper sul vetro chiaro, Hard Grey
+   sul vetro scuro), così il testo non sta mai direttamente sulla texture */
+@media (max-width: 599.98px) {
+  /* Selettore forte: deve battere .nip-stage--light .glass (vetro chiaro) */
+  .nip-stage .nip-actions.glass {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+
+  .nip-actions .btn--outline {
+    background-color: var(--bg);
+  }
+
+  .nip-actions .btn--outline:hover {
+    background-color: var(--fg);
+  }
+}

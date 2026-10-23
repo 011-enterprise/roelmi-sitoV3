@@ -1,14 +1,13 @@
 /* ==========================================================================
-   4 · Our Portfolio (scuro) — via di mezzo tra SITO 1 e SITO 2
-   Carosello con un prodotto alla volta (da SITO 1): nomi dei prodotti in
-   alto come schede, testo a sinistra, foto scontornata a destra su un alone
-   Cerulean. Solo manuale: nomi, frecce, tastiera, swipe.
-   Sotto: frase grande + ricerca nell'Ingredient Finder.
+   4 · Our Portfolio (scuro) — struttura di SITO 1, stile di SITO 3
+   Carosello: contatore 01 / 03, etichette (mercato + categoria), nome,
+   descrizione, tag, "Discover …" → a sinistra; foto del prodotto a destra su
+   alone Cerulean, che fluttua; frecce in fondo. Solo manuale: frecce, swipe.
+   Sotto: barra Ingredient Finder (tutta la barra è il link), come SITO 1.
    Senza JS i prodotti sono uno sotto l'altro.
    ========================================================================== */
 
 .portfolio-title {
-  margin-top: 1.25rem;
   font-family: var(--font-display);
   font-size: var(--fs-section);
   font-weight: 500;
@@ -34,72 +33,22 @@
   margin-top: var(--title-gap);
 }
 
-/* Nomi dei prodotti: quello attivo è sottolineato in Cerulean */
-.pf-tabs {
-  display: flex;
-  gap: clamp(1.25rem, 0.5rem + 2.5vw, 3rem);
-  border-bottom: 1px solid rgba(247, 243, 235, 0.16);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.pf-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.pf-tab {
-  position: relative;
-  flex: none;
-  min-height: 44px;
-  padding: 0.75rem 0 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(1rem, 0.85rem + 0.45vw, 1.375rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: var(--muted-on-dark);
-  white-space: nowrap;
-  transition: color var(--dur-ui) var(--ease-out);
-}
-
-.pf-tab::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -1px;
-  height: 2px;
-  background-color: var(--ocean-on-dark);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.6s var(--ease-out);
-}
-
-.pf-tab:hover,
-.pf-tab[aria-selected="true"] {
-  color: var(--ricepaper);
-}
-
-.pf-tab[aria-selected="true"]::after {
-  transform: scaleX(1);
-}
-
-.pf-tab:focus-visible {
-  outline-offset: -2px;
-}
-
-/* Scena: con JS i prodotti stanno uno sopra l'altro, alta quanto il più alto */
-.pf-stage {
-  margin-top: clamp(1.25rem, 0.8rem + 1.2vw, 2rem);
-}
-
 .js .pf-stage {
   display: grid;
   touch-action: pan-y;
 }
 
+/* Testo in alto (non centrato sulla foto, che è più alta): il contatore
+   parte subito sotto il titolo; la foto resta centrata nella sua colonna */
 .pf-slide {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(2rem, 1rem + 4vw, 5rem);
-  align-items: center;
+  align-items: start;
+}
+
+.pf-figure {
+  align-self: center;
 }
 
 .pf-slide + .pf-slide {
@@ -124,7 +73,42 @@
     visibility 0s linear 0s;
 }
 
-/* Testo */
+/* Contatore 01 / 03 (come SITO 1): numero corrente in Ricepaper */
+.pf-counter {
+  font-family: var(--font-display);
+  font-size: var(--fs-body);   /* 16px: il grigio su nero si legge meglio */
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted-on-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+.pf-counter b {
+  font-weight: 500;
+  color: var(--ricepaper);
+}
+
+/* Etichette: mercato (Antique / Olive) + categoria a contorno */
+.pf-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+}
+
+.pf-function {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 0.7rem;
+  border: 1px solid var(--muted-on-dark);
+  border-radius: 999px;
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ricepaper);
+}
+
 .pf-name {
   margin-top: 1rem;
   font-family: var(--font-display);
@@ -135,9 +119,18 @@
   color: var(--ricepaper);
 }
 
-.pf-function {
-  margin-top: 0.6rem;
-  color: var(--muted-on-dark);
+/* Il nome è un link (come SITO 1): sottolineatura in hover */
+.pf-name a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color var(--dur-ui) var(--ease-out);
+}
+
+.pf-name a:hover {
+  text-decoration-color: currentColor;
 }
 
 .pf-desc {
@@ -163,12 +156,24 @@
   color: var(--ricepaper);
 }
 
+/* "Discover …" →: link di testo con la freccia di SITO 1 (.arrow-link) */
 .pf-more {
-  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 44px;
+  margin-top: 1.25rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ricepaper);
+  transition: color var(--dur-ui) var(--ease-out);
 }
 
-/* Foto: scontornata, su un alone Cerulean, fluttua piano.
-   Larghezza limitata: così non è più alta del testo e non apre vuoti */
+.pf-more:hover {
+  color: var(--ocean-on-dark);
+}
+
+/* Foto: scontornata, su un alone Cerulean, fluttua piano */
 .pf-figure {
   position: relative;
   display: grid;
@@ -221,21 +226,22 @@
 }
 
 .motion-paused .pf-text,
-.motion-paused .pf-figure,
-.motion-paused .pf-tab::after {
+.motion-paused .pf-figure {
   transform: none;
   transition: none;
 }
 
-.motion-paused .pf-tab:not([aria-selected="true"])::after {
-  transform: scaleX(0);
-}
-
-/* Frecce */
+/* Frecce subito sotto "Discover …", nella colonna del testo (come SITO 1),
+   44px come il Blog. Il contatore tra le frecce serve solo sul telefono */
 .pf-nav {
   display: flex;
+  align-items: center;
   gap: 0.75rem;
   margin-top: 1.5rem;
+}
+
+.pf-counter--nav {
+  display: none;
 }
 
 .pf-arrow {
@@ -243,18 +249,16 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--ricepaper);   /* come i cerchi del Blog */
+  border: 1px solid var(--ricepaper);
   border-radius: 50%;
   color: var(--ricepaper);
   transition:
     background-color var(--dur-ui) var(--ease-out),
-    border-color var(--dur-ui) var(--ease-out),
     color var(--dur-ui) var(--ease-out);
 }
 
 .pf-arrow:hover {
   background-color: var(--ricepaper);
-  border-color: var(--ricepaper);
   color: var(--hard-grey);
 }
 
@@ -266,65 +270,118 @@
   stroke-width: 1.75;
 }
 
-/* Senza JS: niente schede né frecce, i prodotti sono in colonna */
-html:not(.js) .pf-tabs,
+/* Senza JS: niente frecce, i prodotti sono in colonna con il loro contatore */
 html:not(.js) .pf-nav {
   display: none;
 }
 
 /* --------------------------------------------------------------------------
-   Ingredient Finder: frase grande + ricerca
+   Barra Ingredient Finder (come SITO 1): cerchio con la lente, due righe di
+   testo, bottone. Tutta la barra è il link
    -------------------------------------------------------------------------- */
 
-.finder {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
-  align-items: end;
-  gap: clamp(2rem, 1rem + 4vw, 6rem);
+.pf-finder {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
   margin-top: var(--section-y);
-}
-
-/* Stessa misura del paragrafo di Who We Are; su due righe (domanda · invito).
-   Il carattere si riduce con la colonna (cqi) perché la seconda riga, la più
-   lunga, non vada mai a capo. Solo su telefono può andare su più righe. */
-.finder-head {
-  container-type: inline-size;
-}
-
-.finder-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, min(1.15rem + 0.9vw, 3.9cqi), 2.125rem);   /* = --fs-large, ridotto se la colonna è stretta */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+  padding: clamp(1.1rem, 1rem + 0.6vw, 1.5rem) clamp(1.25rem, 1rem + 1vw, 1.9rem);
+  border: 1px solid var(--line-on-dark);
+  border-radius: var(--r-card);
   color: var(--ricepaper);
+  transition: border-color var(--dur-ui) var(--ease-out);
 }
 
-.finder-title span {
-  display: block;
+.pf-finder:hover {
+  border-color: var(--ricepaper);
+}
+
+.pf-finder-ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--cerulean);
+  color: var(--hard-grey);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
+}
+
+.pf-finder-ic svg {
+  width: 21px;
+  height: 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.pf-finder:hover .pf-finder-ic {
+  background-color: var(--ricepaper);
+}
+
+.pf-finder-txt {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  line-height: 1.35;
+}
+
+.pf-finder-txt b {
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.pf-finder-txt small {
+  font-size: var(--fs-body);   /* 16px, come la riga sopra */
   color: var(--muted-on-dark);
 }
 
-/* Etichetta del campo (il campo è .pill-field, in base.css) */
-.finder-label {
-  display: block;
-  margin-bottom: 0.75rem;
+/* Bottone: CTA piena Cerulean (testo Hard Grey 8.9:1), freccia che scorre */
+.pf-finder-cta {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 44px;
+  padding: 0 1.4rem;
+  border-radius: 999px;
+  background-color: var(--cerulean);
+  color: var(--hard-grey);
   font-size: var(--fs-small);
   font-weight: 600;
-  color: var(--ricepaper);
+  white-space: nowrap;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+
+.pf-finder-cta svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform var(--dur-ui) var(--ease-out);
+}
+
+.pf-finder:hover .pf-finder-cta {
+  background-color: var(--ricepaper);
+}
+
+.pf-finder:hover .pf-finder-cta svg {
+  transform: translateX(3px);
+}
+
+.motion-paused .pf-finder-cta svg {
+  transform: none !important;
 }
 
 /* --------------------------------------------------------------------------
-   Responsive
+   Tablet e telefono: foto sopra, contatore tra le frecce (come SITO 1)
    -------------------------------------------------------------------------- */
 
-@media (max-width: 1023.98px) {
-  .finder {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Tablet e telefono: una colonna, foto sopra il testo */
 @media (max-width: 767.98px) {
   .pf-slide {
     grid-template-columns: minmax(0, 1fr);
@@ -334,5 +391,33 @@ html:not(.js) .pf-nav {
   .pf-figure {
     order: -1;
     width: min(100%, 320px);
+  }
+
+  .js .pf-slide .pf-counter:not(.pf-counter--nav) {
+    display: none;
+  }
+
+  .pf-nav {
+    justify-content: center;
+  }
+
+  .pf-counter--nav {
+    display: block;
+    min-width: 4.5em;
+    text-align: center;
+  }
+
+  .pf-finder {
+    flex-wrap: wrap;
+    gap: 0.9rem 1rem;
+  }
+
+  .pf-finder-txt {
+    flex-basis: calc(100% - 50px - 1rem);
+  }
+
+  .pf-finder-cta {
+    flex: 1 1 100%;
+    justify-content: center;
   }
 }

@@ -1,10 +1,12 @@
 /* ==========================================================================
-   Portfolio — carosello con un prodotto alla volta
-   - I nomi in alto sono schede (tablist): clic, frecce ← →, Home, Fine
-   - Frecce sotto il testo: prodotto precedente / successivo (in giro)
+   Portfolio — carosello con un prodotto alla volta (struttura di SITO 1)
+   - Frecce: prodotto precedente / successivo (in giro)
    - Su touch: swipe orizzontale
+   - Ogni prodotto ha le sue frecce sotto "Discover …" (attive solo quelle del
+     prodotto visibile) e il suo contatore 01 / 03
+   - A ogni cambio una riga di stato dice "Product 2 of 3: ColorGLAM®"
    - Niente scorrimento automatico
-   I prodotti nascosti sono visibility: hidden (fuori da Tab e screen reader).
+   I prodotti nascosti sono fuori dal Tab e dagli screen reader (inert).
    ========================================================================== */
 
 (function () {
@@ -13,60 +15,39 @@
   var carousel = document.querySelector('[data-carousel]');
   if (!carousel) return;
 
-  var tablist = carousel.querySelector('.pf-tabs');
-  var tabs = Array.prototype.slice.call(carousel.querySelectorAll('.pf-tab'));
   var slides = Array.prototype.slice.call(carousel.querySelectorAll('.pf-slide'));
   var stage = carousel.querySelector('.pf-stage');
-  var N = Math.min(tabs.length, slides.length);
+  var status = carousel.querySelector('[data-pf-status]');
+  var N = slides.length;
   if (!N) return;
 
   var current = 0;
 
-  // Ruoli ARIA: solo con JS (senza JS i prodotti sono semplici articoli)
-  tablist.setAttribute('role', 'tablist');
-  tabs.forEach(function (tab, i) {
-    tab.setAttribute('role', 'tab');
-    slides[i].setAttribute('role', 'tabpanel');
-    slides[i].setAttribute('aria-labelledby', tab.id);
-  });
-
-  function go(i, focusTab) {
+  function go(i, announce) {
     current = (i + N) % N;
-    for (var k = 0; k < N; k++) {
+    slides.forEach(function (s, k) {
       var on = k === current;
-      tabs[k].setAttribute('aria-selected', on ? 'true' : 'false');
-      tabs[k].tabIndex = on ? 0 : -1;
-      slides[k].classList.toggle('is-active', on);
-      if (on) slides[k].removeAttribute('inert');
-      else slides[k].setAttribute('inert', '');
+      s.classList.toggle('is-active', on);
+      if (on) s.removeAttribute('inert');
+      else s.setAttribute('inert', '');
+    });
+    if (announce && status) {
+      var name = slides[current].querySelector('.pf-name');
+      status.textContent = 'Product ' + (current + 1) + ' of ' + N + (name ? ': ' + name.textContent.trim() : '');
     }
-    // La scheda attiva resta visibile se i nomi scorrono (telefono)
-    var t = tabs[current];
-    var l = t.offsetLeft - tablist.offsetLeft;
-    if (l < tablist.scrollLeft || l + t.offsetWidth > tablist.scrollLeft + tablist.clientWidth) {
-      tablist.scrollLeft = l;
-    }
-    if (focusTab) t.focus();
   }
 
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { go(i); });
-  });
-
-  tablist.addEventListener('keydown', function (e) {
-    var next = null;
-    if (e.key === 'ArrowRight') next = current + 1;
-    else if (e.key === 'ArrowLeft') next = current - 1;
-    else if (e.key === 'Home') next = 0;
-    else if (e.key === 'End') next = N - 1;
-    if (next === null) return;
-    e.preventDefault();
-    go(next, true);
-  });
-
+  // Frecce: il focus passa alla stessa freccia del nuovo prodotto (quella
+  // cliccata diventa inert insieme al suo prodotto)
   Array.prototype.forEach.call(carousel.querySelectorAll('.pf-arrow'), function (btn) {
     btn.addEventListener('click', function () {
-      go(current + (parseInt(btn.getAttribute('data-dir'), 10) || 1));
+      var dir = btn.getAttribute('data-dir');
+      var hadFocus = document.activeElement === btn;
+      go(current + (parseInt(dir, 10) || 1), true);
+      if (hadFocus) {
+        var twin = slides[current].querySelector('.pf-arrow[data-dir="' + dir + '"]');
+        if (twin) twin.focus({ preventScroll: true });
+      }
     });
   });
 
@@ -82,9 +63,9 @@
     var dx = e.clientX - startX;
     var dy = e.clientY - startY;
     startX = null;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(current + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) go(current + (dx < 0 ? 1 : -1), true);
   });
   stage.addEventListener('pointercancel', function () { startX = null; });
 
-  go(0);
+  go(0, false);
 })();

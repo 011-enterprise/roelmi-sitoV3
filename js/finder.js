@@ -129,7 +129,7 @@
     art.appendChild(el('p', 'fx-card-function', item.function));
     art.appendChild(el('p', 'fx-card-desc', item.description));
 
-    var more = el('span', 'fx-card-more', 'Learn more');
+    var more = el('span', 'fx-card-more arrow-link', 'Learn more');
     more.setAttribute('aria-hidden', 'true');   // il link è già il nome
     art.appendChild(more);
 

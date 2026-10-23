@@ -488,6 +488,9 @@
 }
 
 .fx-card-more {
+  display: inline-flex;   /* con la freccia di SITO 1 (.arrow-link, base.css) */
+  align-items: center;
+  gap: 0.6em;
   align-self: start;
   margin-top: auto;
   padding: 1rem 0.25rem 0;
@@ -864,4 +867,10 @@
   .fx-help .btn {
     width: 100%;
   }
+}
+
+/* "Learn more": al passaggio sulla scheda la freccia scorre appena */
+.fx-card:hover .arrow-link::after,
+.fx-card:focus-within .arrow-link::after {
+  transform: translateX(3px);
 }

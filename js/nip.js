@@ -26,6 +26,9 @@
     { el: stage.querySelector('.nip-stats'), depth: 20 }
   ].filter(function (l) { return l.el; });
 
+  // Telefono: i pannelli sono uno sopra l'altro e vicini, niente spostamenti
+  var phoneMq = window.matchMedia('(max-width: 599.98px)');
+
   function render() {
     if (!motionOn()) {
       if (img) img.style.transform = '';
@@ -37,7 +40,7 @@
     var p = Math.max(0, Math.min(1, (vh - r.top) / (vh + r.height)));
     if (img) img.style.transform = 'scale(' + (1 + p * 0.12).toFixed(4) + ')';
     layers.forEach(function (l) {
-      l.el.style.translate = '0 ' + ((p - 0.5) * l.depth).toFixed(1) + 'px';
+      l.el.style.translate = phoneMq.matches ? '' : '0 ' + ((p - 0.5) * l.depth).toFixed(1) + 'px';
     });
   }
 

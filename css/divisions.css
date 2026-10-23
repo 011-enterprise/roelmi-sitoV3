@@ -268,3 +268,17 @@
     line-height: 1.4;
   }
 }
+
+/* "Discover more" con la freccia di SITO 1 (base.css, .arrow-link): sulla
+   foto e nel pannello; al passaggio sul riquadro la freccia scorre appena */
+.division-rest-more,
+.division-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.division-card:hover .arrow-link::after,
+.division-card:focus-within .arrow-link::after {
+  transform: translateX(3px);
+}
