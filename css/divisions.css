@@ -1,9 +1,7 @@
 /* ==========================================================================
-   3 · Our Divisions (chiaro) — due riquadri affiancati, come il Portfolio
-   Nome sopra; immagine sotto. Hover / focus: cambio di
-   immagine (versione HOVER) + zoom lento +
-   scheda di vetro chiaro con frase e "Discover more".
-   Su touch la scheda è sempre visibile, sotto l'immagine.
+   3 · Our Divisions (chiaro) — due riquadri affiancati.
+   Come SITO 1: nome e "Discover more" sulla foto. Hover / focus: cambio di
+   foto + zoom lento + pannello pieno Antique / Olive con la frase.
    ========================================================================== */
 
 .divisions-title {
@@ -21,7 +19,11 @@
 }
 
 /* --------------------------------------------------------------------------
-   Riquadri
+   Riquadri — come SITO 1: nome e "Discover more" sulla foto, sopra un velo
+   scuro che sale dal basso. Hover / focus (invariato rispetto a prima):
+   cambio di foto, zoom lento e pannello pieno Antique / Olive con la frase e
+   "Discover more"; intanto nome e velo a riposo spariscono.
+   Su touch: nome e "Discover more" sulla foto, la frase sotto.
    -------------------------------------------------------------------------- */
 
 .division-grid {
@@ -35,10 +37,48 @@
   position: relative;
 }
 
+.division-media {
+  position: relative;
+}
+
+.division-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--r-card);
+  background-color: var(--line);
+}
+
+.division-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease-out);
+}
+
+/* Velo Hard Grey dal basso, calibrato sul caso peggiore (foto bianca):
+   dove sta il testo l'opacità è ≥ 0.72 → fondo ≈ #595959 → Ricepaper ≥ 6:1.
+   Così le foto restano libere da cambiare */
+.division-veil {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    0deg,
+    rgba(25, 25, 25, 0.82) 0%,
+    rgba(25, 25, 25, 0.72) 32%,
+    rgba(25, 25, 25, 0) 70%
+  );
+  transition: opacity 0.45s var(--ease-out);
+}
+
 .division-caption {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
+  position: absolute;
+  inset: auto 0 0;
+  padding: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  color: var(--ricepaper);
+  transition: opacity 0.45s var(--ease-out);
 }
 
 .division-name {
@@ -47,8 +87,15 @@
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.035em;
-  color: var(--hard-grey);
-  transition: color var(--dur-ui) var(--ease-out);
+  color: var(--ricepaper);
+}
+
+.division-rest-more {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ricepaper);
 }
 
 /* Il link è il nome; la sua area cliccabile copre tutto il riquadro */
@@ -64,43 +111,24 @@
   border-radius: var(--r-card);
 }
 
-.division-media {
-  position: relative;
-  margin-top: 1rem;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: var(--r-card);
-  background-color: var(--line);
-}
-
-.division-media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 1.4s var(--ease-out);
-}
-
-/* Scheda di vetro chiaro (come le schede prodotto).
-   Tinta 0.50: anche sopra il nero il fondo resta ≈ #8E8C88
-   → testo Hard Grey 5.4:1 */
+/* Pannello della frase: in hover pieno Antique (Personal Care) o Olive
+   (Nutraceutical), testo Hard Grey (10.4 e 9.2:1) */
 .division-glass {
   position: absolute;
   inset: auto 1rem 1rem;
   padding: 1.1rem 1.35rem;
   border-radius: var(--r-inner);
-  background-color: var(--glass-light-bg);
-  background-image: var(--glass-light-sheen);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  box-shadow: var(--glass-light-line);
+  background-color: var(--antique);
   color: var(--hard-grey);
   opacity: 0;
   transform: translate3d(0, 16px, 0);
   transition:
     opacity 0.45s var(--ease-out),
     transform 0.6s var(--ease-out);
+}
+
+.division-card + .division-card .division-glass {
+  background-color: var(--olive);
 }
 
 .division-glass p {
@@ -115,22 +143,22 @@
   font-weight: 600;
 }
 
-/* Seconda immagine: compare al passaggio del mouse (cambio immagine) */
-.division-media .division-hover {
+/* Seconda foto: compare al passaggio del mouse (cambio foto) */
+.division-photo .division-hover {
   opacity: 0;
   transition:
     opacity 0.8s var(--ease-out),
     transform 1.4s var(--ease-out);
 }
 
+/* Hover / focus */
 .division-card:hover .division-hover,
 .division-card:focus-within .division-hover {
   opacity: 1;
 }
 
-/* Hover / focus */
-.division-card:hover .division-media img,
-.division-card:focus-within .division-media img {
+.division-card:hover .division-photo img,
+.division-card:focus-within .division-photo img {
   transform: scale(1.06);
 }
 
@@ -140,9 +168,11 @@
   transform: none;
 }
 
-.division-card:hover .division-name,
-.division-card:focus-within .division-name {
-  color: var(--ocean);
+.division-card:hover .division-caption,
+.division-card:focus-within .division-caption,
+.division-card:hover .division-veil,
+.division-card:focus-within .division-veil {
+  opacity: 0;
 }
 
 /* Focus da tastiera: contorno attorno a tutto il riquadro */
@@ -156,63 +186,67 @@
 }
 
 /* Con Stop animation: niente zoom */
-.motion-paused .division-card .division-media img {
+.motion-paused .division-card .division-photo img {
   transform: none;
 }
 
-/* Touch (niente hover): scheda sempre visibile, sotto l'immagine */
+/* Touch (niente hover): nome e "Discover more" restano sulla foto, la frase
+   sta sotto, senza pannello; niente seconda foto */
 @media (hover: none) {
   .division-glass {
     position: static;
     margin-top: 0.75rem;
     padding: 0;
-    border: 0;
     border-radius: 0;
     background: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
     opacity: 1;
     transform: none;
   }
 
-  .division-media {
-    overflow: visible;
-    aspect-ratio: auto;
+  .division-card + .division-card .division-glass {
     background: none;
   }
 
-  .division-media img {
-    position: static;
-    aspect-ratio: 4 / 3;
-    border-radius: var(--r-card);
+  .division-glass .division-more {
+    display: none;
   }
 
-  .division-media .division-hover {
+  .division-card:focus-within .division-caption,
+  .division-card:focus-within .division-veil {
+    opacity: 1;
+  }
+
+  .division-photo .division-hover {
     display: none;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Mobile: uno sotto l'altro
+   Telefono: due riquadri affiancati, più piccoli
    -------------------------------------------------------------------------- */
 
 @media (max-width: 699.98px) {
   .division-grid {
-    grid-template-columns: 1fr;
-    row-gap: 2rem;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Mobile: due riquadri affiancati, più piccoli
-   -------------------------------------------------------------------------- */
-
-@media (max-width: 699.98px) {
-  .division-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
-    row-gap: 0;
+  }
+
+  .division-photo {
+    border-radius: var(--r-inner);
+  }
+
+  .division-caption {
+    padding: 0.75rem;
+  }
+
+  /* Riquadri bassi e nome su due righe: il velo scuro sale di più, così
+     tutto il testo resta dove l'opacità è ≥ 0.75 */
+  .division-veil {
+    background-image: linear-gradient(
+      0deg,
+      rgba(25, 25, 25, 0.85) 0%,
+      rgba(25, 25, 25, 0.75) 60%,
+      rgba(25, 25, 25, 0) 100%
+    );
   }
 
   .division-name {
@@ -220,14 +254,9 @@
     letter-spacing: -0.02em;
   }
 
-  .division-media,
-  .division-media img {
-    margin-top: 0.6rem;
-    border-radius: var(--r-inner);
-  }
-
-  .division-media img {
-    margin-top: 0;
+  .division-rest-more {
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
   }
 
   .division-glass {
@@ -237,45 +266,5 @@
   .division-glass p {
     font-size: 0.8125rem;
     line-height: 1.4;
-  }
-
-  .division-more {
-    margin-top: 0.35rem;
-    font-size: 0.8125rem;
-  }
-}
-
-/* Mobile: spazio fisso di due righe per il nome, così le immagini partono
-   alla stessa altezza anche se un nome va a capo ("Nutraceutical market").
-   Immagini sempre 4:3, mai allungate. */
-@media (max-width: 699.98px) {
-  .division-caption {
-    align-items: flex-start;
-    min-height: 2.45rem;
-  }
-
-  .division-media img {
-    height: auto;
-    aspect-ratio: 4 / 3;
-  }
-}
-
-/* --------------------------------------------------------------------------
-   Colore del mercato (palette): in hover la scheda diventa Antique pieno per
-   Personal Care e Olive pieno per Nutraceutical, testo Hard Grey (10.4 e
-   9.2:1). Su touch la scheda resta testo semplice sotto l'immagine.
-   -------------------------------------------------------------------------- */
-
-@media (hover: hover) {
-  .division-card .division-glass {
-    background-color: var(--antique);
-    background-image: none;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: none;
-  }
-
-  .division-card + .division-card .division-glass {
-    background-color: var(--olive);
   }
 }
