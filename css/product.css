@@ -290,7 +290,12 @@
 .pd-placeholder {
   font-size: var(--fs-small);
   font-style: italic;
-  color: var(--muted);
+  color: var(--fg-muted);   /* grigio giusto per il fondo: chiaro o scuro */
+}
+
+/* Titoli ancora da definire: in corsivo, ben riconoscibili */
+.pd-todo {
+  font-style: italic;
 }
 
 /* Specifications: tabella a tutta larghezza, su due colonne */
@@ -392,20 +397,12 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Link all'Ingredient Finder: bottone sotto le tre schede (prima era un
+   riquadro tratteggiato al posto di una scheda, sembrava un box vuoto) */
 .pd-related-more {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 2rem;
-  border: 1px dashed var(--hard-grey);
-  border-radius: var(--r-card);
-  text-align: center;
-}
-
-.pd-related-more .btn {
-  white-space: normal;
-  line-height: 1.3;
-  padding-block: 0.6rem;
+  margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
 }
 
 /* --------------------------------------------------------------------------
@@ -421,9 +418,7 @@
     grid-template-columns: 1fr;
   }
 
-  .pd-related-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  /* Related: restano tre in riga (con due colonne il terzo restava solo) */
 }
 
 @media (max-width: 699.98px) {
@@ -720,3 +715,266 @@
 .pd-tech.theme-light + .pd-related.theme-light {
   padding-top: 0;
 }
+
+/* ==========================================================================
+   4 · Technical data (come SITO 1): carosello, testo a sinistra e grafico
+   (immagine) a destra. Frecce rotonde 44px come Portfolio e Blog.
+   Senza JS i grafici sono in colonna e le frecce non ci sono.
+   ========================================================================== */
+
+.pd-charts-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+}
+
+.pd-charts-nav {
+  display: flex;
+  gap: 0.75rem;
+}
+
+html:not(.js) .pd-charts-nav {
+  display: none;
+}
+
+.pd-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--fg);
+  border-radius: 50%;
+  color: var(--fg);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
+}
+
+.pd-arrow:hover {
+  background-color: var(--fg);
+  color: var(--bg);
+}
+
+.pd-arrow svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+}
+
+.pd-charts-track {
+  margin-top: var(--title-gap);
+}
+
+.js .pd-charts-track {
+  display: grid;
+  touch-action: pan-y;
+}
+
+/* Due metà; il grafico ha una larghezza massima, così la sezione resta bassa */
+.pd-chart {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(1.5rem, 1rem + 2.5vw, 3.5rem);
+}
+
+.pd-chart-fig {
+  width: min(100%, 520px);
+  justify-self: end;
+}
+
+.pd-chart + .pd-chart {
+  margin-top: var(--section-y);
+}
+
+.js .pd-chart {
+  grid-area: 1 / 1;
+  margin-top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.45s var(--ease-out),
+    visibility 0s linear 0.45s;
+}
+
+.js .pd-chart.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.6s var(--ease-out) 0.05s,
+    visibility 0s linear 0s;
+}
+
+.pd-chart-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--fg);
+}
+
+.pd-chart-text p {
+  max-width: 52ch;
+  margin-top: 1rem;
+}
+
+.pd-chart-fig img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+}
+
+/* Segnaposto del grafico: riquadro tratteggiato, velo Cerulean tenue */
+.pd-chart-ph {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  border: 1px dashed var(--hard-grey);
+  border-radius: var(--r-card);
+  background-color: rgba(161, 187, 216, 0.18);
+}
+
+.pd-chart-ph span {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--hard-grey);
+}
+
+.pd-chart-fig figcaption {
+  margin-top: 0.75rem;
+  font-size: var(--fs-small);
+  color: var(--fg-muted);
+}
+
+.pd-chart-fig figcaption b {
+  margin-right: 0.35rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* ==========================================================================
+   5 · Video (come SITO 1): anteprima a sinistra, testo a destra.
+   Il clic apre YouTube in una nuova scheda (lo dice anche allo screen reader)
+   ========================================================================== */
+
+.pd-video-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(1.5rem, 1rem + 3vw, 4.5rem);
+}
+
+.pd-video-link {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r-card);
+  background-color: rgba(247, 243, 235, 0.06);
+  box-shadow: inset 0 0 0 1px var(--line-on-dark);
+  color: var(--ricepaper);
+}
+
+.pd-video-link img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.pd-video-ph {
+  position: absolute;
+  inset: auto 0 1.25rem;
+  font-size: var(--fs-small);
+  font-style: italic;
+  text-align: center;
+  color: var(--muted-on-dark);
+}
+
+/* Bottone play: cerchio Cerulean con il triangolo Hard Grey (8.9:1) */
+.pd-video-play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(64px, 3rem + 2vw, 88px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: var(--hard-grey);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    transform var(--dur-ui) var(--ease-out);
+}
+
+.pd-video-play svg {
+  width: 34%;
+  height: 34%;
+  margin-left: 6%;
+  fill: currentColor;
+}
+
+.pd-video-link:hover .pd-video-play,
+.pd-video-link:focus-visible .pd-video-play {
+  background-color: var(--ricepaper);
+  transform: scale(1.06);
+}
+
+.pd-video-link:hover img {
+  transform: scale(1.04);
+}
+
+.pd-video-link:focus-visible {
+  outline-offset: 4px;
+}
+
+.motion-paused .pd-video-play,
+.motion-paused .pd-video-link img {
+  transform: none !important;
+}
+
+.pd-video-desc {
+  max-width: 46ch;
+  margin-top: var(--title-gap);
+}
+
+.pd-video-meta {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Technical data e Video: tablet e telefono in una colonna
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 899.98px) {
+  .pd-chart,
+  .pd-video-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pd-chart-fig {
+    justify-self: start;
+  }
+}
+
+/* ==========================================================================
+   PROVA (23/10/2026): Key benefits con il fondo del riquadro a tinta unita
+   della palette al posto della texture (P.benefitsColor nel generatore).
+   Vetro scuro 0.68 sopra il colore: testo Ricepaper ≥ 7:1 su tutti e quattro
+   (Ocean ~11 · Cerulean ~7.9 · Olive ~7.6 · Antique ~7.3). In hover il
+   pannello si riempie del suo colore con testo Hard Grey, come prima.
+   ========================================================================== */
+
+.pd-benefits-stage--ocean    { background-color: var(--ocean); }
+.pd-benefits-stage--cerulean { background-color: var(--cerulean); }
+.pd-benefits-stage--antique  { background-color: var(--antique); }
+.pd-benefits-stage--olive    { background-color: var(--olive); }

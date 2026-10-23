@@ -509,10 +509,17 @@ body {
    Accessibilità
    -------------------------------------------------------------------------- */
 
+/* Niente border-radius qui: cambiava la forma dei bottoni a pillola e delle
+   frecce rotonde al focus. Il contorno segue la forma vera dell'elemento */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 2px;
+}
+
+/* Il <main> riceve il focus solo per spostare il punto di partenza del Tab
+   (skip link, clic sul logo): niente contorno attorno a tutta la pagina */
+main:focus {
+  outline: none;
 }
 
 .skip-link {

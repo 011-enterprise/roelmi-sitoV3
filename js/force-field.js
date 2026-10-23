@@ -780,8 +780,20 @@ void main(){
 
   window.RoelmiForceField = { create: create };
 
+  // INTERRUTTORE (23/10/2026): per ora il Force Field è spento ovunque, per
+  // introdurlo al cliente un po' alla volta. Niente è cancellato: canvas e
+  // impostazioni restano in pagina.
+  //   - per riaccenderlo dappertutto:  ENABLED_EVERYWHERE = true
+  //   - per accenderlo in una sola sezione: aggiungere data-force-field-on
+  //     al suo <canvas data-force-field> (nel generatore, per le pagine interne)
+  var ENABLED_EVERYWHERE = false;
+
   // Avvio automatico: <canvas data-force-field> dentro il suo contenitore
   document.querySelectorAll('canvas[data-force-field]').forEach(function (canvas) {
+    if (!ENABLED_EVERYWHERE && !canvas.hasAttribute('data-force-field-on')) {
+      canvas.style.display = 'none';   // si vede solo il fondo della sezione
+      return;
+    }
     var host = canvas.closest('[data-force-field-host]') || canvas.parentElement;
     var options = {};
     try { options = JSON.parse(canvas.getAttribute('data-force-field') || '{}'); } catch (e) { /* opzioni di default */ }

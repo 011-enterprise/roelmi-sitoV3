@@ -1,23 +1,11 @@
 /* ==========================================================================
-   5 · Our Impact (chiaro)
-   Sinistra: titolo + texture verticale. Destra: 4 numeri enormi in 2×2.
-   In fondo: fascia delle certificazioni che scorre lenta (si ferma al
-   passaggio del mouse, con Stop animation e con reduced-motion).
+   5 · Our Impact (chiaro) — come SITO 1, nello stile di oggi
+   Titolo al centro · 4 numeri in riquadri che in hover si riempiono di un
+   accento. In fondo: fascia delle certificazioni che scorre lenta (si ferma
+   al passaggio del mouse, con Stop animation e con reduced-motion).
    ========================================================================== */
 
-.impact-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
-  gap: clamp(2rem, 1rem + 4vw, 6rem);
-  align-items: stretch;
-}
-
-.impact-left {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
-}
-
+/* Titolo al centro, come SITO 1 */
 .impact-title {
   font-family: var(--font-display);
   font-size: var(--fs-section);
@@ -25,6 +13,7 @@
   line-height: 1;
   letter-spacing: -0.045em;
   color: var(--hard-grey);
+  text-align: center;
 }
 
 .impact-title span:not(.eyebrow) {
@@ -32,58 +21,83 @@
   margin-top: 1.25rem;
 }
 
-/* Texture verticale (decorativa) */
-.impact-texture {
-  flex: 1;
-  min-height: 320px;
-  overflow: hidden;
-  border-radius: var(--r-card);
-  background-color: var(--line);
-}
-
-.impact-texture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 /* --------------------------------------------------------------------------
-   Numeri
+   Numeri: quattro riquadri (come SITO 1). In hover il riquadro si riempie di
+   un accento della palette (Cerulean · Antique · Olive · Cerulean, come le
+   gocce dei Key benefits) e si alza appena; testo Hard Grey (≥ 8.9:1)
    -------------------------------------------------------------------------- */
 
-.impact-stats {
+.impact-cards {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-content: end;
-  gap: clamp(2rem, 1rem + 3vw, 4rem) clamp(1.5rem, 1rem + 2vw, 3rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  margin-top: var(--title-gap);
 }
 
-.stat {
-  padding-top: 1rem;
-  border-top: 1px solid var(--hard-grey);
+.impact-card {
+  padding: clamp(1.5rem, 1rem + 2vw, 2.75rem) clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  text-align: center;
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out),
+    transform var(--dur-ui) var(--ease-out);
 }
 
-.stat-num {
+.impact-card--cerulean { --impact-color: var(--cerulean); }
+.impact-card--antique  { --impact-color: var(--antique); }
+.impact-card--olive    { --impact-color: var(--olive); }
+
+.impact-num {
   display: block;
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 1.8rem + 6vw, 8rem);
+  font-size: var(--fs-section);
   font-weight: 500;
   line-height: 1;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.05em;
   color: var(--hard-grey);
   font-variant-numeric: tabular-nums;
 }
 
-/* Il "+" in Ocean: unico accento (4.69:1, testo grande) */
-.stat-plus {
+/* Il "+" in Ocean (4.69:1, testo grande) */
+.impact-plus {
   color: var(--accent);
+}
+
+.impact-label {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: var(--fs-small);
+  color: var(--fg-muted);
+}
+
+.impact-card:hover {
+  background-color: var(--impact-color);
+  border-color: var(--impact-color);
+  transform: translateY(-4px);
+}
+
+/* Sul fondo d'accento solo testo Hard Grey */
+.impact-card:hover .impact-plus,
+.impact-card:hover .impact-label {
+  color: var(--hard-grey);
+}
+
+.motion-paused .impact-card:hover {
+  transform: none;
+}
+
+/* Numeri della sezione NIP (nip.css): misure base comuni */
+.stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
   display: block;
   margin-top: 0.75rem;
-  font-size: var(--fs-body);
-  color: var(--fg-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -165,36 +179,19 @@
    -------------------------------------------------------------------------- */
 
 @media (max-width: 899.98px) {
-  .impact-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .impact-texture {
-    flex: none;
-    height: 260px;
-    min-height: 0;
-  }
-}
-
-@media (max-width: 479.98px) {
-  .impact-stats {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Mobile: numeri sempre su 2 colonne, un po' più piccoli */
-@media (max-width: 479.98px) {
-  .impact-stats {
+  .impact-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.75rem 1rem;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .impact-card {
+    padding: 1.25rem 0.75rem;
+    border-radius: var(--r-inner);
   }
 
-  .stat-num {
-    font-size: clamp(2.5rem, 13vw, 3.5rem);
-  }
-
-  .stat-label {
-    font-size: var(--fs-small);
+  .impact-num {
+    font-size: clamp(2.25rem, 11vw, 3rem);
   }
 }
 

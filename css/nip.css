@@ -264,3 +264,41 @@
   width: 100%;
   height: 100%;
 }
+
+/* ==========================================================================
+   PROVA (23/10/2026): texture 18 + vetro CHIARO al posto di quello scuro
+   (.nip-stage--light). Misure sulla texture 18 sfocata come dal vetro:
+   numeri 7.0:1 · testo 5.0:1 · CTA 5.4:1 (Hard Grey su Ricepaper 0.50).
+   Il vetro scuro più chiaro non bastava sui numeri (3.2:1 a 0.50).
+   Per tornare indietro: togliere .nip-stage--light e rimettere texture-14.
+   ========================================================================== */
+
+.nip-stage--light .glass {
+  background-color: var(--glass-light-bg);
+  background-image: var(--glass-light-sheen);
+  box-shadow: var(--glass-light-line);
+  color: var(--hard-grey);
+  /* Colori del tema chiaro sui pannelli: CTA piena Ocean con testo
+     Ricepaper, contorno Hard Grey */
+  --fg: var(--hard-grey);
+  --bg: var(--ricepaper);
+  --accent: var(--ocean);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .nip-stage--light .glass {
+    background-color: rgba(247, 243, 235, 0.85);
+  }
+}
+
+.nip-stage--light .nip-title,
+.nip-stage--light .nip-stat .stat-num,
+.nip-stage--light .nip-stat .stat-unit,
+.nip-stage--light .nip-stat .stat-label {
+  color: var(--hard-grey);
+}
+
+/* Sul vetro chiaro: niente azzurro per il focus, contorno Hard Grey */
+.nip-stage--light :focus-visible {
+  outline-color: var(--hard-grey);
+}
