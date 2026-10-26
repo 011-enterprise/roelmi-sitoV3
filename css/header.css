@@ -663,12 +663,53 @@
   transform: none;
 }
 
+/* Sotto i 1200px ricerca e account escono dalla pillola (goccia · menu,
+   più equilibrata) e stanno nel pannello: ricerca in cima, Account in
+   fondo all'elenco (.nav-item--panel-only) */
+.site-header.is-panel-mode .header-actions {
+  display: none;
+}
+
+.site-header.is-panel-mode .menu-toggle {
+  margin-left: auto;
+}
+
+.panel-search {
+  display: none;
+}
+
+/* Pannello Ricepaper: campo nei colori del tema chiaro (bottone Ocean con
+   testo Ricepaper 4.69:1, segnaposto grigio 6.2:1) */
+.site-header.is-panel-mode .panel-search {
+  --fg: var(--hard-grey);
+  --bg: var(--ricepaper);
+  --accent: var(--ocean);
+  --fg-muted: var(--muted);
+  display: flex;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 1.5rem;
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.site-header.is-panel-mode .main-nav.is-open .panel-search {
+  opacity: 1;
+  transform: none;
+}
+
+.site-header.is-panel-mode .panel-search :focus-visible {
+  outline-color: var(--hard-grey);
+}
+
 .site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(2) { transition-delay: 0.04s; }
 .site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(3) { transition-delay: 0.08s; }
 .site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(4) { transition-delay: 0.12s; }
 .site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(5) { transition-delay: 0.16s; }
 .site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(6) { transition-delay: 0.20s; }
 .site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(7) { transition-delay: 0.24s; }
+.site-header.is-panel-mode .main-nav.is-open .nav-list > li:nth-child(8) { transition-delay: 0.28s; }
 
 .site-header.is-panel-mode .nav-list > li > .nav-link {
   width: 100%;
