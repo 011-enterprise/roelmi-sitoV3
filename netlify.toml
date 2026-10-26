@@ -1,0 +1,3 @@
+# Sito statico: nessuna build, si pubblica la cartella così com'è
+[build]
+  publish = "."

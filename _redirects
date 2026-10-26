@@ -1,0 +1,8 @@
+# Netlify: pagine ancora nascoste al cliente → "pagina non trovata" (404).
+# Per mostrarle, togliere qui le due righe della pagina e fare push.
+/about.html     /pagina-non-pubblicata  404!
+/about          /pagina-non-pubblicata  404!
+/nip.html       /pagina-non-pubblicata  404!
+/nip            /pagina-non-pubblicata  404!
+/contact.html   /pagina-non-pubblicata  404!
+/contact        /pagina-non-pubblicata  404!
