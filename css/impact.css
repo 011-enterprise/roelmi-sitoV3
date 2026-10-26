@@ -157,9 +157,30 @@
   animation-play-state: paused;
 }
 
+/* Bottone Stop animation sotto la fascia, a destra (stesso bottone di hero e
+   footer, motion.js): qui su fondo chiaro, quindi Hard Grey e hover Ocean */
+.certs-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.25rem;
+}
+
+.certs-motion {
+  color: var(--hard-grey);
+}
+
+.certs-motion:hover {
+  color: var(--ocean);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .certs-track {
     animation: none;
+  }
+
+  /* La fascia è già ferma: il bottone qui non serve */
+  .certs-controls {
+    display: none;
   }
 
   /* Ferma: la lista va a capo invece di scorrere */

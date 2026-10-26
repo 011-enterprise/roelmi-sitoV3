@@ -247,3 +247,24 @@
   mobileMq.addEventListener('change', sync);
   sync();
 })();
+
+/* Onda dei punti sulla mappa: parte una volta sola quando la mappa entra
+   nello schermo e dura 5 secondi (la durata è in presence.css) */
+(function () {
+  'use strict';
+
+  var map = document.querySelector('#presence .presence-map');
+  if (!map) return;
+
+  if (!('IntersectionObserver' in window)) {
+    map.classList.add('is-pulsing');
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    if (!entries[0].isIntersecting) return;
+    map.classList.add('is-pulsing');
+    io.disconnect();
+  }, { threshold: 0.4 });
+  io.observe(map);
+})();
