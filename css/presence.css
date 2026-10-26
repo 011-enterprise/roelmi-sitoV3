@@ -298,7 +298,7 @@
   align-items: center;
   gap: 0.5rem;
   padding-right: 2.5rem;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--muted-on-dark);

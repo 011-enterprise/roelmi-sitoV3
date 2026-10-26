@@ -95,15 +95,12 @@
 }
 
 .np-title .eyebrow {
-  margin-bottom: 1.25rem;
-  font-size: var(--fs-small);
-  font-weight: 500;
-  letter-spacing: 0;
+  margin-bottom: 1.25rem;   /* misura dell'etichetta come nel resto del sito */
 }
 
 .np-line {
   display: flex;
-  align-items: baseline;
+  align-items: baseline;   /* parola in grassetto e resto sulla stessa linea di base */
   gap: 0.35em;
 }
 
@@ -114,9 +111,12 @@
 .np-line::before {
   content: "";
   flex: none;
-  align-self: center;
+  /* accanto alla prima riga anche se la frase va a capo:
+     (interlinea 1.12em - goccia 0.58em) / 2 */
+  align-self: flex-start;
   width: 0.4em;
   height: 0.58em;
+  margin-top: 0.27em;
   margin-right: 0.15em;
   background-color: var(--np-color);
   -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
@@ -147,6 +147,24 @@
 }
 
 .np-statement .accent {
+  color: var(--ocean);
+}
+
+/* Parole spente finché lo scroll non le raggiunge (nip-page.js): grigio
+   della palette (6.2:1, leggibile anche spento), come Who in home */
+.np-word {
+  transition: color 0.45s var(--ease-out);
+}
+
+.np-statement.is-ready .np-word {
+  color: var(--muted);
+}
+
+.np-statement.is-ready .np-word.is-lit {
+  color: var(--hard-grey);
+}
+
+.np-statement.is-ready .accent .np-word.is-lit {
   color: var(--ocean);
 }
 
@@ -194,7 +212,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   3 · I tre pilastri: schede a fondo d'accento, testo Hard Grey
+   3 · I tre pilastri: schede chiare che in hover si riempiono del loro colore
    (Olive 9.2 · Cerulean 8.9 · Antique 10.4:1)
    -------------------------------------------------------------------------- */
 
@@ -228,14 +246,47 @@
   display: flex;
   flex-direction: column;
   padding: clamp(1.25rem, 1rem + 1.2vw, 2.25rem);
+  border: 1px solid var(--line);
   border-radius: var(--r-card);
-  background-color: var(--np-color);
   color: var(--hard-grey);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out);
 }
 
 .np-pillar--nature     { --np-color: var(--olive); }
 .np-pillar--innovation { --np-color: var(--cerulean); }
 .np-pillar--people     { --np-color: var(--antique); }
+
+/* Come i riquadri di Impact: a riposo scheda chiara con bordo sottile e
+   goccia ROELMI nel colore del pilastro (decorativa); in hover si riempie
+   del suo colore. Testo sempre Hard Grey (Olive 9.2 · Cerulean 8.9 ·
+   Antique 10.4:1); Olive/Cerulean/Antique mai come testo sul chiaro */
+.np-pillar-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+}
+
+.np-pillar-mark::before {
+  content: "";
+  flex: none;
+  width: 0.42em;
+  height: 0.62em;
+  background-color: var(--np-color);
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+
+.np-pillar:hover {
+  background-color: var(--np-color);
+  border-color: var(--np-color);
+}
+
+.np-pillar:hover .np-pillar-mark::before {
+  background-color: var(--hard-grey);
+}
 
 /* Iniziale grande (N · I · P): decorativa, il nome è nel titolo */
 .np-pillar-mark {
@@ -279,7 +330,7 @@
 
 .np-section-title span:not(.eyebrow) {
   display: block;
-  margin-top: 1rem;
+  margin-top: 1.25rem;   /* come in home */
 }
 
 .np-action-intro {
@@ -353,7 +404,7 @@
 .np-card-text {
   margin-top: 0.5rem;
   padding-inline: 0.25rem;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
   line-height: 1.6;
   color: var(--muted-on-dark);
 }
@@ -434,8 +485,22 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Tablet e telefono: i tre pilastri scorrono di lato con aggancio, come le
+     schede di Sustainability in action; il successivo si intravede */
   .np-pillars-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    gap: 0.75rem;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
+  }
+
+  .np-pillar {
+    flex: 0 0 min(80%, 420px);
+    scroll-snap-align: start;
   }
 
   .np-pillar-title {
@@ -457,6 +522,11 @@
     border-radius: var(--r-inner);
   }
 
+  /* Telefono: titolo al livello "testo grande", così ogni frase sta su una riga */
+  .np-title {
+    font-size: var(--fs-large);
+  }
+
   .np-intro-cols {
     grid-template-columns: 1fr;
   }
@@ -470,23 +540,28 @@
   }
 }
 
-@media (max-width: 479.98px) {
+/* Telefono: le schede scorrono di lato con aggancio, come i Related products
+   di CytoFruit e il Blog (in due colonne erano troppo strette per il testo
+   a 16px); la successiva si intravede a destra */
+@media (max-width: 699.98px) {
   .np-cards {
-    gap: 0.75rem 0.5rem;
+    display: flex;
+    gap: 0.75rem;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) 0.75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
+  }
+
+  .np-cards > li {
+    flex: 0 0 72%;
+    scroll-snap-align: start;
   }
 
   .np-card {
-    padding: 0.5rem 0.5rem 1rem;
     border-radius: var(--r-inner);
-  }
-
-  .np-card-name {
-    font-size: 1rem;
-  }
-
-  .np-card-text {
-    font-size: 0.8125rem;
-    line-height: 1.5;
   }
 }
 

@@ -68,7 +68,7 @@
 .ft-tag {
   max-width: 34ch;
   margin-top: 1.25rem;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
   line-height: 1.6;
   color: var(--muted-on-dark);
 }
@@ -100,7 +100,7 @@
 
 .ft-h {
   margin-bottom: 0.5rem;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--muted-on-dark);
@@ -112,8 +112,16 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* come i titoli grigi delle colonne */
   color: var(--ricepaper);
+}
+
+/* Indirizzo su due righe (in un inline-flex il <br> non andrebbe a capo) */
+.ft-col li > .ft-address {
+  display: block;
+  min-height: 0;
+  padding-block: 0.6rem;
+  line-height: 1.5;
 }
 
 /* --------------------------------------------------------------------------
@@ -127,7 +135,7 @@
   align-items: center;
   gap: 0.5rem 2rem;
   padding-block: 1rem;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
   color: var(--muted-on-dark);
 }
 
@@ -147,7 +155,7 @@
 /* "Stop animation" anche qui: stesso interruttore del hero (motion.js),
    così si può fermare il movimento da fondo pagina */
 .ft-motion {
-  color: var(--muted-on-dark);
+  color: var(--ricepaper);   /* testo a 12px: Ricepaper, come nel hero (non grigio) */
   font-size: var(--fs-small);
   letter-spacing: 0;
 }

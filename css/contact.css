@@ -1,0 +1,384 @@
+/* ==========================================================================
+   Contatti (testi della pagina attuale roelmihpc.com/contacts)
+   1 Modulo (chiaro): titolo, testo, modulo a sinistra · recapiti a destra su
+     texture + vetro scuro (componente comune .cta-box di base.css)
+   2 Global Presence: la sezione della home, identica (presence.css/.js)
+   Campi: etichetta sempre visibile sopra, bordo Hard Grey, ≥ 44px, focus
+   Ocean; errori a parole sotto il campo (non solo col colore)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1 · Modulo
+   -------------------------------------------------------------------------- */
+
+.ct-main {
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--header-h) + 0.5rem);
+  padding-bottom: var(--section-y);
+  background-color: var(--ricepaper);
+  color: var(--hard-grey);
+}
+
+.ct-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.ct-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ct-breadcrumb li + li::before {
+  content: "/";
+}
+
+.ct-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* "Home" è più stretta di 44px */
+  min-height: 44px;
+  color: var(--hard-grey);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ct-breadcrumb a:hover {
+  color: var(--ocean);
+}
+
+.ct-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Desktop: titolo e modulo a sinistra, recapiti a destra (per tutta l'altezza).
+   Telefono: titolo · recapiti · modulo, come nel codice */
+.ct-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  grid-template-areas:
+    "head aside"
+    "form aside";
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  gap: 0 clamp(2rem, 1rem + 4vw, 5rem);
+  margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+}
+
+.ct-head     { grid-area: head; }
+.ct-aside    { grid-area: aside; }
+.ct-form-col { grid-area: form; }
+
+.ct-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--hard-grey);
+}
+
+.ct-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+.ct-intro {
+  max-width: 44ch;
+  margin-top: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.ct-note {
+  margin-top: 0.75rem;
+  font-size: var(--fs-small);
+  color: var(--muted);   /* 6.2:1 */
+}
+
+/* --- Campi --------------------------------------------------------------- */
+
+.ct-form {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: var(--title-gap);
+}
+
+.ct-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.ct-label {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--hard-grey);
+}
+
+.ct-req {
+  color: var(--hard-grey);
+}
+
+.ct-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 1rem;
+  border: 1px solid var(--hard-grey);
+  border-radius: var(--r-inner);
+  background-color: transparent;
+  font-size: var(--fs-body);
+  color: var(--hard-grey);
+  transition: border-color var(--dur-ui) var(--ease-out);
+}
+
+.ct-input:hover {
+  border-color: var(--ocean);
+}
+
+.ct-input:focus-visible {
+  outline: 2px solid var(--ocean);
+  outline-offset: 2px;
+}
+
+/* Tendina: freccia disegnata (Hard Grey), spazio a destra */
+.ct-select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 3rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1 3.25l4 4 4-4' fill='none' stroke='%23191919' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.1rem center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+.ct-textarea {
+  min-height: 9.5rem;
+  padding: 0.85rem 1rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+/* Errore: bordo più spesso + messaggio a parole (non solo il colore) */
+.ct-input[aria-invalid="true"] {
+  border-width: 2px;
+}
+
+.ct-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--hard-grey);
+}
+
+/* Segno "!" in un cerchio Antique (decorativo: il testo dice già l'errore) */
+.ct-error::before {
+  content: "!";
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background-color: var(--antique);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ct-error[hidden] {
+  display: none;
+}
+
+/* --- Consensi ------------------------------------------------------------ */
+
+.ct-checks {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.ct-field--check {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.85rem;
+  row-gap: 0.35rem;
+  align-items: start;
+}
+
+/* Casella 22px dentro un'area di tocco di 44px (il testo è cliccabile) */
+.ct-check {
+  width: 22px;
+  height: 22px;
+  margin: 0.1rem 0 0;
+  accent-color: var(--ocean);
+  cursor: pointer;
+}
+
+.ct-field--check label {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--hard-grey);
+  cursor: pointer;
+}
+
+.ct-field--check label a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ct-field--check label a:hover {
+  color: var(--ocean);
+}
+
+.ct-field--check .ct-error {
+  grid-column: 2;
+}
+
+/* --- Invio --------------------------------------------------------------- */
+
+.ct-submit {
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+/* Riepilogo errori in cima al modulo e conferma d'invio */
+.ct-summary,
+.ct-status:not(:empty) {
+  padding: 0.85rem 1.1rem;
+  border-radius: var(--r-inner);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--hard-grey);
+}
+
+.ct-summary {
+  background-color: var(--antique);   /* testo Hard Grey 10.4:1 */
+}
+
+.ct-summary[hidden] {
+  display: none;
+}
+
+.ct-status:not(:empty) {
+  background-color: var(--olive);     /* testo Hard Grey 9.2:1 */
+}
+
+/* --- Recapiti: texture + vetro scuro, resta in vista mentre si compila --- */
+
+.ct-aside {
+  position: sticky;
+  top: calc(var(--header-h) + 1rem);
+  align-items: end;
+  min-height: min(72vh, 680px);
+}
+
+.ct-info {
+  width: 100%;
+}
+
+.ct-info-h {
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ricepaper);
+}
+
+.ct-info-h + * {
+  margin-top: 0.4rem;
+}
+
+.ct-info-text + .ct-info-h {
+  margin-top: 1.25rem;
+}
+
+.ct-info-text,
+.ct-info-list {
+  color: var(--ricepaper);
+  line-height: 1.6;
+}
+
+/* Righe alte 44px (tocco), tutte uguali; "P:" e "F:" fuori dal link */
+.ct-info-list li {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 44px;
+}
+
+.ct-info-list a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ct-info-list a:hover {
+  color: var(--cerulean);
+}
+
+.ct-info-k {
+  font-weight: 600;
+  margin-right: 0.35em;
+}
+
+/* --------------------------------------------------------------------------
+   2 · Global Presence: la sezione della home (presence.css), identica.
+   Qui le due sezioni sono chiare: una linea sottile le separa
+   -------------------------------------------------------------------------- */
+
+.ct-main + .presence {
+  border-top: 1px solid var(--line);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 899.98px) {
+  .ct-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "aside"
+      "form";
+    grid-template-rows: auto;
+    row-gap: var(--title-gap);
+  }
+
+  /* Su tablet e telefono i recapiti stanno tra il titolo e il modulo, non
+     più fissi; striscia di texture sopra il vetro più bassa */
+  .ct-aside {
+    position: relative;
+    top: auto;
+    min-height: 0;
+    padding-top: clamp(6rem, 22vw, 9rem);
+  }
+}
+
+@media (max-width: 599.98px) {
+  .ct-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ct-submit {
+    justify-self: stretch;
+  }
+}

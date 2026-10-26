@@ -37,6 +37,13 @@
   align-items: center;
 }
 
+/* Titolo nel riquadro: --fs-box come gli altri box (About, NIP, Finder) */
+.pd-stage--cta .pd-section-title {
+  font-size: var(--fs-box);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
 .pd-bg {
   position: absolute;
   inset: 0;
@@ -288,7 +295,7 @@
 
 /* Testi ancora da fornire: grigi e in corsivo, ben riconoscibili */
 .pd-placeholder {
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio: 16px, anche sul fondo scuro del video */
   font-style: italic;
   color: var(--fg-muted);   /* grigio giusto per il fondo: chiaro o scuro */
 }
@@ -894,7 +901,7 @@ html:not(.js) .pd-charts-nav {
 .pd-video-ph {
   position: absolute;
   inset: auto 0 1.25rem;
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
   font-style: italic;
   text-align: center;
   color: var(--muted-on-dark);

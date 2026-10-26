@@ -249,22 +249,25 @@
 })();
 
 /* Onda dei punti sulla mappa: parte una volta sola quando la mappa entra
-   nello schermo e dura 5 secondi (la durata è in presence.css) */
+   nello schermo e dura 5 secondi (la durata è in presence.css).
+   Vale per ogni mappa a puntini: home e About */
 (function () {
   'use strict';
 
-  var map = document.querySelector('#presence .presence-map');
-  if (!map) return;
+  var maps = Array.prototype.slice.call(document.querySelectorAll('.presence-map'));
+  if (!maps.length) return;
 
   if (!('IntersectionObserver' in window)) {
-    map.classList.add('is-pulsing');
+    maps.forEach(function (m) { m.classList.add('is-pulsing'); });
     return;
   }
 
   var io = new IntersectionObserver(function (entries) {
-    if (!entries[0].isIntersecting) return;
-    map.classList.add('is-pulsing');
-    io.disconnect();
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-pulsing');
+      io.unobserve(e.target);
+    });
   }, { threshold: 0.4 });
-  io.observe(map);
+  maps.forEach(function (m) { io.observe(m); });
 })();

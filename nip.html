@@ -153,7 +153,8 @@
          molecolare sul nero, box con la texture di NIP, titolo su vetro scuro
          ================================================================== -->
     <section class="np-hero section theme-dark" aria-labelledby="np-title" data-force-field-host>
-      <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
+      <!-- PROVA: reticolo acceso anche qui, dietro il box dell'apertura -->
+      <canvas data-force-field-on class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
       <div class="container">
         <nav class="np-breadcrumb" aria-label="Breadcrumb">
           <ol>
@@ -165,7 +166,7 @@
 
         <div class="np-stage">
           <div class="np-stage-bg" aria-hidden="true">
-            <img src="images/nip/texture-14.jpg" alt="" decoding="async" fetchpriority="high">
+            <img src="images/nip/texture-18.jpg" alt="" decoding="async" fetchpriority="high">
           </div>
           <div class="np-head glass" data-reveal>
             <h1 class="np-title" id="np-title">
@@ -244,7 +245,8 @@
          4 · SUSTAINABILITY IN ACTION (scuro, reticolo molecolare)
          ================================================================== -->
     <section class="np-action section theme-dark grain" id="in-action" aria-labelledby="np-action-title" data-force-field-host>
-      <canvas class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
+      <!-- PROVA: reticolo acceso solo qui (data-force-field-on), da mostrare al cliente -->
+      <canvas data-force-field-on class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
       <div class="container">
         <h2 class="np-section-title" id="np-action-title">
           <span class="eyebrow" data-reveal>Our Sustainability Approach</span>
@@ -259,7 +261,7 @@
                 <img src="images/portfolio/cytofruit.png" alt="" loading="lazy" decoding="async">
               </div>
               <h3 class="np-card-name"><a class="np-card-link" href="cytofruit.html">CytoFruit<sup>®</sup></a></h3>
-              <p class="np-card-text">we offer fruit-derived waters from food chain by-products as alternative to demineralized water in cosmetics</p>
+              <p class="np-card-text">We offer fruit-derived waters from food chain by-products as alternative to demineralized water in cosmetics.</p>
             </article>
           </li>
           <li>
@@ -267,8 +269,8 @@
               <div class="np-card-media" aria-hidden="true">
                 <img src="images/portfolio/seidotech-capillys.png" alt="" loading="lazy" decoding="async">
               </div>
-              <h3 class="np-card-name"><a class="np-card-link" href="#">SeidoTech <sup>®</sup> Capillys</a></h3>
-              <p class="np-card-text">precision fermentation is applied to byproducts of pruning Italian prickly pears to create the ally in hair care</p>
+              <h3 class="np-card-name"><a class="np-card-link" href="#">SeidoTech<sup>®</sup> Capillys</a></h3>
+              <p class="np-card-text">Precision fermentation is applied to byproducts of pruning Italian prickly pears to create the ally in hair care.</p>
             </article>
           </li>
           <li>
@@ -277,7 +279,7 @@
                 <img src="images/portfolio/emotion-glow.png" alt="" loading="lazy" decoding="async">
               </div>
               <h3 class="np-card-name"><a class="np-card-link" href="#">EMotion<sup>®</sup> Glow and EMotion<sup>®</sup> SKin</a></h3>
-              <p class="np-card-text">are produced through the valorization of olive byproducts from the food industry.</p>
+              <p class="np-card-text">Produced through the valorization of olive byproducts from the food industry.</p>
             </article>
           </li>
           <li>
@@ -293,7 +295,7 @@
 
         <div class="np-finder">
           <h3 class="np-finder-title">Looking for a specific target? <span>Explore our portfolio in the Ingredient Finder</span></h3>
-          <a class="btn btn--solid" href="ingredient-finder.html">Open Ingredient Finder <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn--solid" href="ingredient-finder.html">Open Ingredient Finder</a>
         </div>
       </div>
     </section>
@@ -366,9 +368,10 @@
         <div class="ft-col ft-col--contact">
           <h2 class="ft-h" id="ft-contact">Contact</h2>
           <ul>
-            <li><span>Via Origgio (VA), Italy</span></li>
+            <li><span class="ft-address">Via Celeste Milani, 24 / 26<br>21040 Origgio (VA), Italy</span></li>
+            <li><a href="tel:+390233510150">P: +39 02 3351 0150</a></li>
+            <li><span>F: +39 02 3354 9210</span></li>
             <li><a href="mailto:info@roelmihpc.com">info@roelmihpc.com</a></li>
-            <li><a href="tel:+39">+39 0123 456789</a></li>
           </ul>
         </div>
       </div>
@@ -395,5 +398,6 @@
   <script src="js/header.js" defer></script>
   <script src="js/footer.js" defer></script>
   <script src="js/force-field.js" defer></script>
+  <script src="js/nip-page.js" defer></script>
 </body>
 </html>
