@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/header.css">
   <link rel="stylesheet" href="css/presence.css">
+  <link rel="stylesheet" href="css/form.css">
   <link rel="stylesheet" href="css/contact.css">
   <link rel="stylesheet" href="css/footer.css">
 </head>
@@ -115,8 +116,7 @@
             <div class="subnav" id="sub-divisions">
               <ul>
                 <li><a href="#">Personal Care</a></li>
-                <li><a href="#">Nutraceutical &amp; Food</a></li>
-                <li><a href="#">Pharma</a></li>
+                <li><a href="#">Nutraceutical</a></li>
               </ul>
             </div>
           </li>
@@ -191,60 +191,60 @@
             </div>
           </aside>
 
-          <div class="ct-form-col">
-            <p class="ct-note">Fields marked with <span aria-hidden="true">*</span><span class="sr-only">an asterisk</span> are mandatory.</p>
+          <div class="fm-form-col">
+            <p class="fm-note">Fields marked with <span aria-hidden="true">*</span><span class="sr-only">an asterisk</span> are mandatory.</p>
 
             <!-- Controllo dei campi in contact.js (senza JS valgono i controlli del
                  browser). L'invio vero va collegato al server: per ora il modulo
                  mostra solo la conferma -->
-            <form class="ct-form" id="contactForm" action="#" method="post" novalidate>
-              <p class="ct-summary" id="ctSummary" role="alert" hidden></p>
+            <form class="fm-form" id="contactForm" action="#" method="post" novalidate data-validate data-success="Thank you for your message. Our team will get back to you soon.">
+              <p class="fm-summary" role="alert" hidden></p>
 
-              <div class="ct-row">
-                <div class="ct-field">
-                  <label class="ct-label" for="ctName">Name <span class="ct-req" aria-hidden="true">*</span></label>
-                  <input class="ct-input" id="ctName" name="name" type="text" autocomplete="name" required aria-describedby="ctName-err">
-                  <p class="ct-error" id="ctName-err" data-msg="Enter your name." hidden></p>
+              <div class="fm-row">
+                <div class="fm-field">
+                  <label class="fm-label" for="ctName">Name <span class="fm-req" aria-hidden="true">*</span></label>
+                  <input class="fm-input" id="ctName" name="name" type="text" autocomplete="name" required aria-describedby="ctName-err">
+                  <p class="fm-error" id="ctName-err" data-msg="Enter your name." hidden></p>
                 </div>
-                <div class="ct-field">
-                  <label class="ct-label" for="ctEmail">Email <span class="ct-req" aria-hidden="true">*</span></label>
-                  <input class="ct-input" id="ctEmail" name="email" type="email" autocomplete="email" required aria-describedby="ctEmail-err">
-                  <p class="ct-error" id="ctEmail-err" data-msg="Enter your email address." data-msg-format="Enter an email address like name@company.com." hidden></p>
+                <div class="fm-field">
+                  <label class="fm-label" for="ctEmail">Email <span class="fm-req" aria-hidden="true">*</span></label>
+                  <input class="fm-input" id="ctEmail" name="email" type="email" autocomplete="email" required aria-describedby="ctEmail-err">
+                  <p class="fm-error" id="ctEmail-err" data-msg="Enter your email address." data-msg-format="Enter an email address like name@company.com." hidden></p>
                 </div>
               </div>
 
-              <div class="ct-field">
-                <label class="ct-label" for="ctRegion">Region <span class="ct-req" aria-hidden="true">*</span></label>
-                <select class="ct-input ct-select" id="ctRegion" name="region" required aria-describedby="ctRegion-err">
+              <div class="fm-field">
+                <label class="fm-label" for="ctRegion">Region <span class="fm-req" aria-hidden="true">*</span></label>
+                <select class="fm-input fm-select" id="ctRegion" name="region" required aria-describedby="ctRegion-err">
                   <option value="">Select Region</option>
                   <option value="APAC - Asia Pacific">APAC - Asia Pacific</option>
                   <option value="EMEA - Europe, Middle East, and Africa">EMEA - Europe, Middle East, and Africa</option>
                   <option value="LATAM - Latin America">LATAM - Latin America</option>
                   <option value="NA - North America">NA - North America</option>
                 </select>
-                <p class="ct-error" id="ctRegion-err" data-msg="Select your region." hidden></p>
+                <p class="fm-error" id="ctRegion-err" data-msg="Select your region." hidden></p>
               </div>
 
-              <div class="ct-field">
-                <label class="ct-label" for="ctMessage">Message <span class="ct-req" aria-hidden="true">*</span></label>
-                <textarea class="ct-input ct-textarea" id="ctMessage" name="message" rows="6" required aria-describedby="ctMessage-err"></textarea>
-                <p class="ct-error" id="ctMessage-err" data-msg="Write your message." hidden></p>
+              <div class="fm-field">
+                <label class="fm-label" for="ctMessage">Message <span class="fm-req" aria-hidden="true">*</span></label>
+                <textarea class="fm-input fm-textarea" id="ctMessage" name="message" rows="6" required aria-describedby="ctMessage-err"></textarea>
+                <p class="fm-error" id="ctMessage-err" data-msg="Write your message." hidden></p>
               </div>
 
-              <div class="ct-checks">
-                <div class="ct-field ct-field--check">
-                  <input class="ct-check" id="ctPrivacy" name="privacy" type="checkbox" value="1" required aria-describedby="ctPrivacy-err">
-                  <label for="ctPrivacy"><span class="ct-req" aria-hidden="true">*</span> I hereby consent to the processing of my personal data in accordance with the <a href="#">Privacy</a> and <a href="#">Cookie</a> Policy</label>
-                  <p class="ct-error" id="ctPrivacy-err" data-msg="Accept the Privacy and Cookie Policy to send the form." hidden></p>
+              <div class="fm-checks">
+                <div class="fm-field fm-field--check">
+                  <input class="fm-check" id="ctPrivacy" name="privacy" type="checkbox" value="1" required aria-describedby="ctPrivacy-err">
+                  <label for="ctPrivacy"><span class="fm-req" aria-hidden="true">*</span> I hereby consent to the processing of my personal data in accordance with the <a href="#">Privacy</a> and <a href="#">Cookie</a> Policy</label>
+                  <p class="fm-error" id="ctPrivacy-err" data-msg="Accept the Privacy and Cookie Policy to send the form." hidden></p>
                 </div>
-                <div class="ct-field ct-field--check">
-                  <input class="ct-check" id="ctMarketing" name="marketing" type="checkbox" value="1">
+                <div class="fm-field fm-field--check">
+                  <input class="fm-check" id="ctMarketing" name="marketing" type="checkbox" value="1">
                   <label for="ctMarketing">I authorize the processing of my personal data to be updated on new arrivals and for direct marketing purposes related to the services offered.</label>
                 </div>
               </div>
 
-              <button class="btn btn--solid ct-submit" type="submit">Submit</button>
-              <p class="ct-status" id="ctStatus" role="status" aria-live="polite"></p>
+              <button class="btn btn--solid fm-submit" type="submit">Submit</button>
+              <p class="fm-status" role="status" aria-live="polite"></p>
             </form>
           </div>
 
@@ -376,8 +376,7 @@
           <h2 class="ft-h" id="ft-divisions">Our Divisions</h2>
           <ul>
             <li><a href="#">Personal Care</a></li>
-            <li><a href="#">Nutraceutical &amp; Food</a></li>
-            <li><a href="#">Pharma</a></li>
+            <li><a href="#">Nutraceutical</a></li>
             <li><a href="ingredient-finder.html">Ingredient Finder</a></li>
           </ul>
         </nav>
@@ -417,6 +416,6 @@
   <script src="js/force-field.js" defer></script>
   <!-- presence.js: filtri, elenco, scheda della sede e onda dei pallini, come in home -->
   <script src="js/presence.js" defer></script>
-  <script src="js/contact.js" defer></script>
+  <script src="js/form.js" defer></script>
 </body>
 </html>

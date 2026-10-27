@@ -1,0 +1,336 @@
+/* ==========================================================================
+   Careers (testi della pagina attuale roelmihpc.com/careers)
+   Stile di V3: il carattere viene da foto/texture + vetro
+   1 Apertura (chiaro): testo e bottoni a sinistra, texture 7 a destra
+     (come About)
+   2 Why work with us? (scuro): come i Key benefits di CytoFruit — texture,
+     titolo su vetro, tre pannelli di vetro con goccia colorata; in hover
+     il pannello si riempie del suo colore
+   3 Join us (chiaro): offerte su LinkedIn + modulo per il CV (css/form.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1 · Apertura
+   -------------------------------------------------------------------------- */
+
+.cr-hero {
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--header-h) + 0.5rem);
+  padding-bottom: var(--section-y);
+  background-color: var(--ricepaper);
+  color: var(--hard-grey);
+}
+
+.cr-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.cr-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cr-breadcrumb li + li::before {
+  content: "/";
+}
+
+.cr-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* "Home" è più stretta di 44px */
+  min-height: 44px;
+  color: var(--hard-grey);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cr-breadcrumb a:hover {
+  color: var(--ocean);
+}
+
+.cr-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Come l'apertura di About: testo a sinistra, riquadro verticale con la
+   texture a destra (senza vetro: il riquadro con il vetro è "Why work with
+   us?", qui sotto) */
+.cr-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+}
+
+.cr-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--hard-grey);
+}
+
+.cr-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+.cr-lead {
+  max-width: 44ch;
+  margin-top: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.cr-hero-p {
+  max-width: 52ch;
+  margin-top: 1rem;
+  line-height: 1.6;
+}
+
+.cr-hero-media {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  max-height: 72vh;
+  width: 100%;
+  border-radius: var(--r-stage);
+  background-color: var(--line);
+}
+
+.cr-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   2 · Why work with us? (scuro) — riquadro con texture e pannelli di vetro
+   -------------------------------------------------------------------------- */
+
+.cr-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--fg);
+}
+
+.cr-section-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+.cr-why-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  gap: clamp(0.6rem, 0.4rem + 1vw, 1.25rem);
+  padding: clamp(0.75rem, 0.5rem + 2vw, 2.5rem);
+  border-radius: var(--r-stage);
+}
+
+.cr-why-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.cr-why-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Titolo su vetro, con una fascia di texture libera sotto */
+.cr-why-head {
+  justify-self: start;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: clamp(3rem, 1.5rem + 6vw, 9rem);
+  padding: clamp(1.25rem, 1rem + 1.2vw, 2.25rem) clamp(1.5rem, 1rem + 2vw, 3rem);
+  border-radius: var(--r-card);
+  font-size: var(--fs-box);
+  color: var(--ricepaper);
+}
+
+.cr-reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: inherit;
+}
+
+.cr-reason--olive    { --cr-color: var(--olive); }
+.cr-reason--cerulean { --cr-color: var(--cerulean); }
+.cr-reason--antique  { --cr-color: var(--antique); }
+
+/* Pannello di vetro scuro (testo Ricepaper) con la goccia ROELMI nel suo
+   colore; in hover pieno del colore con testo Hard Grey (Olive 9.2 ·
+   Cerulean 8.9 · Antique 10.4:1) e goccia Hard Grey */
+.cr-reason {
+  padding: clamp(1.1rem, 1rem + 0.6vw, 1.75rem);
+  border-radius: var(--r-card);
+  color: var(--ricepaper);
+  transition:
+    background-color 0.45s var(--ease-out),
+    color 0.45s var(--ease-out);
+}
+
+.cr-reason::before {
+  content: "";
+  display: block;
+  width: 0.85rem;
+  height: 1.25rem;
+  margin-bottom: 1rem;
+  background-color: var(--cr-color);
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+
+.cr-reason-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.cr-reason p {
+  margin-top: 0.75rem;
+  line-height: 1.6;
+}
+
+@media (hover: hover) {
+  .cr-reason:hover {
+    color: var(--hard-grey);
+    background-color: var(--cr-color);
+    background-image: none;
+    box-shadow: none;
+  }
+
+  .cr-reason:hover::before {
+    background-color: var(--hard-grey);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3 · Join us (chiaro): testo a sinistra, modulo a destra (come Contatti,
+   senza riquadro attorno)
+   -------------------------------------------------------------------------- */
+
+.cr-join-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+.cr-text {
+  max-width: 44ch;
+  margin-top: var(--title-gap);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--hard-grey);
+}
+
+.cr-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 1rem + 1vw, 2.25rem);
+}
+
+.cr-form-box {
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+.cr-form-box:focus {
+  outline: none;
+}
+
+.cr-form-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--hard-grey);
+}
+
+.cr-form-box .fm-form {
+  margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023.98px) {
+  .cr-reasons {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 899.98px) {
+  /* Titolo · texture · frasi · bottoni (come About): il blocco del testo
+     "si scioglie"; l'ordine nel codice resta titolo, frasi, bottoni */
+  .cr-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .cr-hero-text {
+    display: contents;
+  }
+
+  .cr-title      { order: 1; }
+  .cr-hero-media { order: 2; margin-top: var(--title-gap); aspect-ratio: 4 / 3; max-height: none; }
+  .cr-lead       { order: 3; }
+  .cr-hero-p     { order: 4; }
+  .cr-hero-grid .cr-actions { order: 5; }
+
+  .cr-join-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 699.98px) {
+  .cr-hero-media {
+    border-radius: var(--r-card);
+  }
+
+  .cr-why-stage {
+    gap: 0.6rem;
+    padding: 0.6rem;
+    border-radius: var(--r-card);
+  }
+
+  .cr-why-head {
+    width: auto;
+    justify-self: stretch;
+    padding: 1rem;
+    margin-bottom: 7vh;
+    border-radius: var(--r-inner);
+  }
+
+  .cr-reason {
+    padding: 1rem;
+    border-radius: var(--r-inner);
+  }
+
+  .cr-actions .btn {
+    flex: 1 1 100%;
+  }
+}
