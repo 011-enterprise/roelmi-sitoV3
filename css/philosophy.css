@@ -1,8 +1,9 @@
 /* ==========================================================================
    Philosophy (testi della pagina attuale roelmihpc.com/philosophy)
    Il protagonista è il testo:
-   1 Apertura (chiaro): titolo, primo paragrafo grande che si accende
-     scorrendo (js/light-words.js), altri due paragrafi in due colonne
+   1 Apertura (chiaro): titolo e primo paragrafo grande che si accende
+     scorrendo (js/light-words.js) a sinistra, texture-9 a destra; altri due
+     paragrafi sotto, in due colonne
    2 Vision (scuro): foto a sinistra, frase grande a destra
    3 Our values (chiaro): sei parole grandi con la goccia ROELMI nel colore
      della palette; in hover la riga si riempie del suo colore
@@ -60,8 +61,32 @@
   font-weight: 600;
 }
 
-.ph-title {
+/* Titolo e frase a sinistra, texture verticale a destra (dà materia) */
+.ph-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
   margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+}
+
+.ph-hero-media {
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  max-height: 72vh;
+  width: 100%;
+  border-radius: var(--r-stage);
+  background-color: var(--line);
+}
+
+.ph-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ph-title {
+  margin-top: 0;
   font-family: var(--font-display);
   font-size: var(--fs-section);
   font-weight: 500;
@@ -126,8 +151,7 @@
 }
 
 .ph-cols strong,
-.ph-vision-text strong,
-.ph-values-intro strong {
+.ph-vision-text strong {
   font-weight: 600;
 }
 
@@ -190,14 +214,14 @@
    -------------------------------------------------------------------------- */
 
 .ph-values-head {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  align-items: end;
-  gap: 1.5rem clamp(2rem, 1rem + 4vw, 5rem);
+  display: block;
 }
 
+/* Frase sotto il titolo (come le altre sezioni), sottile e senza grassetti:
+   nel sito le frasi sottili restano uniformi */
 .ph-values-intro {
   max-width: 44ch;
+  margin-top: clamp(1rem, 0.75rem + 1vw, 1.5rem);
   font-size: var(--fs-lead);
   font-weight: 300;
   line-height: 1.5;
@@ -258,8 +282,22 @@
    -------------------------------------------------------------------------- */
 
 @media (max-width: 899.98px) {
-  .ph-vision-grid,
-  .ph-values-head {
+  /* Titolo · texture · frase (come About): il blocco del testo "si scioglie";
+     l'ordine nel codice resta titolo, frase (la texture è decorativa) */
+  .ph-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+  }
+
+  .ph-hero-text {
+    display: contents;
+  }
+
+  .ph-title      { order: 1; }
+  .ph-hero-media { order: 2; margin-top: var(--title-gap); aspect-ratio: 4 / 3; max-height: none; border-radius: var(--r-card); }
+  .ph-statement  { order: 3; }
+
+  .ph-vision-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 

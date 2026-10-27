@@ -148,9 +148,9 @@
     <span id="top"></span>
 
     <!-- ==================================================================
-         1 · APERTURA (chiaro) — il testo è il protagonista: il primo
-         paragrafo in grande si accende scorrendo (light-words.js), gli
-         altri due sotto, in due colonne
+         1 · APERTURA (chiaro) — titolo e primo paragrafo grande (si accende
+         scorrendo, light-words.js) a sinistra, texture verticale a destra;
+         gli altri due paragrafi sotto, in due colonne
          ================================================================== -->
     <section class="ph-hero theme-light grain" aria-labelledby="ph-title">
       <div class="container">
@@ -162,12 +162,23 @@
           </ol>
         </nav>
 
-        <h1 class="ph-title" id="ph-title">
-          <span class="eyebrow">Innovating responsibly and transparently</span>
-          <span>Philosophy</span>
-        </h1>
+        <!-- Titolo e frase a sinistra, texture verticale a destra (come About).
+             Su tablet e telefono: titolo · texture · frase -->
+        <div class="ph-hero-grid">
+          <div class="ph-hero-text">
+            <h1 class="ph-title" id="ph-title">
+              <span class="eyebrow">Innovating responsibly and transparently</span>
+              <span>Philosophy</span>
+            </h1>
 
-        <p class="ph-statement" data-light-words>ROELMI HPC was born with the primary objective of <strong>improving the quality of life</strong>, combining science with a focus on safeguarding the environment, protecting biodiversity, and using renewable resources.</p>
+            <p class="ph-statement" data-light-words>ROELMI HPC was born with the primary objective of <strong>improving the quality of life</strong>, combining science with a focus on safeguarding the environment, protecting biodiversity, and using renewable resources.</p>
+          </div>
+
+          <!-- Texture decorativa, senza testo sopra (immagine libera) -->
+          <figure class="ph-hero-media" aria-hidden="true">
+            <img src="images/who/texture-9.jpg" alt="" decoding="async" fetchpriority="high">
+          </figure>
+        </div>
 
         <div class="ph-cols" data-reveal>
           <p><strong>Responsible innovation</strong> and attentive research and development are at the heart of our activity, we design and produce ingredients with the <strong>highest respect for people and the environment</strong>.</p>
@@ -206,7 +217,7 @@
             <span class="eyebrow" data-reveal>Culture</span>
             <span data-reveal data-reveal-delay="0.1">Our values</span>
           </h2>
-          <p class="ph-values-intro" data-reveal data-reveal-delay="0.15">Our approach towards developing <strong>Innovation</strong> while safeguarding <strong>People and Nature</strong> is deeply rooted in our culture and values.</p>
+          <p class="ph-values-intro" data-reveal data-reveal-delay="0.15">Our approach towards developing Innovation while safeguarding People and Nature is deeply rooted in our culture and values.</p>
         </div>
         <ul class="ph-values" data-reveal data-reveal-delay="0.2">
           <li class="ph-value ph-value--cerulean">Passion</li>
@@ -221,7 +232,7 @@
              sotto il vetro scuro -->
         <div class="cta-box ph-cta theme-dark">
           <div class="cta-box-bg" aria-hidden="true">
-            <img src="images/who/texture-10.jpg" alt="" loading="lazy" decoding="async">
+            <img src="images/philosophy/texture-23.jpg" alt="" loading="lazy" decoding="async">
           </div>
           <div class="cta-box-glass glass" data-reveal>
             <h2 class="cta-box-title" id="ph-cta-title">From values to action</h2>
