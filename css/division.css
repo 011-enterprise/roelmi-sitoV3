@@ -4,9 +4,8 @@
    Personal Care = Antique, Nutraceutical = Olive (body.dv-page--antique /
    --olive). Il colore è solo decorativo (gocce, linee): i testi restano
    Ricepaper / Hard Grey
-   1 Apertura (scuro): texture della divisione (19 Personal Care, 20 Nutra) a tutta
-     larghezza, velo scuro mai sotto 0.62 → testo Ricepaper ≥ 4.6:1 anche
-     sopra il bianco
+   1 Apertura (scuro): riquadro con la texture della divisione (19 / 20) e
+     pannello pieno Antique / Olive con testo Hard Grey
    2 Tecnologie (chiaro): Biotech e Nature, foto e testo alternati
    3 Ingredienti del mercato (scuro): schede del Finder (finder.css) su
      scheda Ricepaper, così tengono i colori e i contrasti del Finder
@@ -17,51 +16,18 @@
 .dv-page--olive   { --dv-color: var(--olive); }
 
 /* --------------------------------------------------------------------------
-   1 · Apertura
+   1 · Apertura: riquadro con la texture + pannello pieno nel colore del
+   mercato (Antique 10.4 · Olive 9.2:1 con testo Hard Grey), come il pannello
+   in hover delle Divisions della home. Sul pieno solo testo Hard Grey
    -------------------------------------------------------------------------- */
 
 .dv-hero {
   position: relative;
   isolation: isolate;
-  display: flex;
-  min-height: min(88vh, 820px);
-  background-color: var(--hard-grey);
-  color: var(--ricepaper);
-}
-
-.dv-hero-media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-}
-
-.dv-hero-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Velo Hard Grey: più denso in basso dove sta il testo, mai sotto 0.62
-   (sopra il bianco il fondo resta ≈ #707070 → Ricepaper 4.6:1); in alto
-   torna a 0.72 per il percorso */
-.dv-hero-veil {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(25, 25, 25, 0.86) 0%,
-    rgba(25, 25, 25, 0.74) 45%,
-    rgba(25, 25, 25, 0.62) 75%,
-    rgba(25, 25, 25, 0.72) 100%
-  );
-}
-
-.dv-hero-inner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
   padding-top: calc(var(--header-h) + 0.5rem);
   padding-bottom: var(--section-y);
+  background-color: var(--hard-grey);
+  color: var(--ricepaper);
 }
 
 .dv-breadcrumb ol {
@@ -102,19 +68,61 @@
   font-weight: 600;
 }
 
-.dv-hero-text {
-  max-width: 46rem;
-  margin-top: auto;
-  padding-top: var(--title-gap);
+.dv-hero-box {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  min-height: min(76vh, 720px);
+  margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  padding: clamp(0.75rem, 0.5rem + 2vw, 2.5rem);
+  border-radius: var(--r-stage);
+}
+
+.dv-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.dv-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Pannello pieno: dentro valgono i colori "su accento" (testo, goccia,
+   bottone e focus in Hard Grey) */
+.dv-hero-panel {
+  --fg: var(--hard-grey);
+  --accent: var(--hard-grey);
+  width: min(100%, 680px);
+  padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem);
+  border-radius: var(--r-card);
+  background-color: var(--dv-color);
+  color: var(--hard-grey);
+}
+
+.dv-hero-panel :focus-visible {
+  outline-color: var(--hard-grey);
 }
 
 .dv-title {
   font-family: var(--font-display);
-  font-size: var(--fs-section);
+  font-size: var(--fs-box);
   font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  color: var(--ricepaper);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--hard-grey);
+}
+
+.dv-title .eyebrow {
+  color: var(--hard-grey);
+}
+
+.dv-title .eyebrow::before {
+  background-color: var(--hard-grey);
 }
 
 .dv-title span:not(.eyebrow) {
@@ -122,25 +130,36 @@
   margin-top: 1.25rem;
 }
 
-/* La goccia dell'etichetta nel colore del mercato */
-.dv-title .eyebrow::before {
-  background-color: var(--dv-color);
-}
-
 .dv-lead {
   max-width: 52ch;
-  margin-top: clamp(1rem, 0.75rem + 1vw, 1.75rem);
-  font-size: var(--fs-lead);
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--ricepaper);
+  margin-top: 1rem;
+  line-height: 1.6;
+  color: var(--hard-grey);
+}
+
+/* Parole chiave in grassetto (pannello e testi delle tecnologie) */
+.dv-lead strong,
+.dv-tech-body strong {
+  font-weight: 600;
 }
 
 .dv-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: clamp(1.5rem, 1rem + 1vw, 2.25rem);
+  margin-top: clamp(1.25rem, 1rem + 1vw, 2rem);
+}
+
+/* Bottone sul pieno: Hard Grey con testo Ricepaper; in hover si inverte */
+.dv-hero-panel .btn--solid {
+  border-color: var(--hard-grey);
+  background-color: var(--hard-grey);
+  color: var(--ricepaper);
+}
+
+.dv-hero-panel .btn--solid:hover {
+  background-color: var(--ricepaper);
+  color: var(--hard-grey);
 }
 
 /* --------------------------------------------------------------------------
@@ -303,8 +322,18 @@
 }
 
 @media (max-width: 599.98px) {
-  .dv-hero {
+  /* Telefono: riquadro alto quanto serve, con una striscia di texture sopra
+     il pannello */
+  .dv-hero-box {
     min-height: 0;
+    padding: 0.6rem;
+    padding-top: clamp(7rem, 34vw, 11rem);
+    border-radius: var(--r-card);
+  }
+
+  .dv-hero-panel {
+    padding: 1.1rem;
+    border-radius: var(--r-inner);
   }
 
   .dv-actions .btn,

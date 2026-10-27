@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Philosophy (testi della pagina attuale roelmihpc.com/philosophy)
+   Il protagonista è il testo:
+   1 Apertura (chiaro): titolo, primo paragrafo grande che si accende
+     scorrendo (js/light-words.js), altri due paragrafi in due colonne
+   2 Vision (scuro): foto a sinistra, frase grande a destra
+   3 Our values (chiaro): sei parole grandi con la goccia ROELMI nel colore
+     della palette; in hover la riga si riempie del suo colore
+   Sezioni alternate: chiaro · scuro · chiaro · footer
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1 · Apertura
+   -------------------------------------------------------------------------- */
+
+.ph-hero {
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--header-h) + 0.5rem);
+  padding-bottom: var(--section-y);
+  background-color: var(--ricepaper);
+  color: var(--hard-grey);
+}
+
+.ph-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.ph-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.ph-breadcrumb li + li::before {
+  content: "/";
+}
+
+.ph-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* "Home" è più stretta di 44px */
+  min-height: 44px;
+  color: var(--hard-grey);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ph-breadcrumb a:hover {
+  color: var(--ocean);
+}
+
+.ph-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ph-title {
+  margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--hard-grey);
+}
+
+.ph-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+/* Paragrafo grande, come Who We Are in home: parole spente in grigio della
+   palette (6.2:1, leggibili anche così), accese Hard Grey; grassetti Ocean */
+.ph-statement {
+  max-width: 30ch;
+  margin-top: var(--title-gap);
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--hard-grey);
+}
+
+.ph-statement strong {
+  font-weight: 500;
+  color: var(--ocean);
+}
+
+.lw-word {
+  transition: color 0.45s var(--ease-out);
+}
+
+.ph-statement.is-ready .lw-word {
+  color: var(--muted);
+}
+
+.ph-statement.is-ready .lw-word.is-lit {
+  color: var(--hard-grey);
+}
+
+.ph-statement.is-ready strong .lw-word.is-lit {
+  color: var(--ocean);
+}
+
+.ph-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem clamp(1.5rem, 1rem + 3vw, 4.5rem);
+  max-width: 64rem;
+  margin-top: var(--title-gap);
+  margin-left: auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.ph-cols p {
+  line-height: 1.65;
+  color: var(--hard-grey);
+}
+
+.ph-cols strong,
+.ph-vision-text strong,
+.ph-values-intro strong {
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   Titoli di sezione (come in home)
+   -------------------------------------------------------------------------- */
+
+.ph-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--fg);
+}
+
+.ph-section-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   2 · Vision (scuro)
+   -------------------------------------------------------------------------- */
+
+.ph-vision-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+  align-items: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+.ph-vision-media {
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-stage);
+  background-color: var(--line-on-dark);
+}
+
+.ph-vision-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 50%;
+}
+
+.ph-vision-text {
+  max-width: 32ch;
+  margin-top: var(--title-gap);
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--ricepaper);
+}
+
+/* --------------------------------------------------------------------------
+   3 · Our values (chiaro)
+   -------------------------------------------------------------------------- */
+
+.ph-values-head {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: end;
+  gap: 1.5rem clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+.ph-values-intro {
+  max-width: 44ch;
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--hard-grey);
+}
+
+.ph-values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: var(--title-gap);
+  border-top: 1px solid var(--hard-grey);
+}
+
+.ph-value--cerulean { --ph-color: var(--cerulean); }
+.ph-value--antique  { --ph-color: var(--antique); }
+.ph-value--olive    { --ph-color: var(--olive); }
+
+/* Parola grande con la goccia nel suo colore (decorativa); in hover la riga
+   si riempie del colore (Cerulean 8.9 · Antique 10.4 · Olive 9.2:1 con
+   Hard Grey) e la goccia diventa Hard Grey */
+.ph-value {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: clamp(5.5rem, 4rem + 4vw, 8rem);
+  padding: 1rem clamp(1rem, 0.5rem + 1vw, 1.5rem);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: var(--fs-box);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--hard-grey);
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+
+.ph-value::before {
+  content: "";
+  flex: none;
+  width: 0.42em;
+  height: 0.62em;
+  background-color: var(--ph-color);
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+
+.ph-value:hover {
+  background-color: var(--ph-color);
+}
+
+.ph-value:hover::before {
+  background-color: var(--hard-grey);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 899.98px) {
+  .ph-vision-grid,
+  .ph-values-head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ph-vision-media {
+    border-radius: var(--r-card);
+  }
+
+  .ph-values {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 699.98px) {
+  .ph-cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ph-value {
+    font-size: var(--fs-large);
+    min-height: 4.5rem;
+  }
+}
+
+/* Box finale dentro la sezione dei valori */
+.ph-cta {
+  margin-top: var(--section-y);
+}

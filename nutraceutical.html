@@ -150,15 +150,14 @@
     <span id="top"></span>
 
     <!-- ==================================================================
-         1 · APERTURA (scuro) — la texture della divisione a tutta larghezza,
-         con il velo scuro (regge anche texture chiare)
+         1 · APERTURA (scuro) — riquadro con la texture della divisione e
+         sopra un pannello PIENO nel colore del mercato (come il pannello che
+         compare in hover nelle Divisions della home), testo Hard Grey
          ================================================================== -->
-    <section class="dv-hero theme-dark grain" aria-labelledby="dv-title">
-      <div class="dv-hero-media" aria-hidden="true">
-        <img src="images/divisions/texture-20.jpg" alt="" decoding="async" fetchpriority="high">
-        <div class="dv-hero-veil"></div>
-      </div>
-      <div class="container dv-hero-inner">
+    <section class="dv-hero theme-dark grain" aria-labelledby="dv-title" data-force-field-host>
+      <!-- Reticolo acceso qui (data-force-field-on), sotto il riquadro -->
+      <canvas data-force-field-on class="section-field" aria-hidden="true" data-force-field='{"color":[0.259,0.439,0.62],"gridReveal":"both","gridOpacity":0.12,"gridRevealStrength":0.7,"gridRevealRadius":320,"gridFade":0.85,"lineWidth":0.022,"hoverGlow":0.18,"hoverRadius":420,"hoverCharge":0.45,"flashSpeed":0.3,"flashIntensity":0.05,"edgeGlow":0,"rippleSpeed":0.32,"rippleDuration":2.6,"rippleIntensity":0.06,"impactRadius":0.12,"refraction":14,"bloom":0.6,"grain":0.08,"smoothing":0.08}'></canvas>
+      <div class="container">
         <nav class="dv-breadcrumb" aria-label="Breadcrumb">
           <ol>
             <li><a href="index.html">Home</a></li>
@@ -167,15 +166,29 @@
           </ol>
         </nav>
 
-        <div class="dv-hero-text">
-          <h1 class="dv-title" id="dv-title">
-            <span class="eyebrow">Mind and body wellbeing from the inside-out</span>
-            <span>Nutraceutical</span>
-          </h1>
-          <p class="dv-lead">Health is a state of complete harmony between body, mind and spirit. We offer customers access to enhance the best natural ingredient-based and sustainable solutions with a wide range of components, active ingredients, and foods with positive effects for health, prevention, and treatment of diseases.</p>
-          <div class="dv-actions">
-            <a class="btn btn--solid" href="ingredient-finder.html?market=Nutraceutical">Discover the ingredients</a>
+        <div class="dv-hero-box">
+          <div class="dv-hero-media" aria-hidden="true">
+            <img src="images/divisions/texture-20.jpg" alt="" decoding="async" fetchpriority="high">
           </div>
+          <div class="dv-hero-panel" data-reveal>
+            <h1 class="dv-title" id="dv-title">
+              <span class="eyebrow">Mind and body wellbeing from the inside-out</span>
+              <span>Nutraceutical</span>
+            </h1>
+            <p class="dv-lead">Health is a state of <strong>complete harmony between body, mind and spirit</strong>. We offer customers access to enhance the best <strong>natural ingredient-based and sustainable solutions</strong> with a wide range of components, active ingredients, and foods with <strong>positive effects for health</strong>, prevention, and treatment of diseases.</p>
+            <div class="dv-actions">
+              <a class="btn btn--solid" href="ingredient-finder.html?market=Nutraceutical">Discover the ingredients</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop animation per il reticolo (stesso bottone di hero e footer) -->
+        <div class="dv-ingr-controls">
+          <button class="motion-toggle dv-motion" type="button" aria-pressed="false" data-motion-toggle>
+            <svg class="ic-stop" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><rect x="2" y="1.5" width="2.5" height="9"/><rect x="7.5" y="1.5" width="2.5" height="9"/></svg>
+            <svg class="ic-play" viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M3 1.5l7 4.5-7 4.5z"/></svg>
+            <span data-motion-label>Stop animation</span>
+          </button>
         </div>
       </div>
     </section>
@@ -197,8 +210,8 @@
             </figure>
             <div class="dv-tech-body" data-reveal>
               <h3 class="dv-tech-title" id="dv-tech-biotech">Biotech</h3>
-              <p>Develop and tailor the benefits of research and science to the health industries. Biotech developments focus on pure performances, using only low impact technologies, reaching the highest purity level, and controlling the practical activity, focusing on biological benefits beyond the only structural or chemical characteristics.</p>
-              <p>So it is science and performance, from cutting-edge technologies.</p>
+              <p>Develop and tailor the benefits of <strong>research and science</strong> to the health industries. Biotech developments focus on <strong>pure performances</strong>, using only <strong>low impact technologies</strong>, reaching the <strong>highest purity level</strong>, and controlling the practical activity, focusing on biological benefits beyond the only structural or chemical characteristics.</p>
+              <p>So it is <strong>science and performance</strong>, from cutting-edge technologies.</p>
             </div>
           </article>
           <article class="dv-tech dv-tech--flip" aria-labelledby="dv-tech-nature">
@@ -207,8 +220,8 @@
             </figure>
             <div class="dv-tech-body" data-reveal>
               <h3 class="dv-tech-title" id="dv-tech-nature">Nature</h3>
-              <p>A global approach to respect Nature’s own principles, as well as its life cycles. Nature lines are focused on eco-responsibility, safety, and efficacy through soft technologies. We aim to maintain the integrity of plant components and the integrality of the whole spectrum of native active principles. We reproduced the natural synergies of compounds through Nature’s full range of safe performance.</p>
-              <p>The best of sustainability and performances from green technologies.</p>
+              <p>A global approach to <strong>respect Nature’s own principles</strong>, as well as its life cycles. Nature lines are focused on <strong>eco-responsibility, safety, and efficacy</strong> through soft technologies. We aim to maintain the <strong>integrity of plant components</strong> and the integrality of the whole spectrum of <strong>native active principles</strong>. We reproduced the natural synergies of compounds through Nature’s full range of safe performance.</p>
+              <p>The best of sustainability and performances from <strong>green technologies</strong>.</p>
             </div>
           </article>
         </div>
