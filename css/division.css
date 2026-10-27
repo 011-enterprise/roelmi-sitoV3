@@ -1,0 +1,314 @@
+/* ==========================================================================
+   Divisioni — Personal Care e Nutraceutical (stessa struttura, due pagine)
+   Ogni pagina prende il colore del suo mercato, come nel resto del sito:
+   Personal Care = Antique, Nutraceutical = Olive (body.dv-page--antique /
+   --olive). Il colore è solo decorativo (gocce, linee): i testi restano
+   Ricepaper / Hard Grey
+   1 Apertura (scuro): foto della divisione (Our Divisions in home) a tutta
+     larghezza, velo scuro mai sotto 0.62 → testo Ricepaper ≥ 4.6:1 anche
+     sopra il bianco
+   2 Tecnologie (chiaro): Biotech e Nature, foto e testo alternati
+   3 Ingredienti del mercato (scuro): schede del Finder (finder.css) su
+     scheda Ricepaper, così tengono i colori e i contrasti del Finder
+   4 Box finale comune .cta-box
+   ========================================================================== */
+
+.dv-page--antique { --dv-color: var(--antique); }
+.dv-page--olive   { --dv-color: var(--olive); }
+
+/* --------------------------------------------------------------------------
+   1 · Apertura
+   -------------------------------------------------------------------------- */
+
+.dv-hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  min-height: min(88vh, 820px);
+  background-color: var(--hard-grey);
+  color: var(--ricepaper);
+}
+
+.dv-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.dv-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Velo Hard Grey: più denso in basso dove sta il testo, mai sotto 0.62
+   (sopra il bianco il fondo resta ≈ #707070 → Ricepaper 4.6:1); in alto
+   torna a 0.72 per il percorso */
+.dv-hero-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(25, 25, 25, 0.86) 0%,
+    rgba(25, 25, 25, 0.74) 45%,
+    rgba(25, 25, 25, 0.62) 75%,
+    rgba(25, 25, 25, 0.72) 100%
+  );
+}
+
+.dv-hero-inner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-top: calc(var(--header-h) + 0.5rem);
+  padding-bottom: var(--section-y);
+}
+
+.dv-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.dv-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+}
+
+.dv-breadcrumb li + li::before {
+  content: "/";
+}
+
+.dv-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* "Home" è più stretta di 44px */
+  min-height: 44px;
+  color: var(--ricepaper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dv-breadcrumb a:hover {
+  color: var(--ocean-on-dark);
+}
+
+.dv-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.dv-hero-text {
+  max-width: 46rem;
+  margin-top: auto;
+  padding-top: var(--title-gap);
+}
+
+.dv-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--ricepaper);
+}
+
+.dv-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+/* La goccia dell'etichetta nel colore del mercato */
+.dv-title .eyebrow::before {
+  background-color: var(--dv-color);
+}
+
+.dv-lead {
+  max-width: 52ch;
+  margin-top: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ricepaper);
+}
+
+.dv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: clamp(1.5rem, 1rem + 1vw, 2.25rem);
+}
+
+/* --------------------------------------------------------------------------
+   Titoli di sezione (come in home)
+   -------------------------------------------------------------------------- */
+
+.dv-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--fg);
+}
+
+.dv-section-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   2 · Tecnologie: foto e testo affiancati, alternati
+   -------------------------------------------------------------------------- */
+
+.dv-techs {
+  display: grid;
+  gap: var(--section-y);
+  margin-top: var(--title-gap);
+}
+
+.dv-tech {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+}
+
+.dv-tech--flip {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+}
+
+.dv-tech--flip .dv-tech-media {
+  order: 2;
+}
+
+.dv-tech-media {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--r-stage);
+  background-color: var(--line);
+}
+
+.dv-tech-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Titolo con la goccia ROELMI nel colore del mercato (decorativa) */
+.dv-tech-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-box);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--hard-grey);
+}
+
+.dv-tech-title::before {
+  content: "";
+  flex: none;
+  width: 0.45em;
+  height: 0.68em;
+  background-color: var(--dv-color);
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+}
+
+.dv-tech-body p {
+  max-width: 56ch;
+  margin-top: 1rem;
+  line-height: 1.65;
+  color: var(--hard-grey);
+}
+
+/* --------------------------------------------------------------------------
+   3 · Ingredienti del mercato (scuro)
+   -------------------------------------------------------------------------- */
+
+.dv-ingr-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
+
+/* Schede del Finder su fondo Ricepaper (sono pensate per il chiaro): dentro
+   la scheda valgono i colori del tema chiaro, altrimenti gli elementi che
+   usano il colore della sezione (es. la pillola della tecnologia) diventano
+   Ricepaper su Ricepaper */
+.dv-ingr .fx-card {
+  --fg: var(--hard-grey);
+  --bg: var(--ricepaper);
+  --accent: var(--ocean);
+  --fg-muted: var(--muted);
+  --line: rgba(25, 25, 25, 0.16);
+  color: var(--hard-grey);
+}
+
+.dv-ingr .fx-card > article {
+  border-color: transparent;
+  background-color: var(--ricepaper);
+}
+
+.dv-ingr .fx-card:hover > article,
+.dv-ingr .fx-card:focus-within > article {
+  border-color: var(--dv-color);
+}
+
+/* Reticolo dietro le schede: la sezione fa da contenitore (canvas.section-field
+   in base.css) */
+.dv-ingr {
+  isolation: isolate;
+}
+
+/* Stop animation sotto le schede, a destra (come sotto le certificazioni) */
+.dv-ingr-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dv-ingr-controls {
+    display: none;   /* il reticolo è già fermo */
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 899.98px) {
+  .dv-tech,
+  .dv-tech--flip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dv-tech--flip .dv-tech-media {
+    order: 0;
+  }
+
+  .dv-tech-media {
+    border-radius: var(--r-card);
+  }
+}
+
+@media (max-width: 599.98px) {
+  .dv-hero {
+    min-height: 0;
+  }
+
+  .dv-actions .btn,
+  .dv-ingr-head .btn {
+    flex: 1 1 100%;
+  }
+}
