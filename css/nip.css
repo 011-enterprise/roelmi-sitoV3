@@ -212,7 +212,7 @@
   }
 
   .nip-stat .stat-label {
-    font-size: 0.8125rem;
+    font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
     line-height: 1.3;
   }
 
@@ -361,7 +361,7 @@
   }
 
   .nip-stat .stat-label {
-    font-size: 0.8125rem;
+    font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
   }
 
   .nip-actions {

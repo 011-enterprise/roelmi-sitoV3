@@ -141,6 +141,10 @@ body {
   font-size: var(--fs-body);
   font-weight: 400;
   line-height: 1.6;
+  /* Rete di sicurezza: la pagina non scorre mai di lato sul telefono.
+     "clip" (non "hidden") non crea un contenitore di scorrimento, quindi
+     sticky e le righe che scorrono di proposito continuano a funzionare */
+  overflow-x: clip;
 }
 
 /* --------------------------------------------------------------------------

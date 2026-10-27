@@ -260,7 +260,7 @@
   padding: 0 0.85rem;
   border: 1px solid var(--hard-grey);
   border-radius: 999px;
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
   font-weight: 600;
   color: var(--hard-grey);
   transition:
@@ -353,7 +353,7 @@
   border-radius: 999px;
   background-color: var(--hard-grey);
   color: var(--ricepaper);
-  font-size: 0.8125rem;
+  font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
   font-weight: 600;
 }
 
@@ -753,13 +753,13 @@
   }
 
   .fx-card-function {
-    font-size: 0.8125rem;
+    font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
     line-height: 1.4;
   }
 
   .fx-card-desc {
     -webkit-line-clamp: 3;
-    font-size: 0.8125rem;
+    font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
     line-height: 1.5;
   }
 

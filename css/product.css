@@ -490,7 +490,7 @@
 
   .pd-benefit p {
     margin-top: 0.5rem;
-    font-size: 0.8125rem;
+    font-size: var(--fs-small);   /* 14px: minimo del sito, anche su telefono */
     line-height: 1.5;
   }
 }

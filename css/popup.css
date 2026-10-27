@@ -176,7 +176,7 @@
     bottom: 7.5rem;
     min-width: 0;
     padding: 0.75rem 0.5rem;
-    font-size: 0.75rem;
+    font-size: var(--fs-label);
     transform: translate3d(100%, 0, 0) rotate(180deg);
   }
 

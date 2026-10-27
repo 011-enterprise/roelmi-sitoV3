@@ -1,0 +1,326 @@
+/* ==========================================================================
+   Support (testi della pagina attuale roelmihpc.com/support)
+   1 Apertura (scuro): come l'Ingredient Finder, riquadro con texture e vetro
+     scuro (componente comune .cta-box di base.css)
+   2 Come vi supportiamo (chiaro): sei schede con goccia colorata, in hover
+     piene del loro colore (come Impact e i pilastri di NIP)
+   3 Find out how to improve your formula (scuro): due schede con texture
+   4 Accesso all'area clienti (chiaro): testo + modulo (css/form.css)
+   Sezioni alternate: scuro · chiaro · scuro · chiaro · footer
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1 · Apertura
+   -------------------------------------------------------------------------- */
+
+.sp-hero {
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--header-h) + 0.5rem);
+  padding-bottom: var(--section-y);
+  background-color: var(--hard-grey);
+  color: var(--ricepaper);
+}
+
+.sp-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.sp-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sp-breadcrumb li + li::before {
+  content: "/";
+}
+
+.sp-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* "Home" è più stretta di 44px */
+  min-height: 44px;
+  color: var(--ricepaper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sp-breadcrumb a:hover {
+  color: var(--ocean-on-dark);
+}
+
+.sp-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.sp-hero-box {
+  margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  min-height: min(68vh, 640px);
+}
+
+/* Titolo nel vetro: etichetta + "Support" grande */
+.sp-title .eyebrow {
+  display: inline-flex;
+  margin: 0 0 1.25rem;
+  font-weight: 500;
+}
+
+.sp-title .sp-title-main {
+  display: block;
+  margin-top: 0;
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Titoli di sezione (come in home)
+   -------------------------------------------------------------------------- */
+
+.sp-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--fg);
+}
+
+.sp-section-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   2 · Sei servizi
+   -------------------------------------------------------------------------- */
+
+.sp-services {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  margin-top: var(--title-gap);
+}
+
+.sp-service--cerulean { --sp-color: var(--cerulean); }
+.sp-service--antique  { --sp-color: var(--antique); }
+.sp-service--olive    { --sp-color: var(--olive); }
+
+/* A riposo bordo sottile, testo Hard Grey e goccia ROELMI nel suo colore
+   (decorativa); in hover fondo pieno del colore (Cerulean 8.9 · Antique
+   10.4 · Olive 9.2:1) e goccia Hard Grey */
+.sp-service {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.25rem, 1rem + 1.2vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  color: var(--hard-grey);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out);
+}
+
+.sp-service::before {
+  content: "";
+  width: 1.1rem;
+  height: 1.65rem;
+  background-color: var(--sp-color);
+  -webkit-mask: var(--roelmi-drop) center / contain no-repeat;
+  mask: var(--roelmi-drop) center / contain no-repeat;
+  transition: background-color var(--dur-ui) var(--ease-out);
+}
+
+.sp-service-title {
+  margin-top: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.sp-service p {
+  margin-top: 0.6rem;
+  line-height: 1.6;
+}
+
+.sp-service:hover {
+  border-color: var(--sp-color);
+  background-color: var(--sp-color);
+}
+
+.sp-service:hover::before {
+  background-color: var(--hard-grey);
+}
+
+/* --------------------------------------------------------------------------
+   3 · Due schede con texture (come le schede del Blog, sul fondo scuro)
+   -------------------------------------------------------------------------- */
+
+.sp-areas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 0.5rem + 1vw, 1.25rem);
+  margin-top: var(--title-gap);
+}
+
+.sp-area {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.75rem 1.5rem;
+  border: 1px solid var(--line-on-dark);
+  border-radius: var(--r-card);
+  scroll-margin-top: calc(var(--header-h) + 1rem);
+  transition: border-color var(--dur-ui) var(--ease-out);
+}
+
+.sp-area:hover,
+.sp-area:focus-within {
+  border-color: var(--ricepaper);
+}
+
+.sp-area-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r-inner);
+  background-color: rgba(247, 243, 235, 0.04);
+}
+
+.sp-area-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.sp-area:hover .sp-area-media img,
+.sp-area:focus-within .sp-area-media img {
+  transform: scale(1.04);
+}
+
+.motion-paused .sp-area-media img {
+  transform: none !important;
+}
+
+.sp-area-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.25rem 0.5rem 0;
+}
+
+.sp-area-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--ricepaper);
+}
+
+.sp-area-body .btn {
+  margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   4 · Accesso all'area clienti: testo a sinistra, modulo a destra
+   -------------------------------------------------------------------------- */
+
+.sp-access {
+  scroll-margin-top: var(--header-h);
+}
+
+.sp-access:focus {
+  outline: none;
+}
+
+.sp-access-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+.sp-lead {
+  max-width: 44ch;
+  margin-top: var(--title-gap);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--hard-grey);
+}
+
+.sp-lead a {
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sp-lead a:hover {
+  color: var(--ocean);
+}
+
+.sp-text {
+  max-width: 52ch;
+  margin-top: 1rem;
+  line-height: 1.6;
+  color: var(--hard-grey);
+}
+
+.sp-form-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-large);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--hard-grey);
+}
+
+.sp-form-box .fm-form {
+  margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023.98px) {
+  .sp-services {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899.98px) {
+  .sp-access-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 699.98px) {
+  .sp-hero-box {
+    min-height: 0;
+  }
+
+  .sp-services,
+  .sp-areas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sp-service-title {
+    margin-top: 1.25rem;
+  }
+
+  .sp-area {
+    border-radius: var(--r-inner);
+  }
+
+  .sp-area-body .btn {
+    width: 100%;
+  }
+}
