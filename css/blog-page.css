@@ -1,0 +1,393 @@
+/* ==========================================================================
+   Blog — elenco delle news (contenuti di prova da roelmihpc.com/news)
+   1 Apertura (chiaro): percorso, titolo, frase, articolo più recente in
+     evidenza (foto grande + titolo --fs-box): l'elemento forte della pagina
+   2 Tutte le news (scuro): ricerca + categorie, schede del Blog della home
+     (blog.css), "Load more news"
+   3 Newsletter della home · footer
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1 · Apertura
+   -------------------------------------------------------------------------- */
+
+.bp-hero {
+  position: relative;
+  isolation: isolate;
+  padding-top: calc(var(--header-h) + 0.5rem);
+  padding-bottom: var(--section-y);
+  background-color: var(--ricepaper);
+  color: var(--hard-grey);
+}
+
+.bp-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.bp-breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bp-breadcrumb li + li::before {
+  content: "/";
+}
+
+.bp-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;   /* "Home" è più stretta di 44px */
+  min-height: 44px;
+  color: var(--hard-grey);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.bp-breadcrumb a:hover {
+  color: var(--ocean);
+}
+
+.bp-breadcrumb a[aria-current="page"] {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.bp-title {
+  margin-top: clamp(1rem, 0.5rem + 1.5vw, 2rem);
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--hard-grey);
+}
+
+.bp-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+.bp-lead {
+  max-width: 44ch;
+  margin-top: clamp(1rem, 0.75rem + 1vw, 1.75rem);
+  font-size: var(--fs-lead);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* --- In evidenza: foto grande a sinistra, testo a destra ----------------- */
+
+.bp-featured {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: center;
+  gap: clamp(1.5rem, 1rem + 3vw, 4rem);
+  margin-top: var(--title-gap);
+}
+
+.bp-featured-media {
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--r-stage);
+  background-color: var(--line);
+}
+
+.bp-featured-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s var(--ease-out);
+}
+
+.bp-featured-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--hard-grey);
+}
+
+.bp-featured-meta time {
+  font-weight: 400;
+  color: var(--muted);   /* 6.2:1 */
+}
+
+/* "Latest": pillola Cerulean con testo Hard Grey (8.9:1) */
+.bp-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 0.75rem;
+  border-radius: 999px;
+  background-color: var(--cerulean);
+  color: var(--hard-grey);
+  font-size: var(--fs-label);
+}
+
+.bp-featured-title {
+  margin-top: 1rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-box);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--hard-grey);
+}
+
+.bp-featured-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.15em;
+  transition: text-decoration-color var(--dur-ui) var(--ease-out);
+}
+
+/* Tutta la scheda è cliccabile */
+.bp-featured-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--r-stage);
+}
+
+.bp-featured-text {
+  max-width: 46ch;
+  margin-top: 1rem;
+  line-height: 1.6;
+  color: var(--hard-grey);
+}
+
+.bp-featured-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.bp-featured:hover .bp-featured-link,
+.bp-featured:focus-within .bp-featured-link {
+  text-decoration-color: currentColor;
+}
+
+.bp-featured:hover .bp-featured-media img,
+.bp-featured:focus-within .bp-featured-media img {
+  transform: scale(1.04);
+}
+
+.bp-featured:hover .post-arrow,
+.bp-featured:focus-within .post-arrow {
+  transform: translateX(3px);
+}
+
+.bp-featured-link:focus-visible {
+  outline: none;
+}
+
+.bp-featured-link:focus-visible::after {
+  outline: 2px solid var(--ocean);
+  outline-offset: 6px;
+}
+
+.motion-paused .bp-featured-media img,
+.motion-paused .bp-featured .post-arrow {
+  transform: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   2 · Tutte le news (scuro)
+   -------------------------------------------------------------------------- */
+
+.bp-section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-section);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  color: var(--ricepaper);
+}
+
+.bp-section-title span:not(.eyebrow) {
+  display: block;
+  margin-top: 1.25rem;
+}
+
+/* Ricerca a sinistra, categorie a destra (vanno a capo se serve) */
+.bp-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-top: var(--title-gap);
+}
+
+.bp-search {
+  flex: 1 1 320px;
+  max-width: 460px;
+}
+
+.bp-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Pillole delle categorie, come i filtri di Presence ma sul fondo scuro:
+   contorno Ricepaper; selezionata = Cerulean pieno con testo Hard Grey (8.9:1) */
+.bp-filter {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 1px solid var(--ricepaper);
+  border-radius: 999px;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--ricepaper);
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
+}
+
+.bp-filter:hover {
+  background-color: rgba(247, 243, 235, 0.1);
+}
+
+.bp-filter[aria-pressed="true"] {
+  border-color: var(--cerulean);
+  background-color: var(--cerulean);
+  color: var(--hard-grey);
+}
+
+.bp-status {
+  margin-top: 1.5rem;
+  font-size: var(--fs-body);   /* grigio su nero: 16px (regola comune) */
+  color: var(--muted-on-dark);
+}
+
+.bp-grid {
+  margin-top: 1rem;
+}
+
+/* Riga della scheda: categoria a sinistra, data a destra */
+.bp-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.bp-meta time {
+  font-weight: 400;
+}
+
+/* Le schede filtrate o non ancora caricate restano fuori dalla griglia */
+.post[hidden] {
+  display: none;
+}
+
+.bp-empty {
+  margin-top: 1rem;
+  padding: clamp(1.25rem, 1rem + 1vw, 2rem);
+  border: 1px dashed var(--muted-on-dark);
+  border-radius: var(--r-card);
+}
+
+.bp-empty[hidden] {
+  display: none;
+}
+
+.bp-empty p {
+  color: var(--ricepaper);
+}
+
+.bp-empty .btn {
+  margin-top: 1rem;
+}
+
+.bp-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--title-gap);
+}
+
+.bp-more[hidden] {
+  display: none;
+}
+
+/* Senza JS: tutte le schede in vista, niente filtri né "Load more" */
+.no-js .bp-tools,
+.no-js .bp-status,
+.no-js .bp-more-wrap {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1023.98px) {
+  .bp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899.98px) {
+  .bp-featured {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bp-featured-media {
+    border-radius: var(--r-card);
+  }
+}
+
+/* Telefono: le schede vanno una sotto l'altra (in home scorrono di lato:
+   qui è un elenco da consultare); categorie su una riga che scorre */
+@media (max-width: 699.98px) {
+  .bp-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    margin-inline: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .bp-grid .post {
+    flex: none;
+  }
+
+  .bp-search {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .bp-filters {
+    flex-wrap: nowrap;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) 0.25rem;
+    overflow-x: auto;
+  }
+
+  .bp-filter {
+    flex: none;
+  }
+
+  .bp-more {
+    width: 100%;
+  }
+}
